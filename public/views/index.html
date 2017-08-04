@@ -1,0 +1,105 @@
+<html>
+
+<head>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width = device-width, initial-scale = 0, user-scalable = no, minimum-scale = 1, maximum-scale = 1">
+    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="cache-control" content="no-cache" />
+
+    <title>dataFetcher</title>
+    <link href="../css/index.css" rel="stylesheet" type="text/css">
+    <link href="../css/fonts.css" rel="stylesheet" type="text/css">
+    <link href="../css/screen.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div class="mainContainer">
+        <div class="contentContainer">
+            <div class="row">
+                <div class="caption">Enter restaurant Name:</div>
+                <input type="text" class="restaurantName value" placeholder="Name">
+            </div>
+            <div class="button">Fetch Data</div>
+        </div>
+
+    </div>
+
+</body>
+
+
+<!--LIST TEMPLATE-->
+<script id="emptyTemplate" type="text/x-jsrender">
+    <div class="emptyContainer">
+        <div class="header">{{:name}} reviews</div>
+        <img src="../images/review.png" class="reviewImage">
+        <div class="emptyText">
+            No review record's found</div>
+    </div>
+</script>
+
+<script id="restaurantsTemplate" type="text/x-jsrender">
+
+
+
+    <div class="leftPanel">
+        <div class="features">
+            <div class="feature">checkins</div>
+            <div class="feature">fancount</div>
+            <div class="feature">Average Rating</div>
+            <div class="feature subHeading">Event</div>
+            {^{for data}} {^{for events.data}}
+            <div class="feature">Name</div>
+            <div class="feature">Interested</div>
+            <div class="feature">Attending</div>
+            <div class="feature">declined</div>
+            {{/for}} 
+            <div class="feature subHeading">Posts</div>
+            {^{for posts.data}}
+            <div class="feature">Name</div>
+            <div class="feature">Likes</div>
+            {{/for}} 
+            {{/for}}
+        </div>
+    </div>
+    <div class="rightPanel">
+        {^{for data}}
+        <div class="column">
+            <div class="header">{{:name}}</div>
+            <div class="features">
+                <div class="feature checkings">{{:checkins}}</div>
+                <div class="feature fancount">{{:fan_count}}</div>
+                <div class="feature rating">{{:overall_star_rating}}</div>
+                <div class="feature subHeading"></div>
+                {^{for events.data}}
+                <div class="feature">{{:name}}</div>
+                <div class="feature">{{:interested_count}}</div>
+                <div class="feature">{{:attending_count}}</div>
+                <div class="feature">{{:declined_count}}</div>
+                {{/for}}
+                <div class="feature subHeading"></div>
+            {^{for posts.data}}
+            <div class="feature">{{:name}}</div>
+            <div class="feature">{{:total_count}}</div>
+            {{/for}} 
+            </div>
+        </div>
+        {{/for}}
+        <div class="addButton">+</div>
+    </div>
+
+
+    <div class="reviewContainerBlock"></div>
+
+</script>
+
+
+<script src="../scripts/jquery.js"></script>
+<script src="../scripts/jsrender.js"></script>
+<script src="../scripts/jsview.js"></script>
+<script src="../scripts/transit.js"></script>
+<script src="../js/base.js"></script>
+<script src="../js/index.js"></script>
+
+</html>

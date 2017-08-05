@@ -3,7 +3,6 @@ var app = express();
 var port = process.env.PORT || 8080;
 var graph = require('fbgraph');
 var bodyParser = require('body-parser');
-var request = require('request');
 var router = express.Router();
 var mongo = require('mongodb').MongoClient;
 var url = 'mongodb://localhost:27017/restaurant';
@@ -37,14 +36,14 @@ var options = {
 };
 graph.setVersion("2.10");
 app.post('/fetchData', function (req, resp) {
-    graph.get(req.body.name + "?fields=name,talking_about_count", function (err, res) {
+    graph.get(req.body.name + "?fields=name,talking_about_count,checkins,engagement,fan_count,overall_star_rating", function (err, res) {
         console.log(res);
+        global.restaurantData = res;
+        global.db.collection('restaurantData').insert({
+        data: global.restaurantData
     });
-    // res.json(JSON.parse(body));
-    console.log(res);
-    global.db.collection('restaurantData').insert({
-        data: JSON.parse(res)
     });
+    console.log(global.restaurantData);    
 })
 // app.post('/fetchData', function (req, res) {
 //     console.log(req.body);

@@ -92,33 +92,17 @@
     </div>
     <div class="rightPanel">
         {^{for dbData}} 
-        {^{for data.data}}
         <div class="column">
-            <div class="header">{{:name}}</div>
+            <div class="header">{{:data.name}}</div>
             <div class="features">
-                <div class="feature checkings">{{:checkins}}</div>
-                <div class="feature fancount">{{:fan_count}}</div>
-                <div class="feature rating">{{:overall_star_rating}}</div>
-                <div class="feature rating">{{:talking_about_count}}</div>
+                <div class="feature checkings">{{:data.checkins}}</div>
+                <div class="feature fancount">{{:data.fan_count}}</div>
+                <div class="feature rating">{{:data.overall_star_rating}}</div>
+                <div class="feature rating">{{:data.talking_about_count}}</div>
                 <div class="feature subHeading"></div>
-                {^{for events.data}}
-                <div class="feature">{{:name}}</div>
-                <div class="feature">{{:interested_count}}</div>
-                <div class="feature">{{:attending_count}}</div>
-                <div class="feature">{{:declined_count}}</div>
-                 <div class="feature">View All Events</div>
-                {{/for}}
-                <div class="feature subHeading"></div>
-            {^{for posts.data}}
-            <div class="feature">{{:name}}</div>
-            <div class="feature">{{:likes.summary.total_count}}</div>
-            <div class="feature">View All Posts</div>
-            {{/for}} 
             </div>
-            
         </div>
         {{/for}} 
-        {{/for}}
 
         <div class="addButton">+</div>
     </div>

@@ -64,11 +64,12 @@ body {
   cursor: pointer;
 }
 .mainContainer .leftPanel {
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   width: 15rem;
   background: #2b333b;
+  z-index: 2;
 }
 .mainContainer .leftPanel .features {
   position: absolute;
@@ -97,9 +98,8 @@ body {
   top: 0rem;
   bottom: 0rem;
   left: 15rem;
-  right: 0;
   background: white;
-  overflow: auto;
+  display: flex;
 }
 .mainContainer .rightPanel .column {
   position: relative;
@@ -145,7 +145,7 @@ body {
   background-color: transparent!important;
 }
 .mainContainer .rightPanel .addButton {
-  position: absolute;
+  position: fixed;
   bottom: 3rem;
   right: 4rem;
   font-size: 4rem;

@@ -66,11 +66,12 @@ body {
         }
     }
     .leftPanel {
-        position: absolute;
+        position: fixed;
         top: 0;
         bottom: 0;
         width: 15rem;
         background: #2b333b;
+        z-index: 2;
         .features {
             position: absolute;
             top: 6rem;
@@ -99,9 +100,8 @@ body {
         top: 0rem;
         bottom: 0rem;
         left: 15rem;
-        right: 0;
         background: white;
-        overflow: auto;
+        display: flex;
         .column {
             position: relative;
             height: 100%;
@@ -146,7 +146,7 @@ body {
             }
         }
         .addButton {
-            position: absolute;
+            position: fixed;
             bottom: 3rem;
             right: 4rem;
             font-size: 4rem;

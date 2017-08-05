@@ -16,7 +16,7 @@ app.get('/', function (req, res) {
 global.restaurantData;
 app.post('/fetchData', function (req, res) {
     console.log(req.body);
-    const pageFieldSet = 'name,posts.limit(1){name,actions,likes.limit(100){name,username,pic_square}},checkins,engagement,fan_count,restaurant_services,restaurant_specialties,overall_star_rating,events.limit(1){name,attending_count,declined_count,interested_count,description,cover}';
+    const pageFieldSet = 'name,posts.limit(2){name,actions,likes.summary(true),total_count},checkins,engagement,fan_count,restaurant_services,restaurant_specialties,overall_star_rating,events.limit(1){name,attending_count,declined_count,interested_count,description,cover}';
     var searchType = 'page';
     const options = {
         method: 'GET',

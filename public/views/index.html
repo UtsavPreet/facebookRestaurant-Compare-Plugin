@@ -19,7 +19,7 @@
         <div class="contentContainer">
             <div class="row">
                 <div class="caption">Enter restaurant Name:</div>
-                <input type="text" class="restaurantName value" placeholder="Name" value="circuscyberhub">
+                <input type="text" class="restaurantName value" placeholder="Name">
             </div>
             <div class="button">Fetch Data</div>
         </div>
@@ -69,9 +69,6 @@
 </script>
 
 <script id="restaurantsTemplate" type="text/x-jsrender">
-
-
-
     <div class="leftPanel">
         <div class="features">
             <div class="feature">checkins</div>
@@ -107,9 +104,7 @@
         <div class="addButton">+</div>
     </div>
     <div class="reviewContainerBlock">
-        {{include tmpl="#postTemplate"/}}
     </div>
-
 </script>
 <script id="postTemplate" type="text/x-jsrender">
     <div class="reviewOverlay"></div>

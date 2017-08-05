@@ -56,11 +56,22 @@ app.post('/fetchData', function (req, resp) {
                 posts: res
             }
         })
-    })
-    global.db.collection('restaurantData').find({}).toArray(function (err, result) {
-        if (err) throw err;
-        global.findResult = result;
-        resp.send(global.findResult);
+        graph.get(req.body.name + "/events?since= 2017-07-01&&until= now", function (err, res) {
+            global.posts = res;
+            console.log(global.posts);
+            global.db.collection('restaurantData').update({
+                _id: req.body.name
+            }, {
+                $set: {
+                    events: res
+                }
+            })
+            global.db.collection('restaurantData').find({}).toArray(function (err, result) {
+                if (err) throw err;
+                global.findResult = result;
+                resp.send(global.findResult);
+            })
+        })
     })
 })
 app.listen(port);

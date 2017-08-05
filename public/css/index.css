@@ -85,6 +85,7 @@ body {
   padding-left: 2rem;
   color: white;
   box-sizing: border-box;
+  overflow: hidden;
 }
 .mainContainer .leftPanel .features .subHeading {
   text-align: center;
@@ -135,6 +136,7 @@ body {
   text-transform: capitalize;
   padding-left: 1rem;
   box-sizing: border-box;
+  overflow: hidden;
 }
 .mainContainer .rightPanel .column .features .feature:nth-child(even) {
   background: #f1eded;

@@ -27,7 +27,36 @@
     </div>
 
 </body>
-
+<!--
+{^{for data}} {^{for events.data}}
+            <div class="feature">Name</div>
+            <div class="feature">Interested</div>
+            <div class="feature">Attending</div>
+            <div class="feature">declined</div>
+            {{/for}} 
+            <div class="feature subHeading">Posts</div>
+            {^{for posts.data}}
+            <div class="feature">Name</div>
+            <div class="feature">Likes</div>
+            {{/for}} 
+            {{/for}}-->
+<!--<div class="features">
+                <div class="feature checkings">{{:checkins}}</div>
+                <div class="feature fancount">{{:fan_count}}</div>
+                <div class="feature rating">{{:overall_star_rating}}</div>
+                <div class="feature subHeading"></div>
+                {^{for events.data}}
+                <div class="feature">{{:name}}</div>
+                <div class="feature">{{:interested_count}}</div>
+                <div class="feature">{{:attending_count}}</div>
+                <div class="feature">{{:declined_count}}</div>
+                {{/for}}
+                <div class="feature subHeading"></div>
+            {^{for posts.data}}
+            <div class="feature">{{:name}}</div>
+            <div class="feature">{{:likes.summary.total_count}}</div>
+            {{/for}} 
+            </div>-->
 
 <!--LIST TEMPLATE-->
 <script id="emptyTemplate" type="text/x-jsrender">
@@ -48,44 +77,49 @@
             <div class="feature">checkins</div>
             <div class="feature">fancount</div>
             <div class="feature">Average Rating</div>
+            <div class="feature rating">People Talking About</div>
             <div class="feature subHeading">Event</div>
-            {^{for data}} {^{for events.data}}
-            <div class="feature">Name</div>
-            <div class="feature">Interested</div>
+            <div class="feature">Event Name</div>
+            <div class="feature">People Interested</div>
             <div class="feature">Attending</div>
             <div class="feature">declined</div>
-            {{/for}} 
+            <div class="feature">View All</div>
             <div class="feature subHeading">Posts</div>
-            {^{for posts.data}}
-            <div class="feature">Name</div>
-            <div class="feature">Likes</div>
-            {{/for}} 
-            {{/for}}
+            <div class="feature">Title</div>
+            <div class="feature">Total Likes</div>
+            <div class="feature">View All</div>
         </div>
     </div>
     <div class="rightPanel">
-        {^{for data}}
+        {^{for dbData}} 
+        {^{for data.data}}
         <div class="column">
             <div class="header">{{:name}}</div>
             <div class="features">
                 <div class="feature checkings">{{:checkins}}</div>
                 <div class="feature fancount">{{:fan_count}}</div>
                 <div class="feature rating">{{:overall_star_rating}}</div>
+                <div class="feature rating">{{:talking_about_count}}</div>
                 <div class="feature subHeading"></div>
                 {^{for events.data}}
                 <div class="feature">{{:name}}</div>
                 <div class="feature">{{:interested_count}}</div>
                 <div class="feature">{{:attending_count}}</div>
                 <div class="feature">{{:declined_count}}</div>
+                 <div class="feature">View All Events</div>
                 {{/for}}
                 <div class="feature subHeading"></div>
             {^{for posts.data}}
             <div class="feature">{{:name}}</div>
             <div class="feature">{{:likes.summary.total_count}}</div>
+            <div class="feature">View All Posts</div>
             {{/for}} 
             </div>
+            
         </div>
+        {{/for}} 
         {{/for}}
+
         <div class="addButton">+</div>
     </div>
 

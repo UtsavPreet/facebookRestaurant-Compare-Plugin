@@ -196,7 +196,7 @@ body {
   position: absolute;
   height: 100%;
   width: 100%;
-  display: none;
+  display: block;
 }
 .mainContainer .reviewContainerBlock .reviewOverlay {
   position: absolute;

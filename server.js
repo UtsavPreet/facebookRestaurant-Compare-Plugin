@@ -24,6 +24,7 @@ mongo.connect(url, function (err, db) {
 });
 global.restaurantData;
 global.findResult;
+global.posts;
 graph.setAccessToken('778609825679453|i_EEmwEy9_ZLUxcmnafb4-IuPXM');
 var options = {
     timeout: 3000,
@@ -44,6 +45,16 @@ app.post('/fetchData', function (req, resp) {
     });
     });
     console.log(global.restaurantData);    
+})
+app.post('/posts',function(req,resp){
+    graph.get(req.body.name+"/posts?since= 2017-07-01&&until= now",function(err,res){
+        global.posts = res;
+        console.log(global.posts);
+        global.db.collection('restaurantData').insert({
+            posts: res
+        })
+        resp.send(global.posts);
+    })    
 })
 // app.post('/fetchData', function (req, res) {
 //     console.log(req.body);

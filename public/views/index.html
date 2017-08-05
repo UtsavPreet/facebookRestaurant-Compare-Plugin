@@ -19,7 +19,7 @@
         <div class="contentContainer">
             <div class="row">
                 <div class="caption">Enter restaurant Name:</div>
-                <input type="text" class="restaurantName value" placeholder="Name">
+                <input type="text" class="restaurantName value" placeholder="Name" value="circuscyberhub">
             </div>
             <div class="button">Fetch Data</div>
         </div>
@@ -106,12 +106,22 @@
 
         <div class="addButton">+</div>
     </div>
-
-
-    <div class="reviewContainerBlock"></div>
+    <div class="reviewContainerBlock">
+        {{include tmpl="#postTemplate"/}}
+    </div>
 
 </script>
-
+<script id="postTemplate" type="text/x-jsrender">
+    <div class="reviewOverlay"></div>
+    <div class="reviewContainer">
+        {^{for data}}
+        <div class="customerReview">
+            <div class="reviewText">
+                {{:message}}</div>
+        </div>
+        {{/for}}
+    </div>
+</script>
 
 <script src="../scripts/jquery.js"></script>
 <script src="../scripts/jsrender.js"></script>

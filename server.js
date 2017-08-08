@@ -26,6 +26,7 @@ mongo.connect(url, function (err, db) {
 global.restaurantData;
 global.findResult;
 global.posts;
+global.postData = [];
 global.eventIds = [];
 global.eventData = [];
 global.pageID;
@@ -51,19 +52,28 @@ app.post('/fetchData', function (req, resp) {
     });
     graph.get(req.body.name + "/posts?since= 2017-07-01&&until= now", function (err, res) {
         global.posts = res;
-
-        global.db.collection('restaurantData').update({
+        async.forEachSeries(res.data,function(item,callback){
+            var postID = item.id;
+            graph.get(postID + "?fields=message,likes.summary(true)", function (err, result) {
+                    global.postData.push(result);
+                    callback();
+                })
+        }, function(){
+            global.db.collection('restaurantData').update({
             _id: req.body.name
         }, {
             $set: {
-                posts: res
+                posts: global.postData
             }
         })
+        eventData();
+    })
+     })
+     function eventData(){
         graph.get(req.body.name + "/events?since= 2017-07-01&&until= now", function (err, res) {
             global.posts = res;
             var counter = 0;
             var detail;
-
             async.forEachSeries(res.data, function (item, callback) {
                 var eventID = item.id;
                 graph.get(eventID + "?fields=name,description,attending_count,can_guests_invite,can_viewer_post,noreply_count,declined_count,interested_count,maybe_count", function (err, result) {
@@ -72,7 +82,6 @@ app.post('/fetchData', function (req, resp) {
                 })
 
             }, function () {
-                // sendDBData();
                 global.db.collection('restaurantData').update({
                     _id: global.pageID
                 }, {
@@ -80,19 +89,45 @@ app.post('/fetchData', function (req, resp) {
                         events: global.eventData
                     }
                 })
-                global.db.collection('restaurantData').find({}).toArray(function (err, result) {
-                    if (err) throw err;
-                    global.findResult = result;
-                    resp.send(global.findResult);
-
-                })
+                sendDBData();
             })
         })
-    })
+     }
+        // graph.get(req.body.name + "/events?since= 2017-07-01&&until= now", function (err, res) {
+        //     global.posts = res;
+        //     var counter = 0;
+        //     var detail;
+        //     async.forEachSeries(res.data, function (item, callback) {
+        //         var eventID = item.id;
+        //         graph.get(eventID + "?fields=name,description,attending_count,can_guests_invite,can_viewer_post,noreply_count,declined_count,interested_count,maybe_count", function (err, result) {
+        //             global.eventData.push(result);
+        //             callback();
+        //         })
+
+        //     }, function () {
+        //         global.db.collection('restaurantData').update({
+        //             _id: global.pageID
+        //         }, {
+        //             $set: {
+        //                 events: global.eventData
+        //             }
+        //         })
+        //         sendDBData();
+        //     })
+        // })
+   
+
+    function sendDBData() {
+        global.db.collection('restaurantData').find({}).toArray(function (err, result) {
+            if (err) throw err;
+            global.findResult = result;
+            resp.send(global.findResult);
+
+        })
+        global.pageID = '';
+        global.eventData = [];
+        global.postData = [];
+    }
 })
 app.listen(port);
 console.log('Server started! At http://localhost:' + port);
-
-function sendDBData() {
-
-}

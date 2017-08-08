@@ -19,7 +19,7 @@
         <div class="contentContainer">
             <div class="row">
                 <div class="caption">Enter restaurant Name:</div>
-                <input type="text" class="restaurantName value" placeholder="Name">
+                <input type="text" class="restaurantName value" placeholder="Name" value="circuscyberhub">
             </div>
             <div class="button">Fetch Data</div>
         </div>
@@ -105,6 +105,9 @@
     </div>
     <div class="reviewContainerBlock">
     </div>
+    <div class="addRestaurantContainer">
+
+    </div>
 </script>
 <script id="postTemplate" type="text/x-jsrender">
     <div class="reviewOverlay"></div>
@@ -117,6 +120,20 @@
         {{/for}}
     </div>
 </script>
+<script id="addRestaurantTemplate" type="text/x-jsrender">
+    <div class="overlay"></div>
+    <div class="addBlock">
+        <div class="header">Add restaurant to compare</div>
+        <div class="textContainer">
+            Enter the restaurant name<input type="text" placeholder="Name" class="addRestaurant">
+        </div>
+        <div class="footer">
+            <div class="add">add</div>
+        </div>
+    </div>
+
+
+</script>
 
 <script src="../scripts/jquery.js"></script>
 <script src="../scripts/jsrender.js"></script>
@@ -124,5 +141,4 @@
 <script src="../scripts/transit.js"></script>
 <script src="../js/base.js"></script>
 <script src="../js/index.js"></script>
-
 </html>

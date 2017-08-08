@@ -40,15 +40,14 @@ app.post('/fetchData', function (req, resp) {
     graph.get(req.body.name + "?fields=name,talking_about_count,checkins,engagement,fan_count,overall_star_rating", function (err, res) {
         console.log(res);
         global.restaurantData = res;
-        global.db.collection('restaurantData').insert({
+        global.db.collection('restaurantData').save({
             _id: req.body.name,
             data: global.restaurantData
         });
     });
-    console.log(global.restaurantData);
     graph.get(req.body.name + "/posts?since= 2017-07-01&&until= now", function (err, res) {
         global.posts = res;
-        console.log(global.posts);
+       
         global.db.collection('restaurantData').update({
             _id: req.body.name
         }, {
@@ -58,7 +57,7 @@ app.post('/fetchData', function (req, resp) {
         })
         graph.get(req.body.name + "/events?since= 2017-07-01&&until= now", function (err, res) {
             global.posts = res;
-            console.log(global.posts);
+           
             global.db.collection('restaurantData').update({
                 _id: req.body.name
             }, {

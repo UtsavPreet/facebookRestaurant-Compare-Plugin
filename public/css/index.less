@@ -264,4 +264,81 @@ body {
             }
         }
     }
+      .addRestaurantContainer {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        display: none;
+        .overlay {
+            position: fixed;
+            height: 100%;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .addBlock {
+            position: fixed;
+            width: 50rem;
+            height: 25rem;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid black;
+            box-sizing: border-box;
+            .header {
+                position: relative;
+                height: 5rem;
+                line-height: 5rem;
+                font-size: 2rem;
+                padding-left: 1rem;
+                box-sizing: border-box;
+                background: #20282D;
+                color: white;
+                text-transform: capitalize;
+            }
+            .textContainer {
+                position: relative;
+                height: 15rem;
+                width: 100%;
+                background: white;
+                font-size: 1.7rem;
+                line-height: 15rem;
+                padding-left: 1rem;
+                box-sizing: border-box;
+                .addRestaurant {
+                    position: relative;
+                    height: 3rem;
+                    margin-left: 2rem;
+                    padding: 0rem 0.5rem;
+                    border-radius: 0.4rem;
+                    border: 1px solid;
+                    width: 20rem;
+                    outline: none;
+                    box-sizing: border-box;
+                }
+            }
+            .footer {
+                position: relative;
+                height: 5rem;
+                background: white;
+                box-sizing: border-box;
+                border: 1px solid;
+                border-style: solid none;
+                .add {
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    right: 3rem;
+                    font-size: 1.8rem;
+                    text-transform: uppercase;
+                    color: white;
+                    background: #f04124;
+                    height: 3rem;
+                    line-height: 3rem;
+                    padding: 0rem 1rem;
+                    border-radius: 0.4rem;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
 }

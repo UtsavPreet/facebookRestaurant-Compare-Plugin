@@ -63,51 +63,23 @@ app.post('/fetchData', function (req, resp) {
             global.posts = res;
             var counter = 0;
             var detail;
-            // eventDetails(res);
-            for (var i = 0; i < res.data.length; i++) {
-                var eventID = res.data[i].id;
-                console.log(eventID);
+
+            async.forEachSeries(res.data, function (item, callback) {
+                var eventID = item.id;
                 graph.get(eventID + "?fields=name,description,attending_count,can_guests_invite,can_viewer_post,noreply_count,declined_count,interested_count,maybe_count", function (err, result) {
-                    console.log(result);
                     global.eventData.push(result);
-                    counter = 1;
+                    callback();
                 })
-            }
-            sendDBData(counter);
+
+            }, function () {
+                sendDBData();
+            })
         })
     })
-})
-app.listen(port);
-console.log('Server started! At http://localhost:' + port);
 
-// function eventDetails(dataE) {
-
-//     // async.forEachSeries(dataE.data,function(item,callback){
-//     //     var eventID = item.id;
-//     //         console.log(eventID);
-//     //         graph.get(eventID + "?fields=name,description,attending_count,can_guests_invite,can_viewer_post,noreply_count,declined_count,interested_count,maybe_count", function (err, result) {
-//     //             console.log(result);
-//     //             global.eventData.push(result);
-//     //         })
-//     // },function(err, result) {
-//     //     console.log(result);
-//     //     // if result is true then every file exists
-//     // });
-
-//     for (var i = 0; i < dataE.data.length; i++) {
-//         var eventID = dataE.data[i].id;
-//         console.log(eventID);
-//         graph.get(eventID + "?fields=name,description,attending_count,can_guests_invite,can_viewer_post,noreply_count,declined_count,interested_count,maybe_count", function (err, result) {
-//             console.log(result);
-//             global.eventData.push(result);
-//         })
-//     }
-//     console.log(global.eventData);
-// }
-function sendDBData(count) {
-    if (count == 1) {
+    function sendDBData() {
         global.db.collection('restaurantData').update({
-            _id: req.body.name
+            _id: global.pageID
         }, {
             $set: {
                 events: global.eventData
@@ -117,9 +89,9 @@ function sendDBData(count) {
             if (err) throw err;
             global.findResult = result;
             resp.send(global.findResult);
-        })
-    } else if(count == 0){
-        return false;
-    }
 
-}
+        })
+    }
+})
+app.listen(port);
+console.log('Server started! At http://localhost:' + port);

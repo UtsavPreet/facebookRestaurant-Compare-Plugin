@@ -97,6 +97,15 @@
                 <div class="feature rating">{{:data.overall_star_rating}}</div>
                 <div class="feature rating">{{:data.talking_about_count}}</div>
                 <div class="feature subHeading"></div>
+                {^{for events}}
+                <div class="feature">{{:name}}</div>
+                <div class="feature">{{:interested_count}}</div>
+                <div class="feature">{{:attending_count}}</div>
+                <div class="feature">{{:declined_count}}</div>
+                {{/for}}
+                {^{for posts.data[0]}}
+                <div class="feature">{{:message}}</div>
+                {{/for}}
             </div>
         </div>
         {{/for}} 

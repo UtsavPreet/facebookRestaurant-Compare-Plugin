@@ -72,26 +72,27 @@ app.post('/fetchData', function (req, resp) {
                 })
 
             }, function () {
-                sendDBData();
+                // sendDBData();
+                global.db.collection('restaurantData').update({
+                    _id: global.pageID
+                }, {
+                    $set: {
+                        events: global.eventData
+                    }
+                })
+                global.db.collection('restaurantData').find({}).toArray(function (err, result) {
+                    if (err) throw err;
+                    global.findResult = result;
+                    resp.send(global.findResult);
+
+                })
             })
         })
     })
-
-    function sendDBData() {
-        global.db.collection('restaurantData').update({
-            _id: global.pageID
-        }, {
-            $set: {
-                events: global.eventData
-            }
-        })
-        global.db.collection('restaurantData').find({}).toArray(function (err, result) {
-            if (err) throw err;
-            global.findResult = result;
-            resp.send(global.findResult);
-
-        })
-    }
 })
 app.listen(port);
 console.log('Server started! At http://localhost:' + port);
+
+function sendDBData() {
+
+}

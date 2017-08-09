@@ -74,6 +74,7 @@ app.post('/fetchData', function (req, resp) {
             global.posts = res;
             var counter = 0;
             var detail;
+        
             async.forEachSeries(res.data, function (item, callback) {
                 var eventID = item.id;
                 graph.get(eventID + "?fields=name,description,attending_count,can_guests_invite,can_viewer_post,noreply_count,declined_count,interested_count,maybe_count", function (err, result) {
@@ -122,7 +123,6 @@ app.post('/fetchData', function (req, resp) {
             if (err) throw err;
             global.findResult = result;
             resp.send(global.findResult);
-
         })
         global.pageID = '';
         global.eventData = [];
@@ -131,3 +131,7 @@ app.post('/fetchData', function (req, resp) {
 })
 app.listen(port);
 console.log('Server started! At http://localhost:' + port);
+
+
+
+// moment().format("MMM Do YY");

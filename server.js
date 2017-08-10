@@ -12,10 +12,10 @@
  }));
  var path = require('path');
  app.use(express.static(path.join(__dirname, 'public')));
- app.get('/', function(req, res) {
+ app.get('/', function (req, res) {
      res.sendFile(__dirname + '/public/views/index.html');
  });
- mongo.connect(url, function(err, db) {
+ mongo.connect(url, function (err, db) {
      if (err) {
          console.log(err);
      }
@@ -23,23 +23,7 @@
      global.db = db;
  });
  fb.setAccessToken('778609825679453|i_EEmwEy9_ZLUxcmnafb4-IuPXM');
- // global.restaurantData;
- // global.findResult;
- // // global.posts;
- // global.eventIds = [];
- // global.eventData = [];
  global.pageID;
- // graph.setAccessToken('778609825679453|i_EEmwEy9_ZLUxcmnafb4-IuPXM');
- // var options = {
- //     timeout: 3000,
- //     pool: {
- //         maxSockets: Infinity
- //     },
- //     headers: {
- //         connection: "keep-alive"
- //     }
- // };
- // graph.setVersion("2.10");
 
  // app.post('/restaurantDetail', function(req, res) {
  //     var a = {};
@@ -96,7 +80,7 @@
  //     //         });
  //     //     };
  //     // })
- app.post('/fetchData', function(req, resp) {
+ app.post('/fetchData', function (req, resp) {
      global.pageID = req.body.name;
      fb.api('', 'post', {
          batch: [{
@@ -105,41 +89,35 @@
              },
 
          ]
-     }, function(res) {
+     }, function (res) {
 
          res0 = JSON.parse(res[0].body);
          res0.feed.totalPost = res0.feed.data.length;
          res0.events.totalEvents = res0.events.data.length;
+         for(var i=0;i<res0.feed.data.length;i++){
+             res0.feed.data[i].created_time=res0.feed.data[i].created_time.substr(0,10);
+         }
+         for(var i=0;i<res0.events.data.length;i++){
+             res0.events.data[i].start_time=res0.events.data[i].start_time.substr(0,10);
+         }
          res0.restaurantId = global.pageID;
-         global.db.collection('facebookRestaurantData').save({
+         global.db.collection('pages').save({
              _id: req.body.name,
-             restaurant: res0,
+             name: res0.name_with_location_descriptor,
+             about: res0.about,
+             location: res0.location
+         })
+         global.db.collection('events').save({
+            _id: req.body.name,
+            events: res0.events.data
+         })
+         global.db.collection('feed').save({
+            _id: req.body.name,
+            feed: res0.feed.data
          })
          resp.send(res0)
-
      });
-
-
-
-
-
-     //  fb.api(global.pageID, {
-     //      fields: ['id', 'name', 'fan_count']
-     //  }, function (res) {
-     //      if (!res || res.error) {
-     //          console.log(!res ? 'error occurred' : res.error);
-     //          return;
-     //      }
-     //      console.log(res.id);
-     //      console.log(res.name);
-     //      console.log(res.fan_count);
-     //  });
  })
-
-
-
-
-
  //     graph.get(req.body.name + "?fields=name,talking_about_count,checkins,engagement,fan_count,overall_star_rating", function(err, res) {
  //         global.restaurantData = res;
 
@@ -214,12 +192,14 @@
  // })
 
 
- app.post('/eventDetails', function(req, res1) {
+ app.post('/eventDetails', function (req, res1) {
 
-     global.db.collection('facebookRestaurantData').find({ _id: req.body.name }).toArray(function(err, result) {
+     global.db.collection('events').find({
+         _id: req.body.name
+     }).toArray(function (err, result) {
          if (err)
              throw err;
-         res1.send(result[0].restaurant.events);
+         res1.send(result[0]);
      })
 
      //     // var eventsData = {};

@@ -140,7 +140,7 @@ body {
                     &:nth-child(even) {
                         background: #f1eded;
                     }
-                     &:nth-child(odd) {
+                    &:nth-child(odd) {
                         background: white;
                     }
                 }
@@ -348,6 +348,90 @@ body {
                     padding: 0rem 1rem;
                     border-radius: 0.4rem;
                     cursor: pointer;
+                }
+            }
+        }
+    }
+    .eventContainer {
+        position: absolute;
+        min-height: 30rem;
+        background-color: #FFFFFF;
+        left: 15rem;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        .header {
+            position: relative;
+            height: 5rem;
+            line-height: 5rem;
+            width: 100%;
+            background: #FFFFFF;
+            border-bottom: 0.1rem solid #91959D;
+            .name {
+                position: relative;
+                font-size: 1.6rem;
+                height: 3rem;
+                float: left;
+                padding-left: 1.5rem;
+            }
+        }
+        .detailContainer {
+            position: relative;
+            height: 7rem;
+            width: 100%;
+            .detail {
+                position: relative;
+                margin: 1rem;
+                height: 7rem;
+                width: 100%;
+                border-bottom: 0.1rem solid black;
+                .date {
+                    position: relative;
+                    float: left;
+                    height: 5rem;
+                    width: 5rem;
+                    padding: 1.2rem 0 1rem 0;
+                    .month {
+                        position: relative;
+                        height: 2rem;
+                        line-height: 2rem;
+                        font-size: 1.4rem;
+                        padding-left: 0.5rem;
+                        color: #fa3e3e;
+                    }
+                    .day {
+                        position: relative;
+                        height: 2rem;
+                        line-height: 2rem;
+                        font-size: 2.4rem;
+                        padding-left: 0.5rem;
+                        color: black;
+                        font-weight: 300;
+                    }
+                }
+                .eventDetail {
+                    position: relative;
+                    height: 5rem;
+                    width: 11rem;
+                    float: left;
+                    padding-top: 1rem;
+                    .eventName {
+                        position: absolute;
+                        font-size: 1.4rem;
+                        font-weight: 400;
+                        height: 2rem;
+                        line-height: 2rem;
+                        color: #4b4f56;
+                    }
+                    .stats {
+                        position: relative;
+                        padding-top: 2rem;
+                        height: 3rem;
+                        .stat {
+                            position: relative;
+                            font-size: 1rem;
+                        }
+                    }
                 }
             }
         }

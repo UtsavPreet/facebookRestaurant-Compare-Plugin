@@ -51,7 +51,12 @@
             <div class="feature">People Interested</div>
             <div class="feature">Attending</div>
             <div class="feature">declined</div>
+<<<<<<< HEAD
             <div class="feature">Time</div>
+=======
+            <div class="feature">No reply</div>
+            <div class="feature">Maybe</div>
+>>>>>>> origin/master
             <div class="feature">View All</div>
             <div class="feature subHeading">Posts</div>
             <div class="feature">Total Post</div>
@@ -65,7 +70,11 @@
         </div>
     </div>
     <div class="rightPanel">
+<<<<<<< HEAD
         {^{for restaurants}}
+=======
+        {^{for dbData}}
+>>>>>>> origin/master
         <div class="column">
             <div class="header">{{:name_with_location_descriptor}}</div>
             <div class="features">
@@ -74,12 +83,17 @@
                 <div class="feature rating">{{:overall_star_rating}}</div>
                 <div class="feature rating">{{:talking_about_count}}</div>
                 <div class="feature subHeading"></div>
+<<<<<<< HEAD
                 <div class="feature">{{:events.totalEvents}}</div>
                 {^{for events.data[0]}}
+=======
+                {^{for events.[0]}}
+>>>>>>> origin/master
                 <div class="feature">{{:name}}</div>
                 <div class="feature">{{:interested_count}}</div>
                 <div class="feature">{{:attending_count}}</div>
                 <div class="feature">{{:declined_count}}</div>
+<<<<<<< HEAD
                 <div class="feature">{{:start_time}}</div>
                 {{/for}}
                 <div class="feature events" data-id={{:restaurantId}}>Click Here</div>
@@ -93,12 +107,25 @@
                 <div class=feature>{{:likes.summary.total_count}}</div>
                 <div class=feature>{{:comments.summary.total_count}}</div>
                 <div class=feature>{{:reactions.summary.total_count}}</div>
+=======
+                <div class="feature">{{:noreply_count}}</div>
+                <div class="feature">{{:maybe_count}}</div>
+                 <div class="feature">View All</div>
+                {{/for}}
+                <div class="feature subHeading"></div>
+                {^{for posts.[0]}}
+                <div class="feature">{{:message}}</div>
+                <div class="feature">{{:likes.summary.total_count}}</div>
+>>>>>>> origin/master
                 {{/for}}
                 <!-- <div class="feature post" data-id={{:restaurantID}}>Click</div> -->
             </div>
         </div>
         {{/for}}
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
         <div class="addButton">+</div>
     </div>
     <div class="eventContainerBlock"></div>

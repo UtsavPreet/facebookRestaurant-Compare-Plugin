@@ -72,6 +72,7 @@ body {
         width: 15rem;
         background: #2b333b;
         z-index: 2;
+        overflow: auto;
         .features {
             position: absolute;
             top: 6rem;
@@ -139,6 +140,9 @@ body {
                     &:nth-child(even) {
                         background: #f1eded;
                     }
+                     &:nth-child(odd) {
+                        background: white;
+                    }
                 }
                 .subHeading {
                     background-color: transparent!important;
@@ -176,7 +180,7 @@ body {
             font-style: italic;
             background: #20282D;
         }
-        .reviewImage {
+        .eventImage {
             position: absolute;
             height: 8rem;
             left: 50%;
@@ -194,77 +198,84 @@ body {
             font-weight: bold;
         }
     }
-    .reviewContainerBlock {
+    .eventContainerBlock {
         position: absolute;
         height: 100%;
         width: 100%;
         display: none;
-        .reviewOverlay {
+        .eventOverlay {
             position: absolute;
             height: 100%;
             width: 100%;
             background: rgba(0, 0, 0, 0.5);
         }
-        .reviewContainer {
+        .eventContainer {
             position: absolute;
             width: 64rem;
-            height: 32rem;
+            height: 35.5rem;
             overflow-y: auto;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             border: 1px solid;
-            .customerReview {
+            box-sizing: border-box;
+            .customerevent {
                 position: relative;
                 width: 100%;
-                height: 16rem;
+                height: auto;
                 clear: both;
                 border-bottom: 1px solid lightgray;
                 box-sizing: border-box;
                 background: white;
-                .customerName {
+                display: inline-block;
+                .eventTitle {
                     position: relative;
-                    height: 3.5rem;
-                    line-height: 3.5rem;
-                    padding-left: 3rem;
-                    font-size: 1.5rem;
-                    font-weight: 700;
+                    height: 3rem;
+                    width: 100%;
+                    line-height: 3rem;
+                    text-align: center;
+                    font-size: 2rem;
+                    font-weight: 500;
                     text-decoration: underline;
+                    padding-top: 1.5rem;
                 }
-                .customerImage {
-                    position: absolute;
-                    height: 7rem;
-                    width: 7rem;
-                    top: 50%;
-                    left: 3rem;
-                    border-radius: 50%;
+                .eventDate {
+                    position: relative;
+                    height: 2.5rem;
+                    line-height: 2.5rem;
+                    padding-left: 1.5rem;
+                    font-size: 1.5rem;
+                    font-weight: 500;
+                }
+                .eventDiscription {
+                    position: relative;
+                    width: 100%;
+                    height: auto;
+                    font-size: 1.4rem;
+                    text-align: justify;
+                    padding: 0rem 1.2rem;
                     box-sizing: border-box;
-                    transform: translateY(-50%);
+                    margin-top: 1rem;
                 }
-                .rating {
-                    position: absolute;
-                    left: 12rem;
-                    top: 4rem;
+                .event {
+                    position: relative;
+                    height: 2.5rem;
+                    line-height: 2.5rem;
                     font-size: 1.5rem;
                     font-weight: 600;
-                }
-                .reviewText {
-                    position: absolute;
-                    height: auto;
-                    font-size: 1.5rem;
-                    letter-spacing: 1px;
-                    top: 7rem;
-                    float: left;
+                    padding-left: 1.5rem;
+                    margin-top: 1rem;
                     box-sizing: border-box;
-                    line-height: 2.1rem;
-                    left: 12rem;
-                    right: 1rem;
-                    text-align: justify;
+                    float: left;
+                    &.Interested {
+                        float: right;
+                        padding-right: 1.5rem;
+                    }
                 }
             }
         }
     }
-      .addRestaurantContainer {
+    .addRestaurantContainer {
         position: absolute;
         height: 100%;
         width: 100%;

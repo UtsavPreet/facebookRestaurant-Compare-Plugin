@@ -5,7 +5,7 @@
  var bodyParser = require('body-parser');
  var mongo = require('mongodb').MongoClient;
  var async = require('async');
- var url = 'mongodb://localhost:27017/restaurent';
+ var url = 'mongodb://localhost:27017/restaurant';
  app.use(bodyParser.json());
  app.use(bodyParser.urlencoded({
      extended: true

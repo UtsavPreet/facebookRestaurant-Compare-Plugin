@@ -192,14 +192,12 @@
  // })
 
 
- app.post('/eventDetails', function (req, res1) {
+ app.post('/eventDetails', function (req, resp) {
 
-     global.db.collection('events').find({
-         _id: req.body.name
-     }).toArray(function (err, result) {
+     global.db.collection('events').find({}).toArray(function (err, result) {
          if (err)
              throw err;
-         res1.send(result[0]);
+         resp.send(result);
      })
 
      //     // var eventsData = {};

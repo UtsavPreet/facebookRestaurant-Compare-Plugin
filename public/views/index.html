@@ -104,7 +104,7 @@
     <div class="eventContainerBlock"></div>
     <div class="addRestaurantContainer"></div>
 </script>
-<script id="eventTemplate" type="text/x-jsrender">
+<!-- <script id="eventTemplate" type="text/x-jsrender">
     <div class="eventOverlay"></div>
     <div class="eventContainer">
         {^{for data}}
@@ -117,6 +117,51 @@
         </div>
         {{/for}}
     </div>
+</script> 
+<div class="header">
+            <div class="name">
+                Date
+            </div>
+            <div class="name">
+                Default
+            </div>
+        </div>-->
+<script id="eventTemplate" type="text/x-jsrender">
+    <div class="eventPopup">
+      
+        {{:_id}}
+        
+        <div class="detailContainer">
+            <div class="detail">
+                <div class="date">
+                    <div class="month">
+                        {{:start_time}}
+                    </div>
+                    <div class="day">
+                        09
+                    </div>
+                </div>
+                <div class="eventDetail">
+                    <div class="eventName">
+                       {{:name}}
+                    </div>
+                    <div class="description">
+                        This is a two line description hello
+                    </div>
+                    <div class="Stats">
+                        <div class="stat">
+                            Interested Count: {{:interested_count}}
+                        </div>
+                        <div class="stat">
+                            Declined Count: {{:declined_count}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     
+    </div>
+
 </script>
 
 

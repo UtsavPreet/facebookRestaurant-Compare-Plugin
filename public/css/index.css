@@ -350,7 +350,7 @@ body {
   border-radius: 0.4rem;
   cursor: pointer;
 }
-.mainContainer .eventContainer {
+.mainContainer .eventPopup {
   position: absolute;
   min-height: 30rem;
   background-color: #FFFFFF;
@@ -359,7 +359,7 @@ body {
   top: 50%;
   transform: translateY(-50%);
 }
-.mainContainer .eventContainer .header {
+.mainContainer .eventPopup .header {
   position: relative;
   height: 5rem;
   line-height: 5rem;
@@ -367,33 +367,33 @@ body {
   background: #FFFFFF;
   border-bottom: 0.1rem solid #91959D;
 }
-.mainContainer .eventContainer .header .name {
+.mainContainer .eventPopup .header .name {
   position: relative;
   font-size: 1.6rem;
   height: 3rem;
   float: left;
   padding-left: 1.5rem;
 }
-.mainContainer .eventContainer .detailContainer {
+.mainContainer .eventPopup .detailContainer {
   position: relative;
-  height: 7rem;
+  height: 9rem;
   width: 100%;
 }
-.mainContainer .eventContainer .detailContainer .detail {
+.mainContainer .eventPopup .detailContainer .detail {
   position: relative;
   margin: 1rem;
-  height: 7rem;
+  height: 100%;
   width: 100%;
   border-bottom: 0.1rem solid black;
 }
-.mainContainer .eventContainer .detailContainer .detail .date {
+.mainContainer .eventPopup .detailContainer .detail .date {
   position: relative;
   float: left;
   height: 5rem;
   width: 5rem;
   padding: 1.2rem 0 1rem 0;
 }
-.mainContainer .eventContainer .detailContainer .detail .date .month {
+.mainContainer .eventPopup .detailContainer .detail .date .month {
   position: relative;
   height: 2rem;
   line-height: 2rem;
@@ -401,7 +401,7 @@ body {
   padding-left: 0.5rem;
   color: #fa3e3e;
 }
-.mainContainer .eventContainer .detailContainer .detail .date .day {
+.mainContainer .eventPopup .detailContainer .detail .date .day {
   position: relative;
   height: 2rem;
   line-height: 2rem;
@@ -410,14 +410,14 @@ body {
   color: black;
   font-weight: 300;
 }
-.mainContainer .eventContainer .detailContainer .detail .eventDetail {
+.mainContainer .eventPopup .detailContainer .detail .eventDetail {
   position: relative;
-  height: 5rem;
-  width: 11rem;
+  height: 8rem;
+  width: 15rem;
   float: left;
   padding-top: 1rem;
 }
-.mainContainer .eventContainer .detailContainer .detail .eventDetail .eventName {
+.mainContainer .eventPopup .detailContainer .detail .eventDetail .eventName {
   position: absolute;
   font-size: 1.4rem;
   font-weight: 400;
@@ -425,12 +425,20 @@ body {
   line-height: 2rem;
   color: #4b4f56;
 }
-.mainContainer .eventContainer .detailContainer .detail .eventDetail .stats {
+.mainContainer .eventPopup .detailContainer .detail .eventDetail .description {
   position: relative;
+  height: 2rem;
   padding-top: 2rem;
+  line-height: 1rem;
+  letter-spacing: 1px;
+  width: 100%;
+}
+.mainContainer .eventPopup .detailContainer .detail .eventDetail .stats {
+  position: relative;
   height: 3rem;
 }
-.mainContainer .eventContainer .detailContainer .detail .eventDetail .stats .stat {
+.mainContainer .eventPopup .detailContainer .detail .eventDetail .stats .stat {
   position: relative;
   font-size: 1rem;
+  color: #90949c;
 }

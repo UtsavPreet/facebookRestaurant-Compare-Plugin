@@ -352,7 +352,7 @@ body {
             }
         }
     }
-    .eventContainer {
+    .eventPopup {
         position: absolute;
         min-height: 30rem;
         background-color: #FFFFFF;
@@ -377,12 +377,12 @@ body {
         }
         .detailContainer {
             position: relative;
-            height: 7rem;
+            height: 9rem;
             width: 100%;
             .detail {
                 position: relative;
                 margin: 1rem;
-                height: 7rem;
+                height: 100%;
                 width: 100%;
                 border-bottom: 0.1rem solid black;
                 .date {
@@ -411,8 +411,8 @@ body {
                 }
                 .eventDetail {
                     position: relative;
-                    height: 5rem;
-                    width: 11rem;
+                    height: 8rem;
+                    width: 15rem;
                     float: left;
                     padding-top: 1rem;
                     .eventName {
@@ -423,13 +423,21 @@ body {
                         line-height: 2rem;
                         color: #4b4f56;
                     }
+                    .description {
+                        position: relative;
+                        height: 2rem;
+                        padding-top: 2rem;
+                        line-height: 1rem;
+                        letter-spacing: 1px;
+                        width: 100%;
+                    }
                     .stats {
                         position: relative;
-                        padding-top: 2rem;
                         height: 3rem;
                         .stat {
                             position: relative;
                             font-size: 1rem;
+                            color: #90949c;
                         }
                     }
                 }

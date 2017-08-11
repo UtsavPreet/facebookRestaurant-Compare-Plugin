@@ -355,89 +355,106 @@ body {
     .eventPopup {
         position: absolute;
         min-height: 30rem;
+        max-height: 51rem;
         background-color: #FFFFFF;
         left: 15rem;
         right: 0;
         top: 50%;
         transform: translateY(-50%);
-        .header {
-            position: relative;
-            height: 5rem;
-            line-height: 5rem;
+        overflow: scroll;
+        .eventOverlay {
+            position: absolute;
+            height: 100%;
             width: 100%;
-            background: #FFFFFF;
-            border-bottom: 0.1rem solid #91959D;
-            .name {
-                position: relative;
-                font-size: 1.6rem;
-                height: 3rem;
-                float: left;
-                padding-left: 1.5rem;
-            }
+            background: rgba(0, 0, 0, 0.5);
         }
-        .detailContainer {
-            position: relative;
-            height: 9rem;
-            width: 100%;
-            .detail {
+        .rightPanel {
+            position: absolute;
+            left: 7rem;
+            .column {
                 position: relative;
-                margin: 1rem;
-                height: 100%;
-                width: 100%;
-                border-bottom: 0.1rem solid black;
-                .date {
+                float: left;
+                height: auto;
+                width: 30rem;
+                border-right: 0.1rem solid black !important;
+                .header {
                     position: relative;
-                    float: left;
                     height: 5rem;
-                    width: 5rem;
-                    padding: 1.2rem 0 1rem 0;
-                    .month {
+                    line-height: 5rem;
+                    width: 100%;
+                    background: #FFFFFF;
+                    border-bottom: 0.1rem solid #91959D;
+                    .name {
                         position: relative;
-                        height: 2rem;
-                        line-height: 2rem;
-                        font-size: 1.4rem;
-                        padding-left: 0.5rem;
-                        color: #fa3e3e;
-                    }
-                    .day {
-                        position: relative;
-                        height: 2rem;
-                        line-height: 2rem;
-                        font-size: 2.4rem;
-                        padding-left: 0.5rem;
-                        color: black;
-                        font-weight: 300;
+                        font-size: 1.6rem;
+                        height: 3rem;
+                        float: left;
+                        padding-left: 1.5rem;
+                        text-transform: capitalize;
                     }
                 }
-                .eventDetail {
+                .detail {
                     position: relative;
-                    height: 8rem;
-                    width: 15rem;
-                    float: left;
-                    padding-top: 1rem;
-                    .eventName {
-                        position: absolute;
-                        font-size: 1.4rem;
-                        font-weight: 400;
-                        height: 2rem;
-                        line-height: 2rem;
-                        color: #4b4f56;
-                    }
-                    .description {
+                    margin: 1rem;
+                    height: 100%;
+                    width: 100%;
+                    .date {
                         position: relative;
-                        height: 2rem;
-                        padding-top: 2rem;
-                        line-height: 1rem;
-                        letter-spacing: 1px;
-                        width: 100%;
-                    }
-                    .stats {
-                        position: relative;
-                        height: 3rem;
-                        .stat {
+                        float: left;
+                        height: 5rem;
+                        width: 5rem;
+                        padding: 1.2rem 0 1rem 0;
+                        .month {
                             position: relative;
-                            font-size: 1rem;
-                            color: #90949c;
+                            height: 2rem;
+                            line-height: 2rem;
+                            font-size: 1.4rem;
+                            padding-left: 0.5rem;
+                            color: #fa3e3e;
+                        }
+                        .day {
+                            position: relative;
+                            height: 2rem;
+                            line-height: 2rem;
+                            font-size: 2.4rem;
+                            padding-left: 0.5rem;
+                            color: black;
+                            font-weight: 300;
+                        }
+                    }
+                    .eventDetail {
+                        position: relative;
+                        height: 8rem;
+                        width: 29rem;
+                        float: left;
+                        padding-top: 1rem;
+                        .eventName {
+                            position: absolute;
+                            font-size: 1.4rem;
+                            font-weight: 400;
+                            height: 2rem;
+                            line-height: 2rem;
+                            color: #4b4f56;
+                            text-align: left;
+                        }
+                        .description {
+                            position: relative;
+                            height: 2rem;
+                            padding-top: 2rem;
+                            line-height: 1rem;
+                            letter-spacing: 1px;
+                            width: 100%;
+                            text-align: left;
+                        }
+                        .stats {
+                            position: relative;
+                            height: 3rem;
+                            text-align: left;
+                            .stat {
+                                position: relative;
+                                font-size: 1rem;
+                                color: #90949c;
+                            }
                         }
                     }
                 }

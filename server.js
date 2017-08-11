@@ -94,11 +94,13 @@
          res0 = JSON.parse(res[0].body);
          res0.feed.totalPost = res0.feed.data.length;
          res0.events.totalEvents = res0.events.data.length;
-         for(var i=0;i<res0.feed.data.length;i++){
-             res0.feed.data[i].created_time=res0.feed.data[i].created_time.substr(0,10);
+         for (var i = 0; i < res0.feed.data.length; i++) {
+             res0.feed.data[i].created_time = res0.feed.data[i].created_time.substr(0, 10);
          }
-         for(var i=0;i<res0.events.data.length;i++){
-             res0.events.data[i].start_time=res0.events.data[i].start_time.substr(0,10);
+         for (var i = 0; i < res0.events.data.length; i++) {
+             res0.events.data[i].start_time = res0.events.data[i].start_time.substr(0, 10);
+             res0.events.data[i].date = res0.events.data[i].start_time.substr(8, 2);
+             res0.events.data[i].month = res0.events.data[i].start_time.substr(5, 2);
          }
          res0.restaurantId = global.pageID;
          global.db.collection('pages').save({
@@ -108,14 +110,14 @@
              location: res0.location
          })
          global.db.collection('events').save({
-            _id: req.body.name,
-            events: res0.events.data
+             _id: req.body.name,
+             events: res0.events.data
          })
          global.db.collection('feed').save({
-            _id: req.body.name,
-            feed: res0.feed.data
+             _id: req.body.name,
+             feed: res0.feed.data
          })
-         resp.send(res0)
+         resp.send(res0);
      });
  })
  //     graph.get(req.body.name + "?fields=name,talking_about_count,checkins,engagement,fan_count,overall_star_rating", function(err, res) {
@@ -197,7 +199,9 @@
      global.db.collection('events').find({}).toArray(function (err, result) {
          if (err)
              throw err;
-         resp.send(result);
+         var x = {};
+         x.data = result;
+         resp.send(x);
      })
 
      //     // var eventsData = {};

@@ -47,11 +47,6 @@
             <div class="feature rating">People Talking About</div>
             <div class="feature subHeading">Event</div>
             <div class="feature">Total Events</div>
-            <div class="feature">Event Name</div>
-            <div class="feature">People Interested</div>
-            <div class="feature">Attending</div>
-            <div class="feature">declined</div>
-            <div class="feature">Time</div>
             <div class="feature">View All</div>
             <div class="feature subHeading">Posts</div>
             <div class="feature">Total Post</div>
@@ -75,14 +70,7 @@
                 <div class="feature rating">{{:talking_about_count}}</div>
                 <div class="feature subHeading"></div>
                 <div class="feature">{{:events.totalEvents}}</div>
-                {^{for events.data[0]}}
-                <div class="feature">{{:name}}</div>
-                <div class="feature">{{:interested_count}}</div>
-                <div class="feature">{{:attending_count}}</div>
-                <div class="feature">{{:declined_count}}</div>
-                <div class="feature">{{:start_time}}</div>
-                {{/for}}
-                <div class="feature events" data-id={{:restaurantId}}>Click Here</div>
+                <div class="feature events">Click Here</div>
 
                 <div class="feature subHeading"></div>
                 <div class="feature">{{:feed.totalPost}}</div>
@@ -127,23 +115,22 @@
             </div>
         </div>-->
 <script id="eventTemplate" type="text/x-jsrender">
+    <div class="eventOverlay">
+    </div>
     <div class="eventPopup">
-      
-        {{:_id}}
-        
-        <div class="detailContainer">
+        <div class="rightPanel">
+        {^{for data}}
+        <div class="column">
+            <div class="header">
+            <div class="name">
+                 {{:_id}}
+            </div>
+        </div>
             <div class="detail">
-                <div class="date">
-                    <div class="month">
-                        {{:start_time}}
-                    </div>
-                    <div class="day">
-                        09
-                    </div>
-                </div>
+                {^{for events}}
                 <div class="eventDetail">
                     <div class="eventName">
-                       {{:name}}
+                        {{:name}}
                     </div>
                     <div class="description">
                         This is a two line description hello
@@ -153,13 +140,18 @@
                             Interested Count: {{:interested_count}}
                         </div>
                         <div class="stat">
+                            Attending Count: {{:attending_count}}
+                        </div>
+                        <div class="stat">
                             Declined Count: {{:declined_count}}
                         </div>
                     </div>
                 </div>
+                {{/for}}
             </div>
         </div>
-     
+        {{/for}}
+         </div>
     </div>
 
 </script>

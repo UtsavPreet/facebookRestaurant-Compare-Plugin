@@ -16,17 +16,22 @@
 
 <body>
     <div class="mainContainer">
-        <div class="contentContainer">
-            <div class="row">
-                <div class="caption">Enter restaurant Name:</div>
-                <input type="text" class="restaurantName value" placeholder="Name" value="circusnewdelhi">
+         <div class="pageContainer">
+             <div class="topBar">
+                 <textarea class="searchField" placeholder="Enter Restaurant's Name'"></textarea>
+                    <div class="addButton">
+                       Add Restaurant 
+                    </div>
+                </div>
+            <div class="card">
             </div>
-            <div class="button">Fetch Data</div>
         </div>
+       
 
     </div>
 
 </body>
+
 <!--{^{for feed.data[2]}}
                 <div class="feature">{{:name}}</div>
                 <div class="feature">{{:status_type}}</div>
@@ -37,16 +42,17 @@
                 {{/for}}-->
 
 <!--LIST TEMPLATE-->
-<script id="emptyTemplate" type="text/x-jsrender">
+<!--<script id="emptyTemplate" type="text/x-jsrender">
     <div class="emptyContainer">
         <div class="header">{{:name}} events</div>
         <img src="../images/event.png" class="eventImage">
         <div class="emptyText">
             No event record's found</div>
     </div>
-</script>
+</script>-->
 
-<script id="restaurantsTemplate" type="text/x-jsrender">
+
+<!--<script id="restaurantsTemplate" type="text/x-jsrender">
     <div class="leftPanel">
         <div class="features">
             <div class="feature">checkins</div>
@@ -86,7 +92,7 @@
     </div>
     <div class="eventContainerBlock"></div>
     <div class="addRestaurantContainer"></div>
-</script>
+</script>-->
 <!-- <script id="eventTemplate" type="text/x-jsrender">
     <div class="eventOverlay"></div>
     <div class="eventContainer">
@@ -109,7 +115,7 @@
                 Default
             </div>
         </div>-->
-<script id="eventTemplate" type="text/x-jsrender">
+<!--<script id="eventTemplate" type="text/x-jsrender">
     <div class="eventOverlay">
     </div>
     <div class="eventPopup">
@@ -152,67 +158,108 @@
         </div>
     </div>
 
-</script>
-
-
-<script id="postTemplate" type="text/x-jsrender">
-    <div class="eventOverlay">
-    </div>
-    <div class="eventPopup">
-        <div class="dateContainer">
-            {^{for days}}
-            <div class="date">
-                <div class="month">
-                    AUG
-                </div>
-                <div class="day">
-                    {{:day}}
-                </div>
-            </div>
-            {{/for}}
-        </div>
-        <div class="rightPanel">
-            {^{for data}}
-            <div class="column">
-                <div class="header">
-                    <div class="name">
-                        {{:name}}
-                    </div>
-                </div>
-                <div class="detail">
-                    {^{for events}}
-                    <div class="eventDetail">
-                        <div class="eventName">
-                            {{:name}}
+</script>-->
+<script id="dataTemplate" type="text/x-jsrender">
+    <div class="columnContainer">
+                    <div class="contentRow">
+                        <div class="number">
+                            1
                         </div>
-                        <div class="Stats">
-                            <div class="stat">
-                                {{:attending_count}} Guests
+                        <div class="page">
+
+                            <img src={{:picture}}
+                                class="pagePicture" alt="">
+                            <div class="pageName">
+                              {{:name}}
                             </div>
                         </div>
                     </div>
-                    {{/for}}
+                    <div class="contentRow">
+                        <div class="content">
+                           {{:rating}}
+                        </div>
+                    </div>
+                    <div class="contentRow">
+                        <div class="content">
+                            {{:fanCount}}
+                        </div>
+                    </div>
+                   
+                    <div class="contentRow">
+                       
+                        <div class="contentEvent">
+                            <div class="text">
+                                {{:totalEvent.eventsTotalCount}} Events
+                            </div>
+                            <div class="stat">
+                                {{:totalEvent.eventsAttending}} Guests
+                            </div>
+                            <img src="../images/menu.svg" class="more" alt="">
+
+                        </div>
+                    </div>
+                    <div class="contentRow">
+                        <div class="contentEvent">
+                            <div class="text">
+                                {{:totalPost.postsTotalCount}} Posts
+                            </div>
+                            <div class="stat">
+                                {{:totalPost.postsTotalLikes}} Likes
+                            </div>
+                            <div class="stat">
+                                {{:totalPost.postsTotalComments}}Comments
+                            </div>
+                            <div class="stat">
+                                {{:totalPost.postsTotalShares}} Shares
+                            </div>
+                            <div class="stat">
+                                {{:totalPost.postsTotalReactions}} Reactions
+                            </div>
+                            <img src="../images/menu.svg" class="more" alt="">
+
+                        </div>
+                    </div>
+                    <div class="contentRow blank">
+                    </div>
+                    
+                    <div class="contentRow">
+                        <div class="content">
+                           {{:zomato.dummyReviewText}}
+                        </div>
+                    </div>
+
+                    <div class="contentRow">
+                        <div class="contentEvent">
+                            <div class="text">
+                                {{:zomato.totalReviews}}Reviews
+                            </div>
+                             <img src="../images/menu.svg" class="more" alt="">
+                        </div>
+                        
+                    </div>
+                    
+                    
+                    <div class="contentRow">
+                        <div class="content">
+                            Ranked {{:tripAdvisor.rank}}<sup>th</sup>
+                        </div>
+                    </div>
+                    <div class="contentRow">
+                        <div class="contentEvent">
+                            <div class="text">
+                                {{:tripAdvisor.totalReview}} reviews
+                            </div>
+                            <div class="stat">
+                                {{:tripAdvisor.positiveReview}} positive
+                            </div>
+                            <div class="stat">
+                                {{:tripAdvisor.negativeReview}} negative
+                            </div>
+                             <img src="../images/menu.svg" class="more" alt="">
+                        </div>
+                    </div>
+
                 </div>
-            </div>
-            {{/for}}
-        </div>
-    </div>
-</script>
-
-
-<script id="addRestaurantTemplate" type="text/x-jsrender">
-    <div class="overlay"></div>
-    <div class="addBlock">
-        <div class="header">Add restaurant to compare</div>
-        <div class="textContainer">
-            Enter the restaurant name<input type="text" placeholder="Name" class="addRestaurant">
-        </div>
-        <div class="footer">
-            <div class="add">add</div>
-        </div>
-    </div>
-
-
 </script>
 
 <script src="../scripts/jquery.js"></script>
@@ -220,6 +267,7 @@
 <script src="../scripts/jsview.js"></script>
 <script src="../scripts/transit.js"></script>
 <script src="../js/base.js"></script>
+<script src="../js/data.js"></script>
 <script src="../js/index.js"></script>
 
 </html>

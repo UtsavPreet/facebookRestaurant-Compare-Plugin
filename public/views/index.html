@@ -27,6 +27,14 @@
     </div>
 
 </body>
+<!--{^{for feed.data[2]}}
+                <div class="feature">{{:name}}</div>
+                <div class="feature">{{:status_type}}</div>
+                <div class=feature>{{:created_time}}</div>
+                <div class=feature>{{:likes.summary.total_count}}</div>
+                <div class=feature>{{:comments.summary.total_count}}</div>
+                <div class=feature>{{:reactions.summary.total_count}}</div>
+                {{/for}}-->
 
 <!--LIST TEMPLATE-->
 <script id="emptyTemplate" type="text/x-jsrender">
@@ -50,12 +58,6 @@
             <div class="feature">View All</div>
             <div class="feature subHeading">Posts</div>
             <div class="feature">Total Post</div>
-            <div class="feature">Title</div>
-            <div class="feature">Type</div>
-            <div class="feature">Posted Time</div>
-            <div class="feature">Total Likes</div>
-            <div class="feature">Total Comments</div>
-            <div class="feature">Total Reaction</div>
             <div class="feature">View All</div>
         </div>
     </div>
@@ -74,15 +76,8 @@
 
                 <div class="feature subHeading"></div>
                 <div class="feature">{{:feed.totalPost}}</div>
-                {^{for feed.data[2]}}
-                <div class="feature">{{:name}}</div>
-                <div class="feature">{{:status_type}}</div>
-                <div class=feature>{{:created_time}}</div>
-                <div class=feature>{{:likes.summary.total_count}}</div>
-                <div class=feature>{{:comments.summary.total_count}}</div>
-                <div class=feature>{{:reactions.summary.total_count}}</div>
-                {{/for}}
-                <!-- <div class="feature post" data-id={{:restaurantID}}>Click</div> -->
+                
+                <div class="feature post">Click</div>
             </div>
         </div>
         {{/for}}
@@ -118,55 +113,89 @@
     <div class="eventOverlay">
     </div>
     <div class="eventPopup">
-        <div class="rightPanel">
-        {^{for data}}
-        <div class="column">
-            <div class="header">
-            <div class="name">
-                 {{:_id}}
+        <div class="dateContainer">
+            {^{for days}}
+            <div class="date">
+                <div class="month">
+                    AUG
+                </div>
+                <div class="day">
+                    {{:day}}
+                </div>
             </div>
+            {{/for}}
         </div>
-            <div class="detail">
-                {^{for events}}
-                <div class="eventDetail">
-                    <div class="eventName">
+        <div class="rightPanel">
+            {^{for data}}
+            <div class="column">
+                <div class="header">
+                    <div class="name">
                         {{:name}}
                     </div>
-                    <div class="description">
-                        This is a two line description hello
-                    </div>
-                    <div class="Stats">
-                        <div class="stat">
-                            Interested Count: {{:interested_count}}
-                        </div>
-                        <div class="stat">
-                            Attending Count: {{:attending_count}}
-                        </div>
-                        <div class="stat">
-                            Declined Count: {{:declined_count}}
-                        </div>
-                    </div>
                 </div>
-                {{/for}}
+                <div class="detail">
+                    {^{for events}}
+                    <div class="eventDetail">
+                        <div class="eventName">
+                            {{:name}}
+                        </div>
+                        <div class="Stats">
+                            <div class="stat">
+                                {{:attending_count}} Guests
+                            </div>
+                        </div>
+                    </div>
+                    {{/for}}
+                </div>
             </div>
+            {{/for}}
         </div>
-        {{/for}}
-         </div>
     </div>
 
 </script>
 
 
 <script id="postTemplate" type="text/x-jsrender">
-    <div class="eventOverlay"></div>
-    <div class="eventContainer">
-        {^{for data}}
-        <div class="customerevent">
-
-            <div class="eventDate">Date: {{:created_time}}</div>
-            <div class="eventDiscription">{{:message}}</div>
+    <div class="eventOverlay">
+    </div>
+    <div class="eventPopup">
+        <div class="dateContainer">
+            {^{for days}}
+            <div class="date">
+                <div class="month">
+                    AUG
+                </div>
+                <div class="day">
+                    {{:day}}
+                </div>
+            </div>
+            {{/for}}
         </div>
-        {{/for}}
+        <div class="rightPanel">
+            {^{for data}}
+            <div class="column">
+                <div class="header">
+                    <div class="name">
+                        {{:name}}
+                    </div>
+                </div>
+                <div class="detail">
+                    {^{for events}}
+                    <div class="eventDetail">
+                        <div class="eventName">
+                            {{:name}}
+                        </div>
+                        <div class="Stats">
+                            <div class="stat">
+                                {{:attending_count}} Guests
+                            </div>
+                        </div>
+                    </div>
+                    {{/for}}
+                </div>
+            </div>
+            {{/for}}
+        </div>
     </div>
 </script>
 

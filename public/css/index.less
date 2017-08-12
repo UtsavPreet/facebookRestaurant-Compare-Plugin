@@ -368,6 +368,36 @@ body {
             width: 100%;
             background: rgba(0, 0, 0, 0.5);
         }
+        .dateContainer {
+            position: absolute;
+            width: 7rem;
+            top: 6rem;
+            height: 100%;
+            .date {
+                position: relative;
+                float: left;
+                height: 6rem;
+                width: 5rem;
+                text-align: center;
+                .month {
+                    position: relative;
+                    height: 2rem;
+                    line-height: 2rem;
+                    font-size: 1.4rem;
+                    padding-left: 0.5rem;
+                    color: #fa3e3e;
+                }
+                .day {
+                    position: relative;
+                    height: 2rem;
+                    line-height: 2rem;
+                    font-size: 2.4rem;
+                    padding-left: 0.5rem;
+                    color: black;
+                    font-weight: 300;
+                }
+            }
+        }
         .rightPanel {
             position: absolute;
             left: 7rem;
@@ -375,7 +405,7 @@ body {
                 position: relative;
                 float: left;
                 height: auto;
-                width: 30rem;
+                width: 26rem;
                 border-right: 0.1rem solid black !important;
                 .header {
                     position: relative;
@@ -398,62 +428,27 @@ body {
                     margin: 1rem;
                     height: 100%;
                     width: 100%;
-                    .date {
-                        position: relative;
-                        float: left;
-                        height: 5rem;
-                        width: 5rem;
-                        padding: 1.2rem 0 1rem 0;
-                        .month {
-                            position: relative;
-                            height: 2rem;
-                            line-height: 2rem;
-                            font-size: 1.4rem;
-                            padding-left: 0.5rem;
-                            color: #fa3e3e;
-                        }
-                        .day {
-                            position: relative;
-                            height: 2rem;
-                            line-height: 2rem;
-                            font-size: 2.4rem;
-                            padding-left: 0.5rem;
-                            color: black;
-                            font-weight: 300;
-                        }
-                    }
                     .eventDetail {
                         position: relative;
-                        height: 8rem;
-                        width: 29rem;
+                        height: 6rem;
                         float: left;
-                        padding-top: 1rem;
                         .eventName {
-                            position: absolute;
+                            position: relative;
                             font-size: 1.4rem;
                             font-weight: 400;
-                            height: 2rem;
-                            line-height: 2rem;
                             color: #4b4f56;
-                            text-align: left;
-                        }
-                        .description {
-                            position: relative;
-                            height: 2rem;
-                            padding-top: 2rem;
-                            line-height: 1rem;
-                            letter-spacing: 1px;
-                            width: 100%;
                             text-align: left;
                         }
                         .stats {
                             position: relative;
-                            height: 3rem;
-                            text-align: left;
+                            height: 2rem;
+                            line-height: 2rem;
                             .stat {
                                 position: relative;
-                                font-size: 1rem;
+                                font-size: 1.2rem;
                                 color: #90949c;
+                                text-align: left;
+                                font-weight: 400;
                             }
                         }
                     }
@@ -461,4 +456,87 @@ body {
             }
         }
     }
-}
+    .postPopup {
+        position: absolute;
+        min-height: 30rem;
+        max-height: 50rem;
+        background-color: #FFFFFF;
+        left: 15rem;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        overflow: scroll;
+        .postOverlay {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .column {
+            position: relative;
+            float: left;
+            height: auto;
+            max-width: 90rem;
+            border-right: 0.1rem solid black !important;
+            overflow:auto;
+        .header {
+            position: relative;
+            height: 5rem;
+            line-height: 5rem;
+            width: 100%;
+            background-color: #FAFAFB;
+            border-bottom: 0.1rem solid #91959D;
+            .heading {
+                position: relative;
+                font-size: 1.6rem;
+                font-weight: 300;
+                height: 5rem;
+                line-height: 5rem;
+                float: left;
+                text-transform: capitalize;
+                text-align: center;
+                width: 100%;
+            }
+        }
+            .contentRow{
+                position: relative;
+                width: 100%;
+                height: 10rem;
+                overflow-x:scroll; 
+            .containerColumn {
+                position: relative;
+                float: left;
+                height: auto;
+                max-width: 30rem;
+                border-right: 0.1rem solid black !important;
+                .heading {
+                    position: relative;
+                    float: left;
+                    text-align: center;
+                    height: 3rem;
+                    line-height: 3rem;
+                    font-size: 1.4rem;
+                    font-weight: 300;
+                    text-transform: capitalize;
+                    /* padding-left: 1rem; */
+                    padding-right: 1rem;
+                    text-align: center;
+                    width: 100%;
+                    border-bottom: 0.1rem solid black;
+                }
+                .content {
+                    position: relative;
+                    height: 7rem;
+                    padding-top: 0.5rem;
+                    font-size: 1.4rem;
+                    font-weight: 300;
+                    width: 100%;
+                    padding-right: 1rem;
+                    float: left;
+                    text-align: center;
+                }
+            }
+            }
+        }
+    }
+    }

@@ -85,12 +85,11 @@
      fb.api('', 'post', {
          batch: [{
                  method: 'get',
-                 relative_url: global.pageID + '?fields=name_with_location_descriptor,location,talking_about_count,checkins,fan_count,overall_star_rating,about,cover,feed{name,id,created_time,likes.limit(0).summary(true),comments.limit(0).summary(true),message.limit(0).summary(true),reactions.limit(0).summary(true),status_type},events.limit(10){name,attending_count,cover,declined_count,start_time,interested_count}&since=2017-08-06&until=2017-08-07'
+                 relative_url: global.pageID + '?fields=name_with_location_descriptor,location,talking_about_count,checkins,fan_count,overall_star_rating,about,cover,feed{name,id,created_time,likes.limit(0).summary(true),comments.limit(0).summary(true),message.limit(0).summary(true),reactions.limit(0).summary(true),status_type},events.limit(10){name,description,attending_count,cover,declined_count,start_time,interested_count}&since=2017-08-06&until=2017-08-07'
              },
 
          ]
      }, function (res) {
-
          res0 = JSON.parse(res[0].body);
          res0.feed.totalPost = res0.feed.data.length;
          res0.events.totalEvents = res0.events.data.length;
@@ -111,6 +110,7 @@
          })
          global.db.collection('events').save({
              _id: req.body.name,
+             name: res0.name_with_location_descriptor,
              events: res0.events.data
          })
          global.db.collection('feed').save({
@@ -195,7 +195,6 @@
 
 
  app.post('/eventDetails', function (req, resp) {
-
      global.db.collection('events').find({}).toArray(function (err, result) {
          if (err)
              throw err;
@@ -203,7 +202,7 @@
          x.data = result;
          resp.send(x);
      })
-
+ })
      //     // var eventsData = {};
      //     // graph.get(req.body.name + "/events?since= 2017-07-01&&until= now", function(err, res) {
      //     //     var a = {};
@@ -225,9 +224,6 @@
 
      //     //     })
      //     // })
-
-
- })
 
  // app.post('/postDetails', function(req, res) {
  //     // graph.get(req.body.name + "/posts?since= 2017-07-01&until= now", function(error, result) {

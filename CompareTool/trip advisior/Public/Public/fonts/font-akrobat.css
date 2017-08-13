@@ -1,0 +1,41 @@
+/* ------------------------------------------------*/
+/*   			Akrobat FONT FILES   	   		   */
+/*        	BASIC @FONT-FACE STUFF HERE     	   */
+/* ------------------------------------------------*/
+
+
+@font-face {
+    font-family: 'Akrobat';
+    src: url('Akrobat-Thin.otf');
+    font-weight: 100;
+}
+
+@font-face {
+    font-family: 'Akrobat';
+    src: url('Akrobat-Light.otf');
+    font-weight: 200;
+}
+
+@font-face {
+    font-family: 'Akrobat';
+    src: url('Akrobat-Regular.otf');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'Akrobat';
+    src: url('Akrobat-Bold.otf');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'Akrobat';
+    src: url('Akrobat-ExtraBold.otf');
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'Akrobat';
+    src: url('Akrobat-Black.otf');
+    font-weight: 800;
+}

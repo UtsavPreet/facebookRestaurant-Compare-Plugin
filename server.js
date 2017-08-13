@@ -25,23 +25,35 @@ mongo.connect(url, function (err, db) {
     console.log("connected");
     global.db = db;
 });
+var date = getDate();
 global.totalEvent = {};
+global.totalPost = {};
 fb.setAccessToken('778609825679453|i_EEmwEy9_ZLUxcmnafb4-IuPXM');
 global.pageID;
 app.post('/fetchData', function (req, resp) {
+    var facebookData;
     global.pageID = req.body.facebook;
     fb.api('', 'post', {
         batch: [{
             method: 'get',
-            relative_url: global.pageID + '?fields=name_with_location_descriptor,picture,location,talking_about_count,checkins,fan_count,overall_star_rating,about,cover,feed{name,id,created_time,likes.limit(0).summary(true),comments.limit(0).summary(true),message.limit(0).summary(true),reactions.limit(0).summary(true),status_type,shares},events.limit(10){name,description,attending_count,cover,declined_count,start_time,interested_count}&since=2017-08-06&until=2017-08-07'
+            relative_url: global.pageID + '?fields=name_with_location_descriptor,picture,location,talking_about_count,checkins,fan_count,overall_star_rating,about,cover,feed{name,id,created_time,shares,likes.limit(0).summary(true),comments.limit(0).summary(true),message.limit(0).summary(true),reactions.limit(0).summary(true),status_type},events.limit(10){name,description,attending_count,cover,declined_count,start_time,interested_count}&since=2017-08-06&until=2017-08-07'
         },]
     }, function (res) {
         res0 = JSON.parse(res[0].body);
+        global.totalPost.count = res0.feed.data.length;
         res0.feed.totalPost = res0.feed.data.length;
         totalEvent.count = res0.events.data.length;
+        totalPost.likes = 0;
+        totalPost.comments = 0;
+        totalPost.reactions = 0;
         for (var i = 0; i < res0.feed.data.length; i++) {
             res0.feed.data[i].created_time = res0.feed.data[i].created_time.substr(0, 10);
+            global.totalPost.likes += res0.feed.data[i].likes.summary.total_count;
+            global.totalPost.comments += res0.feed.data[i].comments.summary.total_count;
+            global.totalPost.reactions += res0.feed.data[i].reactions.summary.total_count;
+            // global.totalPost.shares += res0.feed.data[i].shares.count;
         }
+        res0.totalPost = totalPost;
         totalEvent.attendingCount = 0;
         for (var i = 0; i < res0.events.data.length; i++) {
             res0.events.data[i].start_time = res0.events.data[i].start_time.substr(0, 10);
@@ -57,17 +69,20 @@ app.post('/fetchData', function (req, resp) {
         //     about: res0.about,
         //     location: res0.location
         // })
-        // global.db.collection('events').save({
-        //     _id: req.body.name,
-        //     name: res0.name_with_location_descriptor,
-        //     events: res0.events.data
-        // })
-        // global.db.collection('feed').save({
-        //     _id: req.body.name,
-        //     feed: res0.feed.data
-        // })
+        global.db.collection('events').save({
+            _id: date,
+            name: res0.name_with_location_descriptor,
+            totalStat: global.totalEvent,
+            events: res0.events.data
+        })
+        global.db.collection('feed').save({
+            _id: date,
+            name: res0.name_with_location_descriptor,
+            totalStat: global.totalPost,
+            feed: res0.feed.data
+        })
         //resp.send(res0);
-        console.log(res0);
+        facebookData = res0;
     });
 
     //tripAdvisor
@@ -78,7 +93,10 @@ app.post('/fetchData', function (req, resp) {
             console.log("successfully inserted");
             $ = cheerio.load(html);
             filterData($, function (tripAdvisorData) {
-                console.log(tripAdvisorData);
+                resp.send({
+                    fb: facebookData,
+                    trip: tripAdvisorData
+                })
                 // global.db.collection('tripAdvisorRestaurantData').save({
                 //     _id: data.name,
                 //     detail: data,
@@ -134,7 +152,23 @@ function filterData($, cb) {
 
     cb(restaurant);
 }
+function getDate() {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
 
+    if (dd < 10) {
+        dd = '0' + dd
+    }
+
+    if (mm < 10) {
+        mm = '0' + mm
+    }
+
+    today = mm + '/' + dd + '/' + yyyy;
+    return today;
+}
 
 
 app.post('/eventDetails', function (req, resp) {

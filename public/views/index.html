@@ -16,21 +16,21 @@
 
 <body>
     <div class="mainContainer">
-         <div class="pageContainer">
-             <div class="topBar">
-                 <textarea class="searchField zomato" placeholder="Zomato ID" value="18306530"></textarea>
-                  <textarea class="searchField facebook" placeholder="Facebook ID" value="circusnewdelhi"></textarea>
-                   <textarea class="searchField tripAdvisor" placeholder="TripAdvisor URL" value="https://www.tripadvisor.in/Restaurant_Review-g304551-d10236428-Reviews-Circus-New_Delhi_National_Capital_Territory_of_Delhi.html"></textarea>
-                    <textarea class="searchField instagram" placeholder="Instagram URL" value=""></textarea>
-                     <textarea class="searchField google" placeholder="Google Place URL"></textarea>
-                    <div class="addButton">
-                       Add Restaurant 
-                    </div>
+        <div class="pageContainer">
+            <div class="topBar">
+                <textarea class="searchField zomato" placeholder="Zomato ID"></textarea>
+                <textarea class="searchField facebook" placeholder="Facebook ID"></textarea>
+                <textarea class="searchField tripAdvisor" placeholder="TripAdvisor URL"></textarea>
+                <textarea class="searchField instagram" placeholder="Instagram URL"></textarea>
+                <textarea class="searchField google" placeholder="Google Place URL"></textarea>
+                <div class="addButton">
+                    Add Restaurant
                 </div>
+            </div>
             <div class="card">
             </div>
         </div>
-       
+
 
     </div>
 
@@ -184,148 +184,147 @@
 </script>-->
 <script id="dataTemplate" type="text/x-jsrender">
     <div class="columnContainer">
-                    <div class="contentRow">
-                        <div class="number">
-                            1
-                        </div>
-                        <div class="page">
+        <div class="contentRow">
+            <div class="number">
+                1
+            </div>
+            <div class="page">
 
-                            <img src={{:fb.picture.data.url}}
-                                class="pagePicture" alt="">
-                            <div class="pageName">
-                              {{:fb.name_with_location_descriptor}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="contentRow">
-                        <div class="content">
-                           {{:fb.overall_star_rating}}
-                        </div>
-                    </div>
-                    <div class="contentRow">
-                        <div class="content">
-                            {{:fb.fan_count}}
-                        </div>
-                    </div>
-                   
-                    <div class="contentRow">
-                       
-                        <div class="contentEvent">
-                            <div class="text">
-                                {{:fb.totalEvent.count}} Events
-                            </div>
-                            <div class="stat">
-                                {{:fb.totalEvent.attendingCount}} Guests
-                            </div>
-                            <img src="../images/menu.svg" class="more" alt="">
-
-                        </div>
-                    </div>
-                    <div class="contentRow">
-                        <div class="contentEvent">
-                            <div class="text">
-                                {{:fb.totalPost.count}} Posts
-                            </div>
-                            <div class="stat">
-                                {{:fb.totalPost.likes}} Likes
-                            </div>
-                            <div class="stat">
-                                {{:fb.totalPost.comments}}Comments
-                            </div>
-                            <div class="stat">
-                                {{:fb.totalPost.shares}} Shares
-                            </div>
-                            <div class="stat">
-                                {{:fb.totalPost.reactions}} Reactions
-                            </div>
-                            <img src="../images/menu.svg" class="more" alt="">
-
-                        </div>
-                    </div>
-                    <div class="contentRow">
-                        <div class="content">
-                            TripAdvisor
-                        </div>
-                    </div>
-                    <div class="contentRow">
-                        <div class="content">
-                            Ranked {{:trip.ranking}}<sup>th</sup>
-                        </div>
-                    </div>
-                    <div class="contentRow">
-                        <div class="contentEvent">
-                            <div class="text">
-                                {{:trip.totalReview}}
-                            </div>
-                            <div class="stat">
-                                {{:trip.reviewDetail.excellent}} excellent
-                            </div>
-                             <div class="stat">
-                                {{:trip.reviewDetail.veryGood}} veryGood
-                            </div>
-                            <div class="stat">
-                                {{:trip.reviewDetail.average}} average
-                            </div>
-                            <div class="stat">
-                                {{:trip.reviewDetail.poor}} poor
-                            </div>
-                            <div class="stat">
-                                {{:trip.reviewDetail.terrible}} terrible
-                            </div>
-                             
-                        </div>
-                    </div>
-                    <div class="contentRow">
-                        <div class="contentEvent">
-                            <div class="text">
-                            Rating {{:trip.rating}}
-                            </div>
-                             <div class="stat">
-                                {{:trip.ratingSummary.food}} food
-                            </div>
-                            <div class="stat">
-                                {{:trip.ratingSummary.service}} service
-                            </div>
-                            <div class="stat">
-                                {{:trip.ratingSummary.value}} Value
-                            </div>
-                        </div>
-                    </div>
-                    <div class="contentRow">
-                        <div class="content">
-                            Zomato
-                        </div>
-                    </div>
-                    <div class="contentRow">
-                        <div class="content">
-                             Average Cost: {{:zomato.average_cost_for_two}}
-                        </div>
-                    </div>
-                    <div class="contentRow">
-                        <div class="content">
-                             cuisines: {{:zomato.average_cost_for_two}}
-                        </div>
-                    </div>
-                    <div class="contentRow">
-                        <div class="content">
-                             {{:zomato.userReview.reviews_count}} Reviews
-                        <img src="../images/menu.svg" class="more" alt="">
-                        </div>
-                    </div>
-                    <div class="contentRow">
-                        <div class="contentEvent">
-                            <div class="text">
-                            User Rating: {{:zomato.user_rating.rating_text}}
-                            </div>
-                             <div class="stat">
-                                {{:zomato.user_rating.aggregate_rating}}
-                            </div>
-                            <div class="stat">
-                                {{:zomato.user_rating.votes}} Votes
-                            </div>
-                        </div>
-                    </div>
+                <img src={{:fb.picture.data.url}} class="pagePicture" alt="">
+                <div class="pageName">
+                    {{:fb.name_with_location_descriptor}}
                 </div>
+            </div>
+        </div>
+        <div class="contentRow">
+            <div class="content">
+                {{:fb.overall_star_rating}}
+            </div>
+        </div>
+        <div class="contentRow">
+            <div class="content">
+                {{:fb.fan_count}}
+            </div>
+        </div>
+
+        <div class="contentRow">
+
+            <div class="contentEvent">
+                <div class="text">
+                    {{:fb.totalEvent.count}} Events
+                </div>
+                <div class="stat">
+                    {{:fb.totalEvent.attendingCount}} Guests
+                </div>
+                <img src="../images/menu.svg" class="more" alt="">
+
+            </div>
+        </div>
+        <div class="contentRow">
+            <div class="contentEvent">
+                <div class="text">
+                    {{:fb.totalPost.count}} Posts
+                </div>
+                <div class="stat">
+                    {{:fb.totalPost.likes}} Likes
+                </div>
+                <div class="stat">
+                    {{:fb.totalPost.comments}}Comments
+                </div>
+                <div class="stat">
+                    {{:fb.totalPost.shares}} Shares
+                </div>
+                <div class="stat">
+                    {{:fb.totalPost.reactions}} Reactions
+                </div>
+                <img src="../images/menu.svg" class="more" alt="">
+
+            </div>
+        </div>
+        <div class="contentRow">
+            <div class="content">
+                TripAdvisor
+            </div>
+        </div>
+        <div class="contentRow">
+            <div class="content">
+                Ranked {{:trip.ranking}}<sup>th</sup>
+            </div>
+        </div>
+        <div class="contentRow">
+            <div class="contentEvent">
+                <div class="text">
+                    {{:trip.totalReview}}
+                </div>
+                <div class="stat">
+                    {{:trip.reviewDetail.excellent}} excellent
+                </div>
+                <div class="stat">
+                    {{:trip.reviewDetail.veryGood}} veryGood
+                </div>
+                <div class="stat">
+                    {{:trip.reviewDetail.average}} average
+                </div>
+                <div class="stat">
+                    {{:trip.reviewDetail.poor}} poor
+                </div>
+                <div class="stat">
+                    {{:trip.reviewDetail.terrible}} terrible
+                </div>
+
+            </div>
+        </div>
+        <div class="contentRow">
+            <div class="contentEvent">
+                <div class="text">
+                    Rating {{:trip.rating}}
+                </div>
+                <div class="stat">
+                    {{:trip.ratingSummary.food}} food
+                </div>
+                <div class="stat">
+                    {{:trip.ratingSummary.service}} service
+                </div>
+                <div class="stat">
+                    {{:trip.ratingSummary.value}} Value
+                </div>
+            </div>
+        </div>
+        <div class="contentRow">
+            <div class="content">
+                Zomato
+            </div>
+        </div>
+        <div class="contentRow">
+            <div class="content">
+                Average Cost: {{:zomato.average_cost_for_two}}
+            </div>
+        </div>
+        <div class="contentRow">
+            <div class="content">
+                cuisines: {{:zomato.average_cost_for_two}}
+            </div>
+        </div>
+        <div class="contentRow">
+            <div class="content">
+                {{:zomato.userReview.reviews_count}} Reviews
+                <img src="../images/menu.svg" class="more" alt="">
+            </div>
+        </div>
+        <div class="contentRow">
+            <div class="contentEvent">
+                <div class="text">
+                    User Rating: {{:zomato.user_rating.rating_text}}
+                </div>
+                <div class="stat">
+                    {{:zomato.user_rating.aggregate_rating}}
+                </div>
+                <div class="stat">
+                    {{:zomato.user_rating.votes}} Votes
+                </div>
+            </div>
+        </div>
+    </div>
 </script>
 
 <script src="../scripts/jquery.js"></script>

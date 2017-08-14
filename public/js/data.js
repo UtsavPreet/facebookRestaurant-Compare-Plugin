@@ -67,14 +67,15 @@ var data = {
     ]
 }
 
-"circus"={ 
-    zomatoID: 18306530,
-    facebookID: 
-}
+// "circus"={ 
+//     zomatoID: 18306530,
+//     facebookID: circusnewdelhi,
+//     tripAdvisor:https://www.tripadvisor.in/Restaurant_Review-g304551-d10236428-Reviews-Circus-New_Delhi_National_Capital_Territory_of_Delhi.html
+// }
 
-Instagram :{
-    "access_token": "5878424501.01168d1.986f3aba49744a3bb74ec8472bd717f6",
-    "clientID": "01168d11fa19484caf96adf0e57e539d",
-    "client_secret":"7334c875b68047bf848dc1227b7ef534"
+// Instagram :{
+//     "access_token": "5878424501.01168d1.986f3aba49744a3bb74ec8472bd717f6",
+//     "clientID": "01168d11fa19484caf96adf0e57e539d",
+//     "client_secret":"7334c875b68047bf848dc1227b7ef534"
 
-}
+// }

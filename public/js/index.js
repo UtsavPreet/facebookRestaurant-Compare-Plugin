@@ -30,6 +30,7 @@ bind('.mainContainer .pageContainer .topBar .addButton', function () {
             if (key == searchData.name) {
                 execute('fetchData', element[key], function (data) {
                     console.log(data);
+                    rb('.mainContainer .card','data',data);
                 })
             }
         }

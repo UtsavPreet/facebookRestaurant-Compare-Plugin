@@ -1,14 +1,27 @@
 var express = require('express');
 var app = express();
 var port = process.env.PORT || 8080;
-var fb = require("fb")
+
 var bodyParser = require('body-parser');
+
+
+var fb = require("fb")
+fb.setAccessToken('778609825679453|i_EEmwEy9_ZLUxcmnafb4-IuPXM');
+
+
 var mongo = require('mongodb').MongoClient;
 var async = require('async');
 var url = 'mongodb://localhost:27017/restaurant';
-var $;
+
+
+
 const cheerio = require('cheerio');
 var request = require("request");
+
+var key = "64a15965a23b35c5f3bcd258c4b75e56";
+var Zomato = require('node-zomato');
+var api = new Zomato(key);
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
@@ -28,16 +41,55 @@ mongo.connect(url, function (err, db) {
 var date = getDate();
 global.totalEvent = {};
 global.totalPost = {};
-fb.setAccessToken('778609825679453|i_EEmwEy9_ZLUxcmnafb4-IuPXM');
 global.pageID;
 app.post('/fetchData', function (req, resp) {
     var facebookData;
+    var zomatoData;
     global.pageID = req.body.facebook;
+
+    api.verify(function (isVerified) {
+        console.log(isVerified);
+        if (isVerified === false) {
+            process.exit();
+        }
+    });
+    request({
+        headers: {
+            'user-key': key,
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        url: addUrlParam('search', "q", req.body.zomato),
+        method: 'GET',
+    }, function (err, response) {
+        if (err)
+            throw (err);
+        else {
+            var x = JSON.parse(response.body);
+            restaurantId = (x.restaurants[0].restaurant.id);
+            var z = filterData(x.restaurants[0]);
+            // res.send(z);
+            request({
+                headers: {
+                    'user-key': key,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                url: addUrlParam('reviews', "res_id", restaurantId),
+                method: 'GET'
+            }, function (err, resp1) {
+                if (err)
+                    throw (err);
+
+                x.restaurants[0].restaurant.userReview = JSON.parse(resp1.body);
+                zomatoData = x.restaurant[0].restaurant;
+                // global.db.collection('restaurantData').update({ _id: 'circus' }, { $set: { 'zomatoData': x.restaurants[0].restaurant } });
+            })
+        }
+    })
     fb.api('', 'post', {
         batch: [{
             method: 'get',
             relative_url: global.pageID + '?fields=name_with_location_descriptor,picture,location,talking_about_count,checkins,fan_count,overall_star_rating,about,cover,feed{name,id,created_time,shares,likes.limit(0).summary(true),comments.limit(0).summary(true),message.limit(0).summary(true),reactions.limit(0).summary(true),status_type},events.limit(10){name,description,attending_count,cover,declined_count,start_time,interested_count}&since=2017-08-06&until=2017-08-07'
-        },]
+        }, ]
     }, function (res) {
         res0 = JSON.parse(res[0].body);
         global.totalPost.count = res0.feed.data.length;
@@ -63,39 +115,41 @@ app.post('/fetchData', function (req, resp) {
         }
         res0.totalEvent = totalEvent;
         res0.restaurantId = global.pageID;
+        facebookData = res0;
         // global.db.collection('pages').save({
         //     _id: req.body.name,
         //     name: res0.name_with_location_descriptor,
         //     about: res0.about,
         //     location: res0.location
         // })
-        global.db.collection('events').save({
-            _id: date,
-            name: res0.name_with_location_descriptor,
-            totalStat: global.totalEvent,
-            events: res0.events.data
-        })
-        global.db.collection('feed').save({
-            _id: date,
-            name: res0.name_with_location_descriptor,
-            totalStat: global.totalPost,
-            feed: res0.feed.data
-        })
+        // storing in Database
+        // global.db.collection('events').save({
+        //     _id: date,
+        //     name: res0.name_with_location_descriptor,
+        //     totalStat: global.totalEvent,
+        //     events: res0.events.data
+        // })
+        // global.db.collection('feed').save({
+        //     _id: date,
+        //     name: res0.name_with_location_descriptor,
+        //     totalStat: global.totalPost,
+        //     feed: res0.feed.data
+        // })
+
         //resp.send(res0);
-        facebookData = res0;
     });
 
     //tripAdvisor
-
+    var $;
     var tripAdvisorData;
     request(req.body.tripAdvisor, function (err, res, html) { //url 
         if (!err && res.statusCode == 200) {
-            console.log("successfully inserted");
             $ = cheerio.load(html);
             filterData($, function (tripAdvisorData) {
                 resp.send({
                     fb: facebookData,
-                    trip: tripAdvisorData
+                    trip: tripAdvisorData,
+                    zomatao: zomatoData
                 })
                 // global.db.collection('tripAdvisorRestaurantData').save({
                 //     _id: data.name,
@@ -152,6 +206,7 @@ function filterData($, cb) {
 
     cb(restaurant);
 }
+
 function getDate() {
     var today = new Date();
     var dd = today.getDate();
@@ -168,6 +223,20 @@ function getDate() {
 
     today = yyyy + '/' + mm + '/' + dd;
     return today;
+}
+
+function addUrlParam(search, key, value) {
+    var url = 'https://developers.zomato.com/api/v2.1/' + search;
+    var newParam = key + "=" + value;
+    var result = url.replace(new RegExp("(&|\\?)" + key + "=[^\&|#]*"), '$1' + newParam);
+    if (result === url) {
+        result = (url.indexOf("?") != -1 ? url.split("?")[0] + "?" + newParam + "&" + url.split("?")[1] :
+            (url.indexOf("#") != -1 ? url.split("#")[0] + "?" + newParam + "#" + url.split("#")[1] :
+                url + '?' + newParam));
+    }
+    if (result == ("https://developers.zomato.com/api/v2.1/search?q=" + value))
+        result = result + '&count=1&entity_id=1';
+    return result;
 }
 
 

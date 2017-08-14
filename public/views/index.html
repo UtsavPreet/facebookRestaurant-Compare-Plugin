@@ -157,69 +157,8 @@
             {{/for}}
         </div>
     </div>
-
-</script>-->
-<script id="dataTemplate" type="text/x-jsrender">
-    <div class="columnContainer">
-                    <div class="contentRow">
-                        <div class="number">
-                            1
-                        </div>
-                        <div class="page">
-
-                            <img src={{:picture}}
-                                class="pagePicture" alt="">
-                            <div class="pageName">
-                              {{:name}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="contentRow">
-                        <div class="content">
-                           {{:rating}}
-                        </div>
-                    </div>
-                    <div class="contentRow">
-                        <div class="content">
-                            {{:fanCount}}
-                        </div>
-                    </div>
-                   
-                    <div class="contentRow">
-                       
-                        <div class="contentEvent">
-                            <div class="text">
-                                {{:totalEvent.eventsTotalCount}} Events
-                            </div>
-                            <div class="stat">
-                                {{:totalEvent.eventsAttending}} Guests
-                            </div>
-                            <img src="../images/menu.svg" class="more" alt="">
-
-                        </div>
-                    </div>
-                    <div class="contentRow">
-                        <div class="contentEvent">
-                            <div class="text">
-                                {{:totalPost.postsTotalCount}} Posts
-                            </div>
-                            <div class="stat">
-                                {{:totalPost.postsTotalLikes}} Likes
-                            </div>
-                            <div class="stat">
-                                {{:totalPost.postsTotalComments}}Comments
-                            </div>
-                            <div class="stat">
-                                {{:totalPost.postsTotalShares}} Shares
-                            </div>
-                            <div class="stat">
-                                {{:totalPost.postsTotalReactions}} Reactions
-                            </div>
-                            <img src="../images/menu.svg" class="more" alt="">
-
-                        </div>
-                    </div>
-                    <div class="contentRow blank">
+//zomato
+    <div class="contentRow blank">
                     </div>
                     
                     <div class="contentRow">
@@ -237,28 +176,117 @@
                         </div>
                         
                     </div>
-                    
-                    
+
+</script>-->
+<script id="dataTemplate" type="text/x-jsrender">
+    <div class="columnContainer">
+                    <div class="contentRow">
+                        <div class="number">
+                            1
+                        </div>
+                        <div class="page">
+
+                            <img src={{:fb.picture.data.url}}
+                                class="pagePicture" alt="">
+                            <div class="pageName">
+                              {{:fb.name_with_location_descriptor}}
+                            </div>
+                        </div>
+                    </div>
                     <div class="contentRow">
                         <div class="content">
-                            Ranked {{:tripAdvisor.rank}}<sup>th</sup>
+                           {{:fb.overall_star_rating}}
+                        </div>
+                    </div>
+                    <div class="contentRow">
+                        <div class="content">
+                            {{:fb.fan_count}}
+                        </div>
+                    </div>
+                   
+                    <div class="contentRow">
+                       
+                        <div class="contentEvent">
+                            <div class="text">
+                                {{:fb.totalEvent.count}} Events
+                            </div>
+                            <div class="stat">
+                                {{:fb.totalEvent.attendingCount}} Guests
+                            </div>
+                            <img src="../images/menu.svg" class="more" alt="">
+
                         </div>
                     </div>
                     <div class="contentRow">
                         <div class="contentEvent">
                             <div class="text">
-                                {{:tripAdvisor.totalReview}} reviews
+                                {{:fb.totalPost.count}} Posts
                             </div>
                             <div class="stat">
-                                {{:tripAdvisor.positiveReview}} positive
+                                {{:fb.totalPost.likes}} Likes
                             </div>
                             <div class="stat">
-                                {{:tripAdvisor.negativeReview}} negative
+                                {{:fb.totalPost.comments}}Comments
                             </div>
-                             <img src="../images/menu.svg" class="more" alt="">
+                            <div class="stat">
+                                {{:fb.totalPost.shares}} Shares
+                            </div>
+                            <div class="stat">
+                                {{:fb.totalPost.reactions}} Reactions
+                            </div>
+                            <img src="../images/menu.svg" class="more" alt="">
+
                         </div>
                     </div>
-
+                    <div class="contentRow">
+                        <div class="content">
+                            TripAdvisor
+                        </div>
+                    </div>
+                    <div class="contentRow">
+                        <div class="content">
+                            Ranked {{:trip.ranking}}<sup>th</sup>
+                        </div>
+                    </div>
+                    <div class="contentRow">
+                        <div class="contentEvent">
+                            <div class="text">
+                                {{:trip.totalReview}}
+                            </div>
+                            <div class="stat">
+                                {{:trip.reviewDetail.excellent}} excellent
+                            </div>
+                             <div class="stat">
+                                {{:trip.reviewDetail.veryGood}} veryGood
+                            </div>
+                            <div class="stat">
+                                {{:trip.reviewDetail.average}} average
+                            </div>
+                            <div class="stat">
+                                {{:trip.reviewDetail.poor}} poor
+                            </div>
+                            <div class="stat">
+                                {{:trip.reviewDetail.terrible}} terrible
+                            </div>
+                             
+                        </div>
+                    </div>
+                    <div class="contentRow">
+                        <div class="contentEvent">
+                            <div class="text">
+                            Rating {{:trip.rating}}
+                            </div>
+                             <div class="stat">
+                                {{:trip.ratingSummary.food}} food
+                            </div>
+                            <div class="stat">
+                                {{:trip.ratingSummary.service}} service
+                            </div>
+                            <div class="stat">
+                                {{:trip.ratingSummary.value}} Value
+                            </div>
+                        </div>
+                    </div>
                 </div>
 </script>
 

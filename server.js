@@ -1,27 +1,23 @@
 var express = require('express');
 var app = express();
 var port = process.env.PORT || 8080;
-
 var bodyParser = require('body-parser');
-
-
+const Instagram = require('node-instagram').default;
+const instagram = new Instagram({
+  clientId: '01168d11fa19484caf96adf0e57e539d',
+  clientSecret: '7334c875b68047bf848dc1227b7ef534',
+  accessToken: '5878424501.01168d1.986f3aba49744a3bb74ec8472bd717f6',
+});
 var fb = require("fb")
 fb.setAccessToken('778609825679453|i_EEmwEy9_ZLUxcmnafb4-IuPXM');
-
-
 var mongo = require('mongodb').MongoClient;
 var async = require('async');
 var url = 'mongodb://localhost:27017/restaurant';
-
-
-
 const cheerio = require('cheerio');
 var request = require("request");
-
 var key = "64a15965a23b35c5f3bcd258c4b75e56";
 var Zomato = require('node-zomato');
 var api = new Zomato(key);
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
@@ -66,7 +62,7 @@ app.post('/fetchData', function (req, resp) {
         else {
             var x = JSON.parse(response.body);
             restaurantId = (x.restaurants[0].restaurant.id);
-            var z = filterData(x.restaurants[0]);
+            // var z = filterData(x.restaurants[0]);
             // res.send(z);
             request({
                 headers: {
@@ -80,7 +76,7 @@ app.post('/fetchData', function (req, resp) {
                     throw (err);
 
                 x.restaurants[0].restaurant.userReview = JSON.parse(resp1.body);
-                zomatoData = x.restaurant[0].restaurant;
+                zomatoData = x.restaurants[0].restaurant;
                 // global.db.collection('restaurantData').update({ _id: 'circus' }, { $set: { 'zomatoData': x.restaurants[0].restaurant } });
             })
         }
@@ -140,16 +136,16 @@ app.post('/fetchData', function (req, resp) {
     });
 
     //tripAdvisor
-    var $;
+    var selector;
     var tripAdvisorData;
     request(req.body.tripAdvisor, function (err, res, html) { //url 
         if (!err && res.statusCode == 200) {
-            $ = cheerio.load(html);
-            filterData($, function (tripAdvisorData) {
+            selector = cheerio.load(html);
+            filterData(selector, function (tripAdvisorData) {
                 resp.send({
                     fb: facebookData,
                     trip: tripAdvisorData,
-                    zomatao: zomatoData
+                    zomato: zomatoData
                 })
                 // global.db.collection('tripAdvisorRestaurantData').save({
                 //     _id: data.name,
@@ -161,17 +157,17 @@ app.post('/fetchData', function (req, resp) {
     })
 })
 
-function filterData($, cb) {
+function filterData(selector, cb) {
     var restaurant = {};
     var name;
-    name = $('.heading_title ').text();
+    name = selector('.heading_title ').text();
     restaurant.name = name.replace(/\n/gi, '');
-    restaurant.ranking = $('.header_popularity.popIndexValidation').find('span').text();
-    restaurant.totalReview = $('.rating .seeAllReviews').text();
-    var restaurantDetail = $('.details_tab .table_section .row .content').text().split('\n\n');
-    restaurant.cuisines = $('DIV.ppr_rup.ppr_priv_restaurants_detail_info_content .cuisines .text').text();
-    var reviewDetail = $('DIV.prw_rup.prw_common_ratings_histogram_overview .row_count').text().split('%');
-    restaurant.rating = $('DIV.ppr_rup.ppr_priv_location_detail_overview .rating').children('.overallRating').text()
+    restaurant.ranking = selector('.header_popularity.popIndexValidation').find('span').text();
+    restaurant.totalReview = selector('.rating .seeAllReviews').text();
+    var restaurantDetail = selector('.details_tab .table_section .row .content').text().split('\n\n');
+    restaurant.cuisines = selector('DIV.ppr_rup.ppr_priv_restaurants_detail_info_content .cuisines .text').text();
+    var reviewDetail = selector('DIV.prw_rup.prw_common_ratings_histogram_overview .row_count').text().split('%');
+    restaurant.rating = selector('DIV.ppr_rup.ppr_priv_location_detail_overview .rating').children('.overallRating').text()
     restaurant.reviewDetail = {};
     restaurant.reviewDetail.excellent = reviewDetail[0];
     restaurant.reviewDetail.veryGood = reviewDetail[1];
@@ -181,7 +177,7 @@ function filterData($, cb) {
 
     var ratingSummaryArray = [];
     for (var i = 0; i < 3; i++) {
-        ratingSummaryArray.push($('.details_tab .table_section .row .barChart .row.part').children('.ui_bubble_rating')[i].attribs.alt.replace(' of 5 bubbles', ''));
+        ratingSummaryArray.push(selector('.details_tab .table_section .row .barChart .row.part').children('.ui_bubble_rating')[i].attribs.alt.replace(' of 5 bubbles', ''));
     }
     restaurant.ratingSummary = {};
     restaurant.ratingSummary.food = ratingSummaryArray[0];
@@ -189,15 +185,15 @@ function filterData($, cb) {
     restaurant.ratingSummary.value = ratingSummaryArray[2];
 
     restaurant['userReviews'] = [];
-    $('DIV.ppr_rup.ppr_priv_location_reviews_container .review.hsx_review').each(function (index, el, callback) {
+    selector('DIV.ppr_rup.ppr_priv_location_reviews_container .review.hsx_review').each(function (index, el, callback) {
         var userReview = {};
-        var bg = $(el).find('DIV.prw_rup.prw_common_centered_image .imgWrap.fixedAspect .centeredImg').html();
-        userReview.userName = $(el).find('DIV.prw_rup.prw_reviews_member_info_hsx .username .scrname').text();
-        userReview.quote = $(el).find('.noQuotes').text();
-        userReview.date = $(el).find('.ratingDate').attr('title');
-        userReview.reviewText = $(el).find('DIV.prw_rup.prw_reviews_text_summary_hsx .entry .partial_entry').text();
+        var bg = selector(el).find('DIV.prw_rup.prw_common_centered_image .imgWrap.fixedAspect .centeredImg').html();
+        userReview.userName = selector(el).find('DIV.prw_rup.prw_reviews_member_info_hsx .username .scrname').text();
+        userReview.quote = selector(el).find('.noQuotes').text();
+        userReview.date = selector(el).find('.ratingDate').attr('title');
+        userReview.reviewText = selector(el).find('DIV.prw_rup.prw_reviews_text_summary_hsx .entry .partial_entry').text();
 
-        userReview.userId = $(el).find('.memberOverlayLink').attr('id').replace('UID_', '').split('-');
+        userReview.userId = selector(el).find('.memberOverlayLink').attr('id').replace('UID_', '').split('-');
         // userReview.data = userDetail(userReview.userId[0], function(data) {
         // userReview.userProfile = data
         // });

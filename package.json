@@ -8,6 +8,7 @@
     "express": "^4.10.8",
     "fb": "^2.0.0",
     "mongodb": "^2.2.30",
+    "node-instagram": "^3.0.0",
     "node-zomato": "^1.0.3",
     "request": "^2.81.0",
     "request-promise": "^4.2.1"

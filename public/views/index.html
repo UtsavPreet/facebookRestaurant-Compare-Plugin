@@ -18,7 +18,11 @@
     <div class="mainContainer">
          <div class="pageContainer">
              <div class="topBar">
-                 <textarea class="searchField" placeholder="Enter Restaurant's Name'"></textarea>
+                 <textarea class="searchField zomato" placeholder="Zomato ID" value="18306530"></textarea>
+                  <textarea class="searchField facebook" placeholder="Facebook ID" value="circusnewdelhi"></textarea>
+                   <textarea class="searchField tripAdvisor" placeholder="TripAdvisor URL" value="https://www.tripadvisor.in/Restaurant_Review-g304551-d10236428-Reviews-Circus-New_Delhi_National_Capital_Territory_of_Delhi.html"></textarea>
+                    <textarea class="searchField instagram" placeholder="Instagram URL" value=""></textarea>
+                     <textarea class="searchField google" placeholder="Google Place URL"></textarea>
                     <div class="addButton">
                        Add Restaurant 
                     </div>
@@ -284,6 +288,40 @@
                             </div>
                             <div class="stat">
                                 {{:trip.ratingSummary.value}} Value
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contentRow">
+                        <div class="content">
+                            Zomato
+                        </div>
+                    </div>
+                    <div class="contentRow">
+                        <div class="content">
+                             Average Cost: {{:zomato.average_cost_for_two}}
+                        </div>
+                    </div>
+                    <div class="contentRow">
+                        <div class="content">
+                             cuisines: {{:zomato.average_cost_for_two}}
+                        </div>
+                    </div>
+                    <div class="contentRow">
+                        <div class="content">
+                             {{:zomato.userReview.reviews_count}} Reviews
+                        <img src="../images/menu.svg" class="more" alt="">
+                        </div>
+                    </div>
+                    <div class="contentRow">
+                        <div class="contentEvent">
+                            <div class="text">
+                            User Rating: {{:zomato.user_rating.rating_text}}
+                            </div>
+                             <div class="stat">
+                                {{:zomato.user_rating.aggregate_rating}}
+                            </div>
+                            <div class="stat">
+                                {{:zomato.user_rating.votes}} Votes
                             </div>
                         </div>
                     </div>

@@ -8,6 +8,8 @@ const insta = new Instagram({
     clientSecret: '7334c875b68047bf848dc1227b7ef534',
     accessToken: '5878424501.01168d1.986f3aba49744a3bb74ec8472bd717f6',
 });
+
+var googleKey = 'AIzaSyDrCOoCxVK5kjPvkwZFYXbVzYgqXmyzWfo';
 var fb = require("fb")
 fb.setAccessToken('778609825679453|i_EEmwEy9_ZLUxcmnafb4-IuPXM');
 var mongo = require('mongodb').MongoClient;
@@ -162,7 +164,9 @@ function tripAdvisor(url) {
 
 
 
-function google(url) {}
+function google(pageId) {
+
+}
 
 function instagram(id) {}
 

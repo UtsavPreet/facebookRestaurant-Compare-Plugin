@@ -8,8 +8,10 @@ const insta = new Instagram({
     clientSecret: '7334c875b68047bf848dc1227b7ef534',
     accessToken: '5878424501.01168d1.986f3aba49744a3bb74ec8472bd717f6',
 });
-
 var googleKey = 'AIzaSyDrCOoCxVK5kjPvkwZFYXbVzYgqXmyzWfo';
+var GOOGLE_PLACES_OUTPUT_FORMAT = "json";
+var PlaceDetailsRequest = require('googleplaces');
+var placeDetailsRequest = new PlaceDetailsRequest(googleKey, GOOGLE_PLACES_OUTPUT_FORMAT);
 var fb = require("fb")
 fb.setAccessToken('778609825679453|i_EEmwEy9_ZLUxcmnafb4-IuPXM');
 var mongo = require('mongodb').MongoClient;
@@ -164,8 +166,12 @@ function tripAdvisor(url) {
 
 
 
-function google(pageId) {
-
+function google(placeId) {
+    placeDetailsRequest({placeid:placeId}, function (error, response) {
+            if (error) throw error;
+            console.log(response);
+        });
+        // https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJu0JRfF3iDDkRSxZZ66nJCmI&key=AIzaSyDrCOoCxVK5kjPvkwZFYXbVzYgqXmyzWfo
 }
 
 function instagram(id) {}
@@ -214,7 +220,7 @@ function filterData(selector, cb) {
         restaurant.userReviews.push(userReview);
     })
     tripAdvisorData = restaurant;
-        cb(restaurant);
+    cb(restaurant);
 }
 
 function getDate() {

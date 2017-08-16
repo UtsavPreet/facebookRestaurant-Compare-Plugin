@@ -2,12 +2,6 @@ var express = require('express');
 var app = express();
 var port = process.env.PORT || 8080;
 var bodyParser = require('body-parser');
-const Instagram = require('node-instagram').default;
-// const insta = new Instagram({
-//     clientId: '01168d11fa19484caf96adf0e57e539d',
-//     clientSecret: '7334c875b68047bf848dc1227b7ef534',
-//     accessToken: '5878424501.01168d1.986f3aba49744a3bb74ec8472bd717f6',
-// });
 var getAccountStats = require('instagram-scrape-account-stats').getAccountStats;
 var googleKey = 'AIzaSyDrCOoCxVK5kjPvkwZFYXbVzYgqXmyzWfo';
 var GOOGLE_PLACES_OUTPUT_FORMAT = "json";
@@ -17,6 +11,7 @@ var fb = require("fb")
 fb.setAccessToken('778609825679453|i_EEmwEy9_ZLUxcmnafb4-IuPXM');
 var mongo = require('mongodb').MongoClient;
 var async = require('async');
+var asyncP = require('async-promises');
 var moment = require('moment');
 var url = 'mongodb://localhost:27017/restaurant';
 const cheerio = require('cheerio');
@@ -40,14 +35,9 @@ mongo.connect(url, function (err, db) {
     console.log("connected");
     global.db = db;
 });
-var date = getDate();
 global.totalEvent = {};
 global.totalPost = {};
-var facebookData;
-var zomatoData;
-var tripAdvisorData;
-var googleData;
-var instagramData;
+var restaurantObj = {};
 app.post('/fetchData', function (req, resp) {
     var arr = [];
     for (var key in req.body) {
@@ -58,27 +48,21 @@ app.post('/fetchData', function (req, resp) {
             });
     }
 
-    async.forEachSeries(arr, function (item, cb) {
-        eval(item.key)(item.id).then(function (r1) {
-            cb();
-        })
-    }, function () {
-        saveToDB(function () {
-            {
-                global.db.collection("restaurantData").find({}).toArray(function (err, result) {
-                    resp.send(result);
-                })
-            }
-            console.log('All Data Saved');
-
+    async.parallel(
+        [
+            zomato.bind(null, req.body.zomato), facebook.bind(null, req.body.facebook), tripAdvisor.bind(null, req.body.tripAdvisor), google.bind(null, req.body.google), instagram.bind(null, req.body.instagram)
+        ],
+        // optional callback
+        function (err, results) {
+            global.db.collection('restaurantData').save(restaurantObj);
+            global.db.collection('restaurantData').find({}).toArray(function(err,result){
+                resp.send(result);
+            })
         });
-
-    })
-
 });
 
-function zomato(id) {
-    return new Promise(function (res, rej) {
+function zomato(id, res) {
+    setTimeout(function () {
         api.verify(function (isVerified) {
             console.log(isVerified);
             if (isVerified === false) {
@@ -90,41 +74,44 @@ function zomato(id) {
                 'user-key': key,
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            url: addUrlParam('search', "q", id),
+            url: addUrlParam('restaurant', "res_id", id),
             method: 'GET',
-        }, function (err, response) {
+        }, function (err, resp) {
             if (err)
                 throw (err);
             else {
-                var x = JSON.parse(response.body);
-                // restaurantId = (x.restaurants[0].restaurant.id);
-
+                var x = JSON.parse(resp.body);
                 request({
                     headers: {
                         'user-key': key,
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },
-                    url: addUrlParam('reviews', "res_id", id),
+                    url: addUrlParam('reviews', "res_id", '18306530'),
                     method: 'GET'
                 }, function (err, resp1) {
                     if (err)
                         throw (err);
-
-                    x.restaurants[0].restaurant.userReview = JSON.parse(resp1.body);
-                    zomatoData = x.restaurants[0].restaurant;
-                    res();
+                    x.userReview = JSON.parse(resp1.body);
+                    restaurantObj = {
+                        _id: x.id,
+                        nDay: parseInt(moment().format('YYYYMMDD')),
+                        fetchedAt: new Date().getTime()
+                    }
+                    restaurantObj.zomato = x;
+                    res(null, restaurantObj.zomato);
                 })
             }
         })
-    })
+
+    }, 5000);
 }
 
-function facebook(facebookID) {
-    return new Promise(function (res, rej) {
+function facebook(id, res) {
+    setTimeout(function () {
         fb.api('', 'post', {
             batch: [{
                 method: 'get',
-                relative_url: facebookID + '?fields=name_with_location_descriptor,picture,location,talking_about_count,checkins,fan_count,overall_star_rating,about,cover,feed{name,id,created_time,shares,likes.limit(0).summary(true),comments.limit(0).summary(true),message.limit(0).summary(true),reactions.limit(0).summary(true),status_type},events.limit(10){name,description,attending_count,cover,declined_count,start_time,interested_count}&since=2017-08-06&until=2017-08-07'
+                relative_url: id + '?fields=name_with_location_descriptor,picture,location,talking_about_count,checkins,fan_count,overall_star_rating,about,cover,feed{name,id,created_time,shares,likes.limit(0).summary(true),comments.limit(0).summary(true),message.limit(0).summary(true),reactions.limit(0).summary(true),status_type},events.limit(10){name,description,attending_count,cover,declined_count,start_time,interested_count}&since=2017-08-06&until=2017-08-07'
             }, ]
         }, function (res1) {
             res0 = JSON.parse(res1[0].body);
@@ -150,33 +137,34 @@ function facebook(facebookID) {
                 global.totalEvent.attendingCount += res0.events.data[i].attending_count;
             }
             res0.totalEvent = totalEvent;
-            facebookData = res0;
-            res(facebookData);
-
+            restaurantObj.facebook = res0;
+            res(null, restaurantObj.facebook);
         });
-    })
+    }, 5000);
+
+
 }
 
-function tripAdvisor(url) {
-    return new Promise(function (res, rej) {
+function tripAdvisor(url, res) {
+    setTimeout(function () {
         var selector;
         request(url, function (err, res1, html) { //url 
             if (!err && res1.statusCode == 200) {
                 selector = cheerio.load(html);
                 filterData(selector, function (r1) {
-                    tripAdvisorData = r1;
-                    res(tripAdvisorData);
+                    restaurantObj.tripAdvisor = r1;
+                    res(null, restaurantObj.tripAdvisor);
                 });
 
             }
         })
-    })
+    }, 5000);
+
 }
 
-
-
-function google(placeId) {
-    return new Promise(function (res, rej) {
+function google(placeId, res) {
+    var googleData;
+    setTimeout(function () {
         var $;
         placeDetailsRequest({
             placeid: placeId
@@ -188,28 +176,34 @@ function google(placeId) {
                     $ = cheerio.load(html);
                     googlefilterData($, function (r1) {
                         googleData.userReviewCount = r1;
-                        res(googleData);
-                        console.log(googleData);
+                        restaurantObj.google = googleData;
                     });
 
                 }
             })
+            res(null, restaurantObj.google);
         });
-    })
-    // https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJu0JRfF3iDDkRSxZZ66nJCmI&key=AIzaSyDrCOoCxVK5kjPvkwZFYXbVzYgqXmyzWfo
+
+    }, 5000);
+
+
 }
 
-function instagram(userName) {
-    getAccountStats({
-        username: userName
-    }).then(function (account) {
-        instagramData = account;
-    });
-}
+function instagram(userName, res) {
+    setTimeout(function () {
+        getAccountStats({
+            username: userName
+        }).then(function (account) {
+            restaurantObj.instagram = account;
+            res(null, restaurantObj.instagram);
+        });
+
+    }, 5000);
+};
 
 function googlefilterData($, cb) {
     var reviewCount;
-    reviewCount = $('button.section-reviewchart-numreviews').innerText;
+    reviewCount = $('.section-reviewchart-numreviews').text();
     cb(reviewCount);
 }
 
@@ -259,24 +253,6 @@ function filterData(selector, cb) {
     cb(restaurant);
 }
 
-function getDate() {
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth() + 1; //January is 0!
-    var yyyy = today.getFullYear();
-
-    if (dd < 10) {
-        dd = '0' + dd
-    }
-
-    if (mm < 10) {
-        mm = '0' + mm
-    }
-
-    today = yyyy + '/' + mm + '/' + dd;
-    return today;
-}
-
 function addUrlParam(search, key, value) {
     var url = 'https://developers.zomato.com/api/v2.1/' + search;
     var newParam = key + "=" + value;
@@ -289,25 +265,6 @@ function addUrlParam(search, key, value) {
     if (result == ("https://developers.zomato.com/api/v2.1/search?q=" + value))
         result = result + '&count=1&entity_id=1';
     return result;
-}
-
-function saveToDB(cb) {
-
-    var obj = {
-        _id: new Date().getTime(),
-        nDay: parseInt(moment().format('YYYYMMDD')),
-        fetchedAt: new Date().getTime()
-    };
-
-    facebookData != undefined ? obj.fb = facebookData : '';
-    zomatoData != undefined ? obj.zomato = zomatoData : '';
-    tripAdvisorData != undefined ? obj.trip = tripAdvisorData : '';
-    googleData != undefined ? obj.google = googleData : '';
-    instagramData != undefined ? obj.insta = instagramData : '';
-
-    global.db.collection("restaurantData").save(obj, function (r) {
-        cb(r);
-    });
 }
 app.listen(port);
 console.log('Server started! At http://localhost:' + port);

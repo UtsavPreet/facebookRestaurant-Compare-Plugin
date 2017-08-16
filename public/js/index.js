@@ -10,11 +10,8 @@ bind('.mainContainer .pageContainer .topBar .addButton', function () {
     searchData.instagram = $('.instagram').val().trim();
     searchData.google = $('.google').val().trim();
     execute('fetchData',searchData,function(data){
+        console.log(data);
         rb('.mainContainer .card','data',data);
     })
     console.log(searchData);
 })
-
-// httpsAIzaSyDrCOoCxVK5kjPvkwZFYXbVzYgqXmyzWfo://www.google.com/maps?cid=7064680697119184459
-
-// API Key = 

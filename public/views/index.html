@@ -16,13 +16,26 @@
 
 <body>
     <div class="mainContainer">
+        <div class="menuContainer">
+            <div class="menuItemContainer">
+                <div class="menuItem">
+                    Facebook
+                    <div class="option">
+                        Post Stats
+                    </div>
+                    <div class="option">
+                        Event Stats
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="pageContainer">
             <div class="topBar">
                 <textarea class="searchField zomato" placeholder="Zomato ID"></textarea>
                 <textarea class="searchField facebook" placeholder="Facebook ID"></textarea>
                 <textarea class="searchField tripAdvisor" placeholder="TripAdvisor URL"></textarea>
-                <textarea class="searchField instagram" placeholder="Instagram URL"></textarea>
-                <textarea class="searchField google" placeholder="Google Place URL"></textarea>
+                <textarea class="searchField instagram" placeholder="Instagram ID"></textarea>
+                <textarea class="searchField google" placeholder="Google Place ID"></textarea>
                 <div class="addButton">
                     Add Restaurant
                 </div>
@@ -35,152 +48,118 @@
     </div>
 
 </body>
-
-<!--{^{for feed.data[2]}}
-                <div class="feature">{{:name}}</div>
-                <div class="feature">{{:status_type}}</div>
-                <div class=feature>{{:created_time}}</div>
-                <div class=feature>{{:likes.summary.total_count}}</div>
-                <div class=feature>{{:comments.summary.total_count}}</div>
-                <div class=feature>{{:reactions.summary.total_count}}</div>
-                {{/for}}-->
-
-<!--LIST TEMPLATE-->
-<!--<script id="emptyTemplate" type="text/x-jsrender">
-    <div class="emptyContainer">
-        <div class="header">{{:name}} events</div>
-        <img src="../images/event.png" class="eventImage">
-        <div class="emptyText">
-            No event record's found</div>
-    </div>
-</script>-->
-
-
-<!--<script id="restaurantsTemplate" type="text/x-jsrender">
-    <div class="leftPanel">
-        <div class="features">
-            <div class="feature">checkins</div>
-            <div class="feature">fancount</div>
-            <div class="feature">Average Rating</div>
-            <div class="feature rating">People Talking About</div>
-            <div class="feature subHeading">Event</div>
-            <div class="feature">Total Events</div>
-            <div class="feature">View All</div>
-            <div class="feature subHeading">Posts</div>
-            <div class="feature">Total Post</div>
-            <div class="feature">View All</div>
-        </div>
-    </div>
-    <div class="rightPanel">
-        {^{for restaurants}}
-        <div class="column">
-            <div class="header">{{:name_with_location_descriptor}}</div>
-            <div class="features">
-                <div class="feature checkings">{{:checkins}}</div>
-                <div class="feature fancount">{{:fan_count}}</div>
-                <div class="feature rating">{{:overall_star_rating}}</div>
-                <div class="feature rating">{{:talking_about_count}}</div>
-                <div class="feature subHeading"></div>
-                <div class="feature">{{:events.totalEvents}}</div>
-                <div class="feature events">Click Here</div>
-
-                <div class="feature subHeading"></div>
-                <div class="feature">{{:feed.totalPost}}</div>
-                
-                <div class="feature post">Click</div>
+<script id="dataTemplate" type="text/x-jsrender">
+    <div class="columnContainer">
+        
+        <div class="contentRow">
+            <div class="number">
+                1
             </div>
-        </div>
-        {{/for}}
+            <div class="page">
 
-        <div class="addButton">+</div>
-    </div>
-    <div class="eventContainerBlock"></div>
-    <div class="addRestaurantContainer"></div>
-</script>-->
-<!-- <script id="eventTemplate" type="text/x-jsrender">
-    <div class="eventOverlay"></div>
-    <div class="eventContainer">
-        {^{for data}}
-        <div class="customerevent">
-            <div class="eventTitle">{{:name}}</div>
-            <div class="eventDate">Date: {{:start_time}}</div>
-            <div class="eventDiscription">{{:description}}</div>
-            <div class="event Attending">People Attending: {{:attending_count}}</div>
-            <div class="event Interested">People Interested: {{:interested_count}}</div>
-        </div>
-        {{/for}}
-    </div>
-</script> 
-<div class="header">
-            <div class="name">
-                Date
-            </div>
-            <div class="name">
-                Default
-            </div>
-        </div>-->
-<!--<script id="eventTemplate" type="text/x-jsrender">
-    <div class="eventOverlay">
-    </div>
-    <div class="eventPopup">
-        <div class="dateContainer">
-            {^{for days}}
-            <div class="date">
-                <div class="month">
-                    AUG
-                </div>
-                <div class="day">
-                    {{:day}}
+                <img src={{:facebook.picture.data.url}} class="pagePicture" alt="">
+                <div class="pageName">
+                    {{:facebook.name_with_location_descriptor}}
                 </div>
             </div>
-            {{/for}}
         </div>
-        <div class="rightPanel">
-            {^{for data}}
-            <div class="column">
-                <div class="header">
-                    <div class="name">
-                        {{:name}}
-                    </div>
+        
+        <div class="contentRow">
+            <div class="content">
+                {{:facebook.overall_star_rating}}
+            </div>
+        </div>
+
+        <div class="contentRow">
+            <div class="content">
+                {{:facebook.fan_count}}
+            </div>
+        </div>
+
+        <div class="contentRow">
+
+            <div class="contentEvent">
+                <div class="text">
+                    {{:facebook.totalEvent.count}} Events
                 </div>
-                <div class="detail">
-                    {^{for events}}
-                    <div class="eventDetail">
-                        <div class="eventName">
-                            {{:name}}
-                        </div>
-                        <div class="Stats">
-                            <div class="stat">
-                                {{:attending_count}} Guests
-                            </div>
-                        </div>
-                    </div>
-                    {{/for}}
+                <div class="stat">
+                    {{:facebook.totalEvent.attendingCount}} Guests
+                </div>
+                <img src="../images/menu.svg" class="more" alt="">
+
+            </div>
+        </div>
+        <div class="contentRow">
+            <div class="contentEvent">
+                <div class="text">
+                    {{:facebook.totalPost.count}} Posts
+                </div>
+                <div class="stat">
+                    {{:facebook.totalPost.likes}} Likes
+                </div>
+                <div class="stat">
+                    {{:facebook.totalPost.comments}}Comments
+                </div>
+                <div class="stat">
+                    {{:facebook.totalPost.shares}} Shares
+                </div>
+                <div class="stat">
+                    {{:facebook.totalPost.reactions}} Reactions
+                </div>
+                <img src="../images/menu.svg" class="more" alt="">
+
+            </div>
+        </div>
+        <div class="contentRow">
+            <div class="content">
+                TripAdvisor
+            </div>
+        </div>
+        <div class="contentRow">
+            <div class="content">
+                Ranked {{:tripAdvisor.ranking}}<sup>th</sup>
+            </div>
+        </div>
+        <div class="contentRow">
+            <div class="contentEvent">
+                <div class="text">
+                    {{:tripAdvisor.totalReview}}
+                </div>
+                <div class="stat">
+                    {{:tripAdvisor.reviewDetail.excellent}} excellent
+                </div>
+                <div class="stat">
+                    {{:tripAdvisor.reviewDetail.veryGood}} veryGood
+                </div>
+                <div class="stat">
+                    {{:tripAdvisor.reviewDetail.average}} average
+                </div>
+                <div class="stat">
+                    {{:tripAdvisor.reviewDetail.poor}} poor
+                </div>
+                <div class="stat">
+                    {{:tripAdvisor.reviewDetail.terrible}} terrible
+                </div>
+
+            </div>
+        </div>
+        <div class="contentRow">
+            <div class="contentEvent">
+                <div class="text">
+                    Rating {{:tripAdvisor.rating}}
+                </div>
+                <div class="stat">
+                    {{:tripAdvisor.ratingSummary.food}} food
+                </div>
+                <div class="stat">
+                    {{:tripAdvisor.ratingSummary.service}} service
+                </div>
+                <div class="stat">
+                    {{:tripAdvisor.ratingSummary.value}} Value
                 </div>
             </div>
-            {{/for}}
         </div>
-    </div>
-//zomato
-    <div class="contentRow blank">
-                    </div>
-                    
-                    <div class="contentRow">
-                        <div class="content">
-                           {{:zomato.dummyReviewText}}
-                        </div>
-                    </div>
-
-                    <div class="contentRow">
-                        <div class="contentEvent">
-                            <div class="text">
-                                {{:zomato.totalReviews}}Reviews
-                            </div>
-                             <img src="../images/menu.svg" class="more" alt="">
-                        </div>
-                        
-                    </div>
-                    <div class="contentRow">
+        <div class="contentRow">
             <div class="content">
                 Zomato
             </div>
@@ -214,116 +193,56 @@
                 </div>
             </div>
         </div>
-
-</script>-->
-<script id="dataTemplate" type="text/x-jsrender">
-    <div class="columnContainer">
         <div class="contentRow">
-            <div class="number">
-                1
-            </div>
-            <div class="page">
-
-                <img src={{:fb.picture.data.url}} class="pagePicture" alt="">
-                <div class="pageName">
-                    {{:fb.name_with_location_descriptor}}
-                </div>
+            <div class="content">
+                Google
             </div>
         </div>
         <div class="contentRow">
             <div class="content">
-                {{:fb.overall_star_rating}}
+               Rating: {{:google.rating}}
             </div>
         </div>
         <div class="contentRow">
             <div class="content">
-                {{:fb.fan_count}}
+               Rating: {{:google.rating}}
             </div>
         </div>
-
         <div class="contentRow">
-
             <div class="contentEvent">
-                <div class="text">
-                    {{:fb.totalEvent.count}} Events
-                </div>
-                <div class="stat">
-                    {{:fb.totalEvent.attendingCount}} Guests
-                </div>
-                <img src="../images/menu.svg" class="more" alt="">
-
+               <div class="text">
+                   Type
+               </div>
+               {{for types}}
+               <div class="stat">
+                   {{:#getIndex()}}
+               </div>
+               {{/for}}
+            </div>
+        </div>
+        <div class="contentRow">
+            <div class="content">
+                instagramgram
             </div>
         </div>
         <div class="contentRow">
             <div class="contentEvent">
                 <div class="text">
-                    {{:fb.totalPost.count}} Posts
+                     Stats
                 </div>
-                <div class="stat">
-                    {{:fb.totalPost.likes}} Likes
-                </div>
-                <div class="stat">
-                    {{:fb.totalPost.comments}}Comments
-                </div>
-                <div class="stat">
-                    {{:fb.totalPost.shares}} Shares
-                </div>
-                <div class="stat">
-                    {{:fb.totalPost.reactions}} Reactions
-                </div>
-                <img src="../images/menu.svg" class="more" alt="">
+               <div class="stat">
+                   {{:instagram.followers}} Followers
+               </div>
+               <div class="stat">
+                   {{:instagram.following}} Following
+               </div>
+               <div class="stat">
+                   {{:instagram.posts}} Posts
+               </div>
+            </div>
 
-            </div>
         </div>
-        <div class="contentRow">
-            <div class="content">
-                TripAdvisor
-            </div>
-        </div>
-        <div class="contentRow">
-            <div class="content">
-                Ranked {{:trip.ranking}}<sup>th</sup>
-            </div>
-        </div>
-        <div class="contentRow">
-            <div class="contentEvent">
-                <div class="text">
-                    {{:trip.totalReview}}
-                </div>
-                <div class="stat">
-                    {{:trip.reviewDetail.excellent}} excellent
-                </div>
-                <div class="stat">
-                    {{:trip.reviewDetail.veryGood}} veryGood
-                </div>
-                <div class="stat">
-                    {{:trip.reviewDetail.average}} average
-                </div>
-                <div class="stat">
-                    {{:trip.reviewDetail.poor}} poor
-                </div>
-                <div class="stat">
-                    {{:trip.reviewDetail.terrible}} terrible
-                </div>
 
-            </div>
-        </div>
-        <div class="contentRow">
-            <div class="contentEvent">
-                <div class="text">
-                    Rating {{:trip.rating}}
-                </div>
-                <div class="stat">
-                    {{:trip.ratingSummary.food}} food
-                </div>
-                <div class="stat">
-                    {{:trip.ratingSummary.service}} service
-                </div>
-                <div class="stat">
-                    {{:trip.ratingSummary.value}} Value
-                </div>
-            </div>
-        </div>
     </div>
 </script>
 

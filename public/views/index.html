@@ -17,25 +17,81 @@
 <body>
     <div class="mainContainer">
         <div class="menuContainer">
+            <img src="../images/logo-black.png" class="logo" alt="Logo">
             <div class="menuItemContainer">
                 <div class="menuItem">
                     Facebook
                     <div class="option">
-                        Post Stats
+                        Rating
                     </div>
                     <div class="option">
-                        Event Stats
+                        Total Likes
+                    </div>
+                    <div class="option">
+                        Event Stat
+                    </div>
+                    <div class="option">
+                        Post Stat
+                    </div>
+
+                </div>
+                <div class="menuItem">
+                    TripAdvisor
+                    <div class="option">
+                        Rank
+                    </div>
+                    <div class="option">
+                        Review
+                    </div>
+                    <div class="option">
+                        Rating
                     </div>
                 </div>
+                <div class="menuItem">
+                    Zomato
+                    <div class="option">
+                        Average Cost
+                    </div>
+                    <div class="option">
+                        cuisines
+                    </div>
+                    <div class="option">
+                        Reviews
+                    </div>
+                    <div class="option">
+                        User Rating
+                    </div>
+                </div>
+                <div class="menuItem">
+                    Google
+                    <div class="option">
+                        Rating
+                    </div>
+                    <div class="option">
+                        Type
+                    </div>
+                </div>
+                <div class="menuItem">
+                    Instagram
+                    <div class="option">
+                        Stats
+                    </div>
+                </div>
+
             </div>
         </div>
         <div class="pageContainer">
             <div class="topBar">
-                <textarea class="searchField zomato" placeholder="Zomato ID"></textarea>
-                <textarea class="searchField facebook" placeholder="Facebook ID"></textarea>
-                <textarea class="searchField tripAdvisor" placeholder="TripAdvisor URL"></textarea>
-                <textarea class="searchField instagram" placeholder="Instagram ID"></textarea>
-                <textarea class="searchField google" placeholder="Google Place ID"></textarea>
+                <input type="text" name="Zomato ID" value="18306530" class="searchField zomato">
+                <input type="text" name="Facebook ID" value="circusnewdelhi" class="searchField facebook">
+                <input type="text" name="TripAdvisor URL" value="https://www.tripadvisor.in/Restaurant_Review-g304551-d10236428-Reviews-Circus-New_Delhi_National_Capital_Territory_of_Delhi.html" class="searchField tripAdvisor">
+                <input type="text" name="Instagram ID" value="circus_newdelhi" class="searchField instagram">
+                 <input type="text" name="Google Page ID" value="ChIJu0JRfF3iDDkRSxZZ66nJCmI" class="searchField google">
+                <!--<textarea class="searchField zomato" value="18306530" placeholder="Zomato ID"></textarea>
+                <textarea class="searchField facebook" value="circusnewdelhi" placeholder="Facebook ID"></textarea>
+                <textarea class="searchField tripAdvisor" value="https://www.tripadvisor.in/Restaurant_Review-g304551-d10236428-Reviews-Circus-New_Delhi_National_Capital_Territory_of_Delhi.html" placeholder="TripAdvisor URL"></textarea>
+                <textarea class="searchField instagram" value="circus_newdelhi" placeholder="Instagram ID"></textarea>
+                <textarea class="searchField google" value="ChIJu0JRfF3iDDkRSxZZ66nJCmI" placeholder="Google Place ID"></textarea>-->
                 <div class="addButton">
                     Add Restaurant
                 </div>
@@ -50,20 +106,19 @@
 </body>
 <script id="dataTemplate" type="text/x-jsrender">
     <div class="columnContainer">
-        
-        <div class="contentRow">
-            <div class="number">
-                1
-            </div>
-            <div class="page">
 
+        <div class="contentRow">
+            <div class="page">
                 <img src={{:facebook.picture.data.url}} class="pagePicture" alt="">
                 <div class="pageName">
                     {{:facebook.name_with_location_descriptor}}
                 </div>
             </div>
         </div>
-        
+        <div class="contentRow blank">
+            <div class="content">
+            </div>
+        </div>
         <div class="contentRow">
             <div class="content">
                 {{:facebook.overall_star_rating}}
@@ -72,6 +127,7 @@
 
         <div class="contentRow">
             <div class="content">
+
                 {{:facebook.fan_count}}
             </div>
         </div>
@@ -79,18 +135,19 @@
         <div class="contentRow">
 
             <div class="contentEvent">
+               
                 <div class="text">
-                    {{:facebook.totalEvent.count}} Events
+                    {{:facebook.totalEvent.count}}
                 </div>
                 <div class="stat">
                     {{:facebook.totalEvent.attendingCount}} Guests
                 </div>
                 <img src="../images/menu.svg" class="more" alt="">
-
             </div>
         </div>
         <div class="contentRow">
             <div class="contentEvent">
+                
                 <div class="text">
                     {{:facebook.totalPost.count}} Posts
                 </div>
@@ -110,43 +167,41 @@
 
             </div>
         </div>
-        <div class="contentRow">
+        <div class="contentRow blank">
             <div class="content">
-                TripAdvisor
             </div>
         </div>
         <div class="contentRow">
             <div class="content">
-                Ranked {{:tripAdvisor.ranking}}<sup>th</sup>
+                
+                {{:tripAdvisor.ranking}}<sup>th</sup>
             </div>
         </div>
         <div class="contentRow">
             <div class="contentEvent">
+                
                 <div class="text">
                     {{:tripAdvisor.totalReview}}
                 </div>
                 <div class="stat">
-                    {{:tripAdvisor.reviewDetail.excellent}} excellent
+                    {{:tripAdvisor.reviewDetail.excellent}}% excellent
                 </div>
                 <div class="stat">
-                    {{:tripAdvisor.reviewDetail.veryGood}} veryGood
+                    {{:tripAdvisor.reviewDetail.veryGood}}% veryGood
                 </div>
                 <div class="stat">
-                    {{:tripAdvisor.reviewDetail.average}} average
+                    {{:tripAdvisor.reviewDetail.average}}% average
                 </div>
                 <div class="stat">
-                    {{:tripAdvisor.reviewDetail.poor}} poor
+                    {{:tripAdvisor.reviewDetail.poor}}% poor
                 </div>
-                <div class="stat">
-                    {{:tripAdvisor.reviewDetail.terrible}} terrible
-                </div>
-
             </div>
         </div>
         <div class="contentRow">
             <div class="contentEvent">
+               
                 <div class="text">
-                    Rating {{:tripAdvisor.rating}}
+                    {{:tripAdvisor.rating}}
                 </div>
                 <div class="stat">
                     {{:tripAdvisor.ratingSummary.food}} food
@@ -159,31 +214,36 @@
                 </div>
             </div>
         </div>
-        <div class="contentRow">
+        <div class="contentRow blank">
             <div class="content">
-                Zomato
             </div>
         </div>
         <div class="contentRow">
             <div class="content">
-                Average Cost: {{:zomato.average_cost_for_two}}
+                
+                {{:zomato.average_cost_for_two}}
             </div>
         </div>
         <div class="contentRow">
             <div class="content">
-                cuisines: {{:zomato.average_cost_for_two}}
+                
+                {{:zomato.average_cost_for_two}}
             </div>
         </div>
         <div class="contentRow">
-            <div class="content">
-                {{:zomato.userReview.reviews_count}} Reviews
+            <div class="contentEvent">
+               
+                <div class="text">
+                    {{:zomato.userReview.reviews_count}}
+                </div>
                 <img src="../images/menu.svg" class="more" alt="">
             </div>
         </div>
         <div class="contentRow">
             <div class="contentEvent">
+                
                 <div class="text">
-                    User Rating: {{:zomato.user_rating.rating_text}}
+                    {{:zomato.user_rating.rating_text}}
                 </div>
                 <div class="stat">
                     {{:zomato.user_rating.aggregate_rating}}
@@ -193,52 +253,47 @@
                 </div>
             </div>
         </div>
-        <div class="contentRow">
-            <div class="content">
-                Google
-            </div>
+        <div class="contentRow blank">
         </div>
         <div class="contentRow">
             <div class="content">
-               Rating: {{:google.rating}}
-            </div>
-        </div>
-        <div class="contentRow">
-            <div class="content">
-               Rating: {{:google.rating}}
+              
+                {{:google.rating}}
             </div>
         </div>
         <div class="contentRow">
             <div class="contentEvent">
-               <div class="text">
-                   Type
-               </div>
-               {{for types}}
-               <div class="stat">
-                   {{:#getIndex()}}
-               </div>
-               {{/for}}
-            </div>
-        </div>
-        <div class="contentRow">
-            <div class="content">
-                instagramgram
-            </div>
-        </div>
-        <div class="contentRow">
-            <div class="contentEvent">
+                
                 <div class="text">
-                     Stats
+                    Type
                 </div>
-               <div class="stat">
-                   {{:instagram.followers}} Followers
-               </div>
-               <div class="stat">
-                   {{:instagram.following}} Following
-               </div>
-               <div class="stat">
-                   {{:instagram.posts}} Posts
-               </div>
+                {{for google.types}}
+                <div class="stat">
+                    {{:#getIndex()}}
+                </div>
+                {{/for}}
+            </div>
+        </div>
+        <div class="contentRow blank">
+            <div class="content">
+
+            </div>
+        </div>
+        <div class="contentRow">
+            <div class="contentEvent">
+                
+                <div class="text">
+                    Stats
+                </div>
+                <div class="stat">
+                    {{:instagram.followers}} Followers
+                </div>
+                <div class="stat">
+                    {{:instagram.following}} Following
+                </div>
+                <div class="stat">
+                    {{:instagram.posts}} Posts
+                </div>
             </div>
 
         </div>

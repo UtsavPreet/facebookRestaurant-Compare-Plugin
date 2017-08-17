@@ -55,7 +55,7 @@ app.post('/fetchData', function (req, resp) {
         // optional callback
         function (err, results) {
             global.db.collection('restaurantData').save(restaurantObj);
-            global.db.collection('restaurantData').find({}).toArray(function(err,result){
+            global.db.collection('restaurantData').find({}).toArray(function (err, result) {
                 resp.send(result);
             })
         });

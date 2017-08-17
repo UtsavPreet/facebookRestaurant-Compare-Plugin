@@ -210,12 +210,20 @@ body {
         background-color: #E9EBEE;
         top: 0;
         bottom: 0;
+        .logo {
+            position: absolute;
+            padding: 0.5rem;
+            left: 50%;
+            height: 5rem;
+            transform: translateX(-50%);
+        }
         .menuItemContainer {
             position: absolute;
-            top: 7rem;
+            top: 8.6rem;
             bottom: 0;
             left: 2rem;
             right: 2rem;
+            overflow: scroll;
             .menuItem {
                 position: relative;
                 min-height: 2rem;
@@ -223,15 +231,14 @@ body {
                 padding-left: 1rem;
                 font-size: 1.4rem;
                 padding: 0.7rem 0.8rem;
+                padding-bottom: 0;
+                font-weight: 400;
                 .option {
                     position: relative;
-                    height: 2rem;
-                    line-height: 2rem;
+                    height: 3rem;
+                    line-height: 3rem;
                     padding-left: 1rem;
-                    padding-top: 1rem;
-                }
-                &:hover {
-                    background: rgba(0, 0, 0, .05);
+                    font-weight: 300;
                 }
             }
             .active {
@@ -260,10 +267,8 @@ body {
                 height: 3rem;
                 line-height: 3rem;
                 color: black;
-                
                 padding-bottom: 0.1rem;
                 padding-left: 1rem;
-             
                 font-size: 1.2rem;
                 border-radius: 0.2rem;
                 overflow: none;
@@ -313,19 +318,19 @@ body {
         }
         .card {
             position: absolute;
-            top: 6rem;
+            top: 6.5rem;
             min-height: 30rem;
-            max-height: 60rem;
+            max-height: 58rem;
             left: 2rem;
             right: 2rem;
             background-color: white;
-            overflow-y: scroll;
             .columnContainer {
                 position: relative;
                 float: left;
-                height: auto;
+                height: 58rem;
                 max-width: 50rem;
                 border-right: 0.1rem solid #D3D7DC;
+                overflow-y: scroll;
                 .fieldsBar {
                     position: relative;
                     height: 3rem;
@@ -344,8 +349,8 @@ body {
                 .contentRow {
                     position: relative;
                     float: left;
-                    height: 4rem;
-                    line-height: 4rem;
+                    height: 3rem;
+                    line-height: 3rem;
                     width: 100%;
                     border-bottom: 0.1rem solid #D3D7DC;
                     .number {
@@ -363,7 +368,7 @@ body {
                         .pagePicture {
                             position: relative;
                             padding-top: 0.5rem;
-                            height: 3rem;
+                            height: 2rem;
                             float: left;
                         }
                         .pageName {
@@ -378,17 +383,25 @@ body {
                         position: relative;
                         font-size: 1.4rem;
                         padding-left: 1rem;
-                        text-align: center;
+                        text-align: left;
                         .more {
                             position: relative;
                             float: left;
                             padding-left: 1rem;
-                            height: 3rem;
+                            height: 2rem;
                             padding-top: 0.5rem;
+                        }
+                        .option {
+                            position: relative;
+                            float: left;
                         }
                     }
                     .contentEvent {
                         .content();
+                        .option {
+                            position: relative;
+                            float: left;
+                        }
                         .text {
                             position: relative;
                             float: left;
@@ -408,14 +421,20 @@ body {
                             position: relative;
                             float: left;
                             padding-left: 1rem;
-                            height: 3rem;
+                            height: 2rem;
                             padding-top: 0.5rem;
                         }
                     }
                 }
                 .blank {
-                    height: 1rem;
-                    border: none;
+                    height: 2.2rem;
+                }
+                .fixed {
+                    position: fixed;
+                    z-index: 3;
+                    background-color: white;
+                    width: inherit;
+                    height: inherit;
                 }
             }
         }

@@ -39,26 +39,21 @@ global.totalEvent = {};
 global.totalPost = {};
 var restaurantObj = {};
 app.post('/fetchData', function (req, resp) {
-    var arr = [];
-    for (var key in req.body) {
-        if (key != '' && req.body[key] != '')
-            arr.push({
-                key: key,
-                id: req.body[key]
-            });
-    }
-
-    async.parallel(
-        [
-            zomato.bind(null, req.body.zomato), facebook.bind(null, req.body.facebook), tripAdvisor.bind(null, req.body.tripAdvisor), google.bind(null, req.body.google), instagram.bind(null, req.body.instagram)
-        ],
-        // optional callback
-        function (err, results) {
-            global.db.collection('restaurantData').save(restaurantObj);
-            global.db.collection('restaurantData').find({}).toArray(function (err, result) {
-                resp.send(result);
-            })
-        });
+    global.db.collection('restaurantData').find({}).toArray(function (err, result) {
+        resp.send(result);
+    })
+    // async.parallel(
+    //     [
+    //         zomato.bind(null, req.body.zomato), facebook.bind(null, req.body.facebook), tripAdvisor.bind(null, req.body.tripAdvisor), google.bind(null, req.body.google), instagram.bind(null, req.body.instagram)
+    //     ],
+    //     // optional callback
+    //     function (err, results) {
+    //     global.db.collection('restaurantData').save(restaurantObj);
+    //         console.log("data saved");
+    //         global.db.collection('restaurantData').find({}).toArray(function (err, result) {
+    //             resp.send(result);
+    //         })
+    //     });
 });
 
 function zomato(id, res) {
@@ -86,7 +81,7 @@ function zomato(id, res) {
                         'user-key': key,
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },
-                    url: addUrlParam('reviews', "res_id", '18306530'),
+                    url: addUrlParam('reviews', "res_id", id),
                     method: 'GET'
                 }, function (err, resp1) {
                     if (err)
@@ -225,14 +220,14 @@ function filterData(selector, cb) {
     restaurant.reviewDetail.poor = reviewDetail[3];
     restaurant.reviewDetail.terrible = reviewDetail[4];
 
-    var ratingSummaryArray = [];
-    for (var i = 0; i < 3; i++) {
-        ratingSummaryArray.push(selector('.details_tab .table_section .row .barChart .row.part').children('.ui_bubble_rating')[i].attribs.alt.replace(' of 5 bubbles', ''));
-    }
-    restaurant.ratingSummary = {};
-    restaurant.ratingSummary.food = ratingSummaryArray[0];
-    restaurant.ratingSummary.service = ratingSummaryArray[1];
-    restaurant.ratingSummary.value = ratingSummaryArray[2];
+    // var ratingSummaryArray = [];
+    // for (var i = 0; i < 3; i++) {
+    //     ratingSummaryArray.push(selector('.details_tab .table_section .row .barChart .row.part').children('.ui_bubble_rating')[i].attribs.alt.replace(' of 5 bubbles', ''));
+    // }
+    // restaurant.ratingSummary = {};
+    // restaurant.ratingSummary.food = ratingSummaryArray[0];
+    // restaurant.ratingSummary.service = ratingSummaryArray[1];
+    // restaurant.ratingSummary.value = ratingSummaryArray[2];
 
     restaurant['userReviews'] = [];
     selector('DIV.ppr_rup.ppr_priv_location_reviews_container .review.hsx_review').each(function (index, el, callback) {

@@ -3,7 +3,7 @@ $('document').ready(function () {
     makeTemplates();
 })
 
-bind('.mainContainer .pageContainer .topBar .addButton', function () {
+bind('.mainContainer .topBar .addButton', function () {
     searchData.zomato = $('.zomato').val().trim();
     searchData.facebook = $('.facebook').val().trim();
     searchData.tripAdvisor = $('.tripadvisor').val().trim();

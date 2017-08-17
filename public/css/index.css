@@ -2,6 +2,7 @@ html {
   font-size: 10px;
   font-family: 'Montserrat', sans-serif;
   font-weight: 300;
+  background-color: #E9EBEE;
 }
 body {
   margin: 0px;
@@ -17,7 +18,6 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: #20282D;
 }
 .mainContainer .eventContainerBlock {
   position: absolute;
@@ -143,127 +143,32 @@ body {
   color: black;
   font-weight: 300;
 }
-.mainContainer .eventPopup .rightPanel {
-  position: absolute;
-  left: 7rem;
-}
-.mainContainer .eventPopup .rightPanel .column {
-  position: relative;
-  float: left;
-  height: auto;
-  width: 26rem;
-  border-right: 0.1rem solid black !important;
-}
-.mainContainer .eventPopup .rightPanel .column .header {
-  position: relative;
-  height: 5rem;
-  line-height: 5rem;
-  width: 100%;
-  background: #FFFFFF;
-  border-bottom: 0.1rem solid #91959D;
-}
-.mainContainer .eventPopup .rightPanel .column .header .name {
-  position: relative;
-  font-size: 1.6rem;
-  height: 3rem;
-  float: left;
-  padding-left: 1.5rem;
-  text-transform: capitalize;
-}
-.mainContainer .eventPopup .rightPanel .column .detail {
-  position: relative;
-  margin: 1rem;
-  height: 100%;
-  width: 100%;
-}
-.mainContainer .eventPopup .rightPanel .column .detail .eventDetail {
-  position: relative;
-  height: 6rem;
-  float: left;
-}
-.mainContainer .eventPopup .rightPanel .column .detail .eventDetail .eventName {
-  position: relative;
-  font-size: 1.4rem;
-  font-weight: 400;
-  color: #4b4f56;
-  text-align: left;
-}
-.mainContainer .eventPopup .rightPanel .column .detail .eventDetail .stats {
-  position: relative;
-  height: 2rem;
-  line-height: 2rem;
-}
-.mainContainer .eventPopup .rightPanel .column .detail .eventDetail .stats .stat {
-  position: relative;
-  font-size: 1.2rem;
-  color: #90949c;
-  text-align: left;
-  font-weight: 400;
-}
-.mainContainer .menuContainer {
-  position: absolute;
-  left: 0;
-  width: 18rem;
-  background-color: #E9EBEE;
-  top: 0;
-  bottom: 0;
-}
-.mainContainer .menuContainer .logo {
-  position: absolute;
-  padding: 0.5rem;
-  left: 50%;
-  height: 5rem;
-  transform: translateX(-50%);
-}
-.mainContainer .menuContainer .menuItemContainer {
-  position: absolute;
-  top: 8.6rem;
-  bottom: 0;
-  left: 2rem;
-  right: 2rem;
-  overflow: scroll;
-}
-.mainContainer .menuContainer .menuItemContainer .menuItem {
-  position: relative;
-  min-height: 2rem;
-  line-height: 2rem;
-  padding-left: 1rem;
-  font-size: 1.4rem;
-  padding: 0.7rem 0.8rem;
-  padding-bottom: 0;
-  font-weight: 400;
-}
-.mainContainer .menuContainer .menuItemContainer .menuItem .option {
-  position: relative;
-  height: 3rem;
-  line-height: 3rem;
-  padding-left: 1rem;
-  font-weight: 300;
-}
-.mainContainer .menuContainer .menuItemContainer .active {
-  border-left: 0.4rem solid #4267b2;
-}
-.mainContainer .pageContainer {
-  position: absolute;
-  left: 18rem;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background-color: #E9EBEE;
-}
-.mainContainer .pageContainer .topBar {
-  position: absolute;
+.mainContainer .topBar {
+  position: fixed;
+  top: 1rem;
   height: 5rem;
   background-color: white;
   border-bottom: 0.1rem solid #D3D7DC;
   left: 2rem;
   right: 2rem;
+  z-index: 3;
 }
-.mainContainer .pageContainer .topBar .searchField {
+.mainContainer .topBar .logo {
+  position: relative;
+  float: left;
+  height: 5rem;
+}
+.mainContainer .topBar .searchContainer {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.mainContainer .topBar .searchField {
   position: relative;
   float: left;
   margin: 1rem;
   height: 3rem;
+  width: 16rem;
   line-height: 3rem;
   color: black;
   padding-bottom: 0.1rem;
@@ -276,7 +181,7 @@ body {
   resize: none;
   outline: none;
 }
-.mainContainer .pageContainer .topBar .addButton {
+.mainContainer .topBar .addButton {
   position: relative;
   float: right;
   margin-top: 1.5rem;
@@ -292,7 +197,7 @@ body {
   font-size: 1.2rem;
   border-radius: 0.2rem;
 }
-.mainContainer .pageContainer .topBar .legend {
+.mainContainer .topBar .legend {
   position: relative;
   margin-top: 1.5rem;
   background-color: #4267b2;
@@ -310,7 +215,7 @@ body {
   margin-right: 2rem;
   background-color: transparent;
 }
-.mainContainer .pageContainer .topBar .legend .color {
+.mainContainer .topBar .legend .color {
   position: relative;
   float: left;
   height: 2rem;
@@ -319,140 +224,200 @@ body {
   width: 2rem;
   margin-right: 0.5rem;
 }
-.mainContainer .pageContainer .topBar .legend .text {
+.mainContainer .topBar .legend .text {
   position: relative;
   float: right;
   color: black;
   margin-right: 0rem;
 }
+.mainContainer .pageContainer {
+  position: absolute;
+  top: 7rem;
+  bottom: 0;
+  width: 100%;
+  overflow-y: auto;
+}
+.mainContainer .pageContainer .pageTopContainer {
+  position: fixed;
+  height: 4rem;
+  line-height: 4rem;
+  width: inherit;
+  border-bottom: 0.1rem solid #D3D7DC;
+  z-index: 3;
+  background-color: white;
+}
+.mainContainer .pageContainer .pageTopContainer .page {
+  position: relative;
+  float: left;
+  padding-left: 1rem;
+}
+.mainContainer .pageContainer .pageTopContainer .page .pagePicture {
+  position: relative;
+  padding-top: 0.5rem;
+  height: 3rem;
+  float: left;
+}
+.mainContainer .pageContainer .pageTopContainer .page .pageName {
+  position: relative;
+  float: left;
+  font-size: 1.4rem;
+  padding-left: 3rem;
+  padding-right: 1rem;
+  font-weight: 400;
+}
+.mainContainer .pageContainer .menuContainer {
+  position: absolute;
+  width: 16rem;
+  background-color: #E9EBEE;
+  top: 3rem;
+  bottom: 0;
+  left: 2rem;
+  padding: 1rem;
+}
+.mainContainer .pageContainer .menuContainer .menuItem {
+  position: relative;
+  text-transform: capitalize;
+  height: auto;
+  padding-bottom: 0.4rem;
+}
+.mainContainer .pageContainer .menuContainer .menuItem .heading {
+  position: relative;
+  height: 3rem;
+  line-height: 3rem;
+  padding-left: 1rem;
+  font-size: 1.4rem;
+  font-weight: 400;
+  border-bottom: 0.1rem solid;
+}
+.mainContainer .pageContainer .menuContainer .menuItem .option {
+  position: relative;
+  height: 4rem;
+  line-height: 4rem;
+  padding-left: 1rem;
+  font-size: 1.4rem;
+  font-weight: 300;
+}
+.mainContainer .pageContainer .menuContainer .active {
+  border-left: 0.4rem solid #4267b2;
+}
 .mainContainer .pageContainer .card {
   position: absolute;
-  top: 6.5rem;
-  min-height: 30rem;
-  max-height: 58rem;
-  left: 2rem;
-  right: 2rem;
-  background-color: white;
+  height: 100%;
+  left: 20rem;
+  background-color: white !important;
+  display: flex;
 }
 .mainContainer .pageContainer .card .columnContainer {
   position: relative;
   float: left;
-  height: 58rem;
-  max-width: 50rem;
+  height: 100%;
+  width: 48rem;
   border-right: 0.1rem solid #D3D7DC;
-  overflow-y: scroll;
 }
-.mainContainer .pageContainer .card .columnContainer .fieldsBar {
-  position: relative;
-  height: 3rem;
-  line-height: 3rem;
+.mainContainer .pageContainer .card .columnContainer .pageTopContainer {
+  position: fixed;
+  height: 4rem;
+  line-height: 4rem;
+  width: inherit;
   border-bottom: 0.1rem solid #D3D7DC;
-  width: 100%;
+  z-index: 3;
+  background-color: white;
 }
-.mainContainer .pageContainer .card .columnContainer .fieldsBar .field {
+.mainContainer .pageContainer .card .columnContainer .pageTopContainer .page {
   position: relative;
   float: left;
   padding-left: 1rem;
-  font-size: 1.2rem;
-  font-weight: 300;
-  text-transform: capitalize;
 }
-.mainContainer .pageContainer .card .columnContainer .contentRow {
-  position: relative;
-  float: left;
-  height: 3rem;
-  line-height: 3rem;
-  width: 100%;
-  border-bottom: 0.1rem solid #D3D7DC;
-}
-.mainContainer .pageContainer .card .columnContainer .contentRow .number {
-  position: relative;
-  font-size: 2.4rem;
-  color: #4b4f56;
-  font-weight: 400;
-  padding-left: 1rem;
-  float: left;
-}
-.mainContainer .pageContainer .card .columnContainer .contentRow .page {
-  position: relative;
-  float: left;
-  padding-left: 2rem;
-}
-.mainContainer .pageContainer .card .columnContainer .contentRow .page .pagePicture {
+.mainContainer .pageContainer .card .columnContainer .pageTopContainer .page .pagePicture {
   position: relative;
   padding-top: 0.5rem;
-  height: 2rem;
+  height: 3rem;
   float: left;
 }
-.mainContainer .pageContainer .card .columnContainer .contentRow .page .pageName {
+.mainContainer .pageContainer .card .columnContainer .pageTopContainer .page .pageName {
   position: relative;
   float: left;
   font-size: 1.4rem;
   padding-left: 1rem;
   padding-right: 1rem;
 }
-.mainContainer .pageContainer .card .columnContainer .contentRow .content {
+.mainContainer .pageContainer .card .columnContainer .contentContainer {
+  position: absolute;
+  top: 4rem;
+  bottom: 0;
+  width: inherit;
+}
+.mainContainer .pageContainer .card .columnContainer .contentContainer .contentRow {
+  position: relative;
+  float: left;
+  height: 4rem;
+  line-height: 4rem;
+  width: 100%;
+  border-bottom: 0.1rem solid #D3D7DC;
+  background-color: white;
+}
+.mainContainer .pageContainer .card .columnContainer .contentContainer .contentRow .content {
   position: relative;
   font-size: 1.4rem;
   padding-left: 1rem;
   text-align: left;
 }
-.mainContainer .pageContainer .card .columnContainer .contentRow .content .more {
+.mainContainer .pageContainer .card .columnContainer .contentContainer .contentRow .content .more {
   position: relative;
   float: left;
   padding-left: 1rem;
-  height: 2rem;
+  height: 4rem;
   padding-top: 0.5rem;
 }
-.mainContainer .pageContainer .card .columnContainer .contentRow .content .option {
+.mainContainer .pageContainer .card .columnContainer .contentContainer .contentRow .content .option {
   position: relative;
   float: left;
 }
-.mainContainer .pageContainer .card .columnContainer .contentRow .contentEvent {
+.mainContainer .pageContainer .card .columnContainer .contentContainer .contentRow .contentEvent {
   position: relative;
   font-size: 1.4rem;
   padding-left: 1rem;
   text-align: left;
 }
-.mainContainer .pageContainer .card .columnContainer .contentRow .contentEvent .more {
+.mainContainer .pageContainer .card .columnContainer .contentContainer .contentRow .contentEvent .more {
   position: relative;
   float: left;
   padding-left: 1rem;
-  height: 2rem;
+  height: 4rem;
   padding-top: 0.5rem;
 }
-.mainContainer .pageContainer .card .columnContainer .contentRow .contentEvent .option {
+.mainContainer .pageContainer .card .columnContainer .contentContainer .contentRow .contentEvent .option {
   position: relative;
   float: left;
 }
-.mainContainer .pageContainer .card .columnContainer .contentRow .contentEvent .option {
+.mainContainer .pageContainer .card .columnContainer .contentContainer .contentRow .contentEvent .option {
   position: relative;
   float: left;
 }
-.mainContainer .pageContainer .card .columnContainer .contentRow .contentEvent .text {
+.mainContainer .pageContainer .card .columnContainer .contentContainer .contentRow .contentEvent .text {
   position: relative;
   float: left;
   font-size: 1.8rem;
   font-weight: 400;
 }
-.mainContainer .pageContainer .card .columnContainer .contentRow .contentEvent .stat {
+.mainContainer .pageContainer .card .columnContainer .contentContainer .contentRow .contentEvent .stat {
   position: relative;
   float: left;
   padding-top: 0.6rem;
   padding-left: 0.2rem;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: 300;
   padding-left: 1rem;
 }
-.mainContainer .pageContainer .card .columnContainer .contentRow .contentEvent .more {
+.mainContainer .pageContainer .card .columnContainer .contentContainer .contentRow .contentEvent .more {
   position: relative;
   float: left;
   padding-left: 1rem;
-  height: 2rem;
+  height: 3rem;
   padding-top: 0.5rem;
 }
-.mainContainer .pageContainer .card .columnContainer .blank {
-  height: 2.2rem;
+.mainContainer .pageContainer .card .columnContainer .contentContainer .blank {
+  height: 3rem;
 }
 .mainContainer .pageContainer .card .columnContainer .fixed {
   position: fixed;

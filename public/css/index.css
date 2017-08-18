@@ -144,14 +144,13 @@ body {
   font-weight: 300;
 }
 .mainContainer .topBar {
-  position: fixed;
+  position: absolute;
   top: 1rem;
   height: 5rem;
   background-color: white;
   border-bottom: 0.1rem solid #D3D7DC;
   left: 2rem;
   right: 2rem;
-  z-index: 3;
 }
 .mainContainer .topBar .logo {
   position: relative;
@@ -232,16 +231,17 @@ body {
 }
 .mainContainer .pageContainer {
   position: absolute;
-  top: 7rem;
+  top: 6rem;
   bottom: 0;
   width: 100%;
   overflow-y: auto;
 }
 .mainContainer .pageContainer .pageTopContainer {
   position: fixed;
+  left: 2rem;
   height: 4rem;
   line-height: 4rem;
-  width: inherit;
+  right: 2rem;
   border-bottom: 0.1rem solid #D3D7DC;
   z-index: 3;
   background-color: white;

@@ -28,26 +28,22 @@
             <input type="text" name="Google Page ID" value="ChIJu0JRfF3iDDkRSxZZ66nJCmI" class="searchField google">
 
             <!--<textarea class="searchField zomato" value="18306530" placeholder="Zomato ID"></textarea>
-                <textarea class="searchField facebook" value="circusnewdelhi" placeholder="Facebook ID"></textarea>
-                <textarea class="searchField tripAdvisor" value="https://www.tripadvisor.in/Restaurant_Review-g304551-d10236428-Reviews-Circus-New_Delhi_National_Capital_Territory_of_Delhi.html" placeholder="TripAdvisor URL"></textarea>
-                <textarea class="searchField instagram" value="circus_newdelhi" placeholder="Instagram ID"></textarea>
-                <textarea class="searchField google" value="ChIJu0JRfF3iDDkRSxZZ66nJCmI" placeholder="Google Place ID"></textarea>-->
+            <textarea class="searchField facebook" value="circusnewdelhi" placeholder="Facebook ID"></textarea>
+            <textarea class="searchField tripAdvisor" value="https://www.tripadvisor.in/Restaurant_Review-g304551-d10236428-Reviews-Circus-New_Delhi_National_Capital_Territory_of_Delhi.html"
+                placeholder="TripAdvisor URL"></textarea>
+            <textarea class="searchField instagram" value="circus_newdelhi" placeholder="Instagram ID"></textarea>
+            <textarea class="searchField google" value="ChIJu0JRfF3iDDkRSxZZ66nJCmI" placeholder="Google Place ID"></textarea>-->
             <div class="addButton">
                 Add Restaurant
             </div>
         </div>
         <div class="pageContainer">
-            <div class="pageTopContainer">
-                <div class="page">
-                    <div class="pageName">
-                        
-                    </div>
-                </div>
+            <div class="menuTopContainer">
             </div>
             <div class="menuContainer">
                 <div class="menuItem">
                     <div class="heading">
-                        Facebook
+                        <img src="../images/facebook-logo.png" class="socialMediaIcon" alt=""> Facebook
                     </div>
 
                     <div class="option">
@@ -56,22 +52,22 @@
                     <div class="option">
                         Total Likes
                     </div>
-                    <div class="option">
+                    <div class="option" style="height: 5rem;">
                         Event Stat
                     </div>
-                    <div class="option">
+                    <div class="option" style="height: 10rem;">
                         Post Stat
                     </div>
 
                 </div>
                 <div class="menuItem">
                     <div class="heading">
-                        TripAdvisor
+                        <img src="../images/tripadvisor-logo.png" class="socialMediaIcon" alt=""> TripAdvisor
                     </div>
                     <div class="option">
                         Rank
                     </div>
-                    <div class="option">
+                    <div class="option" style="height: 13rem;">
                         Review
                     </div>
                     <div class="option">
@@ -80,7 +76,7 @@
                 </div>
                 <div class="menuItem">
                     <div class="heading">
-                        Zomato
+                        <img src="../images/zomato-logo.svg" class="socialMediaIcon" alt=""> Zomato
                     </div>
                     <div class="option">
                         Average Cost
@@ -91,13 +87,13 @@
                     <div class="option">
                         Reviews
                     </div>
-                    <div class="option">
+                    <div class="option" style="height: 7rem;">
                         User Rating
                     </div>
                 </div>
                 <div class="menuItem">
                     <div class="heading">
-                        Google
+                        <img src="../images/google-logo.png" class="socialMediaIcon" alt=""> Google
                     </div>
                     <div class="option">
                         Rating
@@ -108,9 +104,9 @@
                 </div>
                 <div class="menuItem">
                     <div class="heading">
-                        Instagram
+                        <img src="../images/instagram-logo.png" class="socialMediaIcon" alt=""> Instagram
                     </div>
-                    <div class="option">
+                    <div class="option" style="height: 9rem;">
                         Stats
                     </div>
                 </div>
@@ -147,172 +143,263 @@
 
             <div class="contentRow">
                 <div class="content">
-
                     {{:facebook.fan_count}}
                 </div>
             </div>
 
-            <div class="contentRow">
+            <div class="contentRow" style="height: 5rem;">
 
-                <div class="contentEvent">
+                <div class="contentEvent ">
 
-                    <div class="text">
-                        {{:facebook.totalEvent.count}}
+                    <div class="text ">
+                        {{:facebook.totalEvent.count}} Events
                     </div>
-                    <div class="stat">
-                        {{:facebook.totalEvent.attendingCount}} Guests
+                    <div class="statsContainer ">
+                        <div class="stat ">
+                            {{:facebook.totalEvent.attendingCount}} Guests
+                        </div>
                     </div>
-                    <img src="../images/menu.svg" class="more" alt="">
+
+                    <img id="event " src="../images/menu.svg " class="more " alt=" ">
                 </div>
             </div>
-            <div class="contentRow">
-                <div class="contentEvent">
+            <div class="contentRow" style="height:10rem;">
+                <div class="contentEvent ">
 
                     <div class="text">
                         {{:facebook.totalPost.count}} Posts
                     </div>
-                    <div class="stat">
-                        {{:facebook.totalPost.likes}} Likes
+                    <div class="statsContainer" style="top:3rem;">
+                        <div class="stat">
+                            <div class="text">
+                                {{:facebook.totalPost.likes}}
+                            </div>
+                            <img src="../images/like.svg" class="statImage" alt="">
+                        </div>
+                        <div class="stat">
+                            <div class="text">
+                                {{:facebook.totalPost.reactions}}
+                            </div>
+
+                            <img src="../images/reaction.svg" class="statImage" alt="">
+                        </div>
+                        <div class="stat">
+                            <div class="text">
+                                {{:facebook.totalPost.comments}}
+                            </div>
+                            <img src="../images/comment.svg" class="statImage" alt="" style="padding-top: 0.2rem;">
+                        </div>
                     </div>
-                    <div class="stat">
-                        {{:facebook.totalPost.comments}}Comments
-                    </div>
-                    <div class="stat">
-                        {{:facebook.totalPost.shares}} Shares
-                    </div>
-                    <div class="stat">
-                        {{:facebook.totalPost.reactions}} Reactions
-                    </div>
-                    <img src="../images/menu.svg" class="more" alt="">
+
+                    <img id="post " src="../images/menu.svg " class="more " alt=" ">
 
                 </div>
             </div>
-            <div class="contentRow blank">
-                <div class="content">
+            <div class="contentRow blank ">
+                <div class="content ">
                 </div>
             </div>
-            <div class="contentRow">
-                <div class="content">
+            <div class="contentRow ">
+                <div class="content ">
 
                     {{:tripAdvisor.ranking}}<sup>th</sup>
                 </div>
             </div>
-            <div class="contentRow">
-                <div class="contentEvent">
+            <div class="contentRow" style="height:13rem;">
+                <div class="contentEvent ">
 
-                    <div class="text">
+                    <div class="text ">
                         {{:tripAdvisor.totalReview}}
                     </div>
-                    <div class="stat">
-                        {{:tripAdvisor.reviewDetail.excellent}}% excellent
-                    </div>
-                    <div class="stat">
-                        {{:tripAdvisor.reviewDetail.veryGood}}% veryGood
-                    </div>
-                    <div class="stat">
-                        {{:tripAdvisor.reviewDetail.average}}% average
-                    </div>
-                    <div class="stat">
-                        {{:tripAdvisor.reviewDetail.poor}}% poor
+                    <div class="statsContainer ">
+                        <div class="stat ">
+                            {{:tripAdvisor.reviewDetail.excellent}}% excellent
+                        </div>
+                        <div class="stat ">
+                            {{:tripAdvisor.reviewDetail.veryGood}}% veryGood
+                        </div>
+                        <div class="stat ">
+                            {{:tripAdvisor.reviewDetail.average}}% average
+                        </div>
+                        <div class="stat ">
+                            {{:tripAdvisor.reviewDetail.poor}}% poor
+                        </div>
+                        <div class="stat ">
+                            {{:tripAdvisor.reviewDetail.terrible}}% terrible
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="contentRow">
-                <div class="contentEvent">
+                <div class="contentEvent ">
 
-                    <div class="text">
+                    <div class="text ">
                         {{:tripAdvisor.rating}}
                     </div>
                 </div>
             </div>
-            <div class="contentRow blank">
-                <div class="content">
+            <div class="contentRow blank ">
+                <div class="content ">
                 </div>
             </div>
-            <div class="contentRow">
-                <div class="content">
+            <div class="contentRow ">
+                <div class="content ">
 
-                    {{:zomato.average_cost_for_two}}
+                    ₹ {{:zomato.average_cost_for_two}}
                 </div>
             </div>
-            <div class="contentRow">
-                <div class="content">
+            <div class="contentRow ">
+                <div class="content ">
                     {{:zomato.cuisines}}
                 </div>
             </div>
-            <div class="contentRow">
-                <div class="contentEvent">
-
-                    <div class="text">
+            <div class="contentRow ">
+                <div class="contentEvent ">
+                    <div class="text ">
                         {{:zomato.userReview.reviews_count}}
                     </div>
-                    <img src="../images/menu.svg" class="more" alt="">
+                    <img id="review " src="../images/menu.svg " class="more " alt=" ">
                 </div>
             </div>
-            <div class="contentRow">
-                <div class="contentEvent">
+            <div class="contentRow" style="height: 7rem;">
+                <div class="contentEvent ">
 
-                    <div class="text">
+                    <div class="text ">
                         {{:zomato.user_rating.rating_text}}
                     </div>
-                    <div class="stat">
-                        {{:zomato.user_rating.aggregate_rating}}
+                    <div class="statsContainer ">
+                        <div class="stat ">
+                            {{:zomato.user_rating.aggregate_rating}}
+                        </div>
+                        <div class="stat ">
+                            {{:zomato.user_rating.votes}} Votes
+                        </div>
                     </div>
-                    <div class="stat">
-                        {{:zomato.user_rating.votes}} Votes
-                    </div>
+
                 </div>
             </div>
-            <div class="contentRow blank">
+            <div class="contentRow blank ">
             </div>
-            <div class="contentRow">
-                <div class="content">
+            <div class="contentRow ">
+                <div class="content ">
                     {{:google.rating}}
                 </div>
             </div>
             <div class="contentRow">
-                <div class="contentEvent">
+                <div class="contentEvent ">
 
-                    <div class="text">
+                    <div class="text ">
                         {{:google.userReviewCount}}
                     </div>
-                    <img src="../images/menu.svg" class="more" alt="">
+                    <img id="googleReview " src="../images/menu.svg " class="more " alt=" ">
                 </div>
             </div>
-            <div class="contentRow blank">
-                <div class="content">
+            <div class="contentRow blank ">
+                <div class="content ">
 
                 </div>
             </div>
-            <div class="contentRow">
-                <div class="contentEvent">
+            <div class="contentRow" style="height: 9rem;">
+                <div class="contentEvent ">
 
-                    <div class="text">
+                    <div class="text ">
                         Stats
                     </div>
-                    <div class="stat">
-                        {{:instagram.followers}} Followers
+                    <div class="statsContainer ">
+                        <div class="stat ">
+                            {{:instagram.followers}} Followers
+                        </div>
+                        <div class="stat ">
+                            {{:instagram.following}} Following
+                        </div>
+                        <div class="stat ">
+                            {{:instagram.posts}} Posts
+                        </div>
                     </div>
-                    <div class="stat">
-                        {{:instagram.following}} Following
-                    </div>
-                    <div class="stat">
-                        {{:instagram.posts}} Posts
-                    </div>
+
                 </div>
 
             </div>
         </div>
     </div>
 </script>
+<script id="eventTemplate " type="text/x-jsrender ">
+    <div class="eventOverlay ">
+    </div>
+    <div class="eventPopup ">
+
+        <div class="dateContainer ">
+            <div class="date ">
+                <div class="month ">
+                    AUG
+                </div>
+                <div class="day ">
+                    19
+                </div>
+            </div>
+            <div class="date ">
+                <div class="month ">
+                    AUG
+                </div>
+                <div class="day ">
+                    20
+                </div>
+            </div>
+        </div>
+        <div class="contentContainer ">
+            <div class="popupColumnContainer ">
+                <div class="eventName ">
+                    This is first Event
+                </div>
+                <div class="eventDescription ">
+                    This is a demo eventDescription. @lines only
+                </div>
+                <div class="eventTime ">
+                    12:00 PM
+                </div>
+                <div class="statContainer ">
+                    <div class="eventStat ">
+                        15 People Attending
+                    </div>
+                    <div class="eventStat ">
+                        40 People Interested
+                    </div>
+                </div>
+            </div>
+            <div class="popupColumnContainer ">
+                <div class="eventName ">
+                    This is first Event
+                </div>
+                <div class="eventDescription ">
+                    This is a demo eventDescription. @lines only
+                </div>
+                <div class="eventTime ">
+                    12:00 PM
+                </div>
+                <div class="statContainer ">
+                    <div class="eventStat ">
+                        15 People Attending
+                    </div>
+                    <div class="eventStat ">
+                        40 People Interested
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
-<script src="../scripts/jquery.js"></script>
-<script src="../scripts/jsrender.js"></script>
-<script src="../scripts/jsview.js"></script>
-<script src="../scripts/transit.js"></script>
-<script src="../js/base.js"></script>
-<script src="../js/data.js"></script>
-<script src="../js/index.js"></script>
+    </div>
+</script>
+<script id="postTemplate " type="text/x-jsrender ">
+</script>
+
+
+<script src="../scripts/jquery.js "></script>
+<script src="../scripts/jsrender.js "></script>
+<script src="../scripts/jsview.js "></script>
+<script src="../scripts/transit.js "></script>
+<script src="../js/base.js "></script>
+<script src="../js/data.js "></script>
+<script src="../js/index.js "></script>
 
 </html>

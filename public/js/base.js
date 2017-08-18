@@ -112,7 +112,7 @@ function execute(command, requestData, success, fail, timeout) {
         data: JSON.stringify(requestData),
         dataType: "json",
         contentType: "application/json; charset=utf-8",
-        timeout: timeout == undefined ? 10000 : timeout, // in milliseconds
+        timeout: timeout == undefined ? 0 : timeout, // in milliseconds
         success: success,
         error: fail
     });

@@ -38,22 +38,26 @@ mongo.connect(url, function (err, db) {
 global.totalEvent = {};
 global.totalPost = {};
 var restaurantObj = {};
+global.dbData;
 app.post('/fetchData', function (req, resp) {
     global.db.collection('restaurantData').find({}).toArray(function (err, result) {
-        resp.send(result);
+        global.dbData = result;
+        //   resp.send(result);
     })
-    // async.parallel(
-    //     [
-    //         zomato.bind(null, req.body.zomato), facebook.bind(null, req.body.facebook), tripAdvisor.bind(null, req.body.tripAdvisor), google.bind(null, req.body.google), instagram.bind(null, req.body.instagram)
-    //     ],
-    //     // optional callback
-    //     function (err, results) {
-    //     global.db.collection('restaurantData').save(restaurantObj);
-    //         console.log("data saved");
-    //         global.db.collection('restaurantData').find({}).toArray(function (err, result) {
-    //             resp.send(result);
-    //         })
-    //     });
+    async.parallel(
+        [
+            zomato.bind(null, req.body.zomato), facebook.bind(null, req.body.facebook), tripAdvisor.bind(null, req.body.tripAdvisor), google.bind(null, req.body.google), instagram.bind(null, req.body.instagram)
+        ],
+        // optional callback
+        function (err, results) {
+            global.dbData.push(restaurantObj);
+            resp.send(global.dbData);
+            console.log(global.dbData);
+            global.dbData = [];
+            console.log(dbData);
+            global.db.collection('restaurantData').save(restaurantObj);
+            console.log("data saved");
+        });
 });
 
 function zomato(id, res) {
@@ -168,8 +172,8 @@ function google(placeId, res) {
             googleData = response.result;
             request(googleData.url, function (err, res1, html) {
                 if (!err && res1.statusCode == 200) {
-                    $ = cheerio.load(html);
-                    googlefilterData($, function (r1) {
+                    
+                    googlefilterData(html, function (r1) {
                         googleData.userReviewCount = r1;
                         restaurantObj.google = googleData;
                     });
@@ -179,7 +183,7 @@ function google(placeId, res) {
             res(null, restaurantObj.google);
         });
 
-    }, 5000);
+    }, 2000);
 
 
 }
@@ -196,9 +200,16 @@ function instagram(userName, res) {
     }, 5000);
 };
 
-function googlefilterData($, cb) {
+function googlefilterData(html, cb) {
     var reviewCount;
-    reviewCount = $('.section-reviewchart-numreviews').text();
+    html = html.toString();
+    var ii = html.indexOf(' reviews');
+    var ss = html.substring(ii-6, ii+7);
+    ss = ss.replace('"', '').split(',');
+    if(ss.length > 1)
+        reviewCount = parseInt(ss[ss.length-1].split(' ')[0]);
+    else
+        reviewCount = parseInt(ss[0].split(' ')[0]);
     cb(reviewCount);
 }
 

@@ -20,19 +20,19 @@
             <img src="../images/logo-black.png" class="logo" alt="Logo">
             <div class="searchContainer">
             </div>
-            <input type="text" name="Zomato ID" value="18306530" class="searchField zomato">
+            <!--<input type="text" name="Zomato ID" value="18306530" class="searchField zomato">
             <input type="text" name="Facebook ID" value="circusnewdelhi" class="searchField facebook">
             <input type="text" name="TripAdvisor URL" value="https://www.tripadvisor.in/Restaurant_Review-g304551-d10236428-Reviews-Circus-New_Delhi_National_Capital_Territory_of_Delhi.html"
                 class="searchField tripAdvisor">
             <input type="text" name="Instagram ID" value="circus_newdelhi" class="searchField instagram">
-            <input type="text" name="Google Page ID" value="ChIJu0JRfF3iDDkRSxZZ66nJCmI" class="searchField google">
+            <input type="text" name="Google Page ID" value="ChIJu0JRfF3iDDkRSxZZ66nJCmI" class="searchField google">-->
 
-            <!--<textarea class="searchField zomato" value="18306530" placeholder="Zomato ID"></textarea>
+            <textarea class="searchField zomato" value="18306530" placeholder="Zomato ID"></textarea>
             <textarea class="searchField facebook" value="circusnewdelhi" placeholder="Facebook ID"></textarea>
             <textarea class="searchField tripAdvisor" value="https://www.tripadvisor.in/Restaurant_Review-g304551-d10236428-Reviews-Circus-New_Delhi_National_Capital_Territory_of_Delhi.html"
                 placeholder="TripAdvisor URL"></textarea>
             <textarea class="searchField instagram" value="circus_newdelhi" placeholder="Instagram ID"></textarea>
-            <textarea class="searchField google" value="ChIJu0JRfF3iDDkRSxZZ66nJCmI" placeholder="Google Place ID"></textarea>-->
+            <textarea class="searchField google" value="ChIJu0JRfF3iDDkRSxZZ66nJCmI" placeholder="Google Place ID"></textarea>
             <div class="addButton">
                 Add Restaurant
             </div>
@@ -111,7 +111,15 @@
                     </div>
                 </div>
             </div>
+            <div class="loader">
+            </div>
             <div class="card">
+            </div>
+            <div class="overlay">
+                
+            </div>
+            <div class="eventPopup">
+                
             </div>
         </div>
     </div>
@@ -119,7 +127,6 @@
 </body>
 <script id="dataTemplate" type="text/x-jsrender">
     <div class="columnContainer">
-
         <div class="pageTopContainer">
             <div class="page">
                 <img src={{:facebook.picture.data.url}} class="pagePicture" alt="">
@@ -160,7 +167,7 @@
                         </div>
                     </div>
 
-                    <img id="event " src="../images/menu.svg " class="more " alt=" ">
+                    <img id="event" src="../images/menu.svg " class="more event" alt=" ">
                 </div>
             </div>
             <div class="contentRow" style="height:10rem;">
@@ -191,7 +198,7 @@
                         </div>
                     </div>
 
-                    <img id="post " src="../images/menu.svg " class="more " alt=" ">
+                    <img id="post" src="../images/menu.svg " class="more post" alt=" ">
 
                 </div>
             </div>
@@ -258,7 +265,7 @@
                     <div class="text ">
                         {{:zomato.userReview.reviews_count}}
                     </div>
-                    <img id="review " src="../images/menu.svg " class="more " alt=" ">
+                    <img id="review" src="../images/menu.svg " class="more review" alt=" ">
                 </div>
             </div>
             <div class="contentRow" style="height: 7rem;">
@@ -287,11 +294,10 @@
             </div>
             <div class="contentRow">
                 <div class="contentEvent ">
-
                     <div class="text ">
-                        {{:google.userReviewCount}}
+                        {{:google.userReviewCount}} Reviews
                     </div>
-                    <img id="googleReview " src="../images/menu.svg " class="more " alt=" ">
+                    <img id="googleReview" src="../images/menu.svg " class="more googleReview" alt=" ">
                 </div>
             </div>
             <div class="contentRow blank ">
@@ -323,11 +329,7 @@
         </div>
     </div>
 </script>
-<script id="eventTemplate " type="text/x-jsrender ">
-    <div class="eventOverlay ">
-    </div>
-    <div class="eventPopup ">
-
+<script id="eventPopupTemplate" type="text/x-jsrender">
         <div class="dateContainer ">
             <div class="date ">
                 <div class="month ">
@@ -386,9 +388,7 @@
                 </div>
             </div>
         </div>
-
-
-    </div>
+   
 </script>
 <script id="postTemplate " type="text/x-jsrender ">
 </script>

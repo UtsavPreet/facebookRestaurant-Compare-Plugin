@@ -42,7 +42,7 @@ global.dbData;
 app.post('/fetchData', function (req, resp) {
     global.db.collection('restaurantData').find({}).toArray(function (err, result) {
         global.dbData = result;
-        //   resp.send(result);
+        // resp.send(result);
     })
     async.parallel(
         [
@@ -52,13 +52,26 @@ app.post('/fetchData', function (req, resp) {
         function (err, results) {
             global.dbData.push(restaurantObj);
             resp.send(global.dbData);
-            console.log(global.dbData);
             global.dbData = [];
-            console.log(dbData);
             global.db.collection('restaurantData').save(restaurantObj);
             console.log("data saved");
         });
 });
+
+app.post('/getDetails', function (req, resp) {
+global.db.collection('restaurantData').find({}).toArray(function(err,result){
+    if (err) throw err;
+    var data=[];
+    for(var i=0; i<result.length;i++){
+        data.push({
+            id:result[i]._id,
+            events:result[i].facebook.events.data 
+        })
+    }
+
+})
+resp.send(data);
+})
 
 function zomato(id, res) {
     setTimeout(function () {
@@ -172,7 +185,6 @@ function google(placeId, res) {
             googleData = response.result;
             request(googleData.url, function (err, res1, html) {
                 if (!err && res1.statusCode == 200) {
-                    
                     googlefilterData(html, function (r1) {
                         googleData.userReviewCount = r1;
                         restaurantObj.google = googleData;
@@ -183,7 +195,7 @@ function google(placeId, res) {
             res(null, restaurantObj.google);
         });
 
-    }, 2000);
+    }, 5000);
 
 
 }
@@ -204,10 +216,10 @@ function googlefilterData(html, cb) {
     var reviewCount;
     html = html.toString();
     var ii = html.indexOf(' reviews');
-    var ss = html.substring(ii-6, ii+7);
+    var ss = html.substring(ii - 6, ii + 7);
     ss = ss.replace('"', '').split(',');
-    if(ss.length > 1)
-        reviewCount = parseInt(ss[ss.length-1].split(' ')[0]);
+    if (ss.length > 1)
+        reviewCount = parseInt(ss[ss.length - 1].split(' ')[0]);
     else
         reviewCount = parseInt(ss[0].split(' ')[0]);
     cb(reviewCount);

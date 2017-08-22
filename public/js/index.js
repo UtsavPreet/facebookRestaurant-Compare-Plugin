@@ -33,9 +33,11 @@ scrollVar.on('scroll', function () {
 
     if (x == 'right' || x == 'left') {
         $('.mainContainer .pageContainer .card').css("overflow-x", "scroll");
+        $('.mainContainer .pageContainer .card .columnContainer .pageTopContainer').css("position","absolute");
     }
     else if(y == "top" || y == "down"){
         $('.mainContainer .pageContainer .card').css("overflow-x","initial");
+        $('.mainContainer .pageContainer .card .columnContainer .pageTopContainer').css("position","fixed");
     }
 
     console.log(x + ', ' + y);

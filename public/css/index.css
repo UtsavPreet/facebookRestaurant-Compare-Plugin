@@ -291,8 +291,7 @@ body {
   position: absolute;
   height: 100%;
   left: 20rem;
-  right: 0;
-  background-color: white !important;
+  right: 2rem;
   overflow-x: hidden;
   white-space: nowrap;
 }

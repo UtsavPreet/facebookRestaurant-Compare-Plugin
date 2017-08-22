@@ -53,7 +53,9 @@ app.post('/fetchData', function (req, resp) {
             global.dbData = [];
             global.db.collection('restaurantData').save(restaurantObj);
             global.db.collection('restaurantData').find({}).toArray(function (err, result) {
+                if (err) throw err;
                 resp.send(result);
+                console.log(result);
             })
             console.log("data saved");
         });
@@ -118,7 +120,8 @@ function zomato(name, res) {
                     restaurantObj = {
                         _id: resID,
                         nDay: parseInt(moment().format('YYYYMMDD')),
-                        fetchedAt: new Date().getTime()
+                        fetchedAt: new Date().getTime(),
+                        zomato:x
                     }
                     res(null, restaurantObj.zomato);
                 })
@@ -136,32 +139,32 @@ function facebook(id, res) {
                 relative_url: id + '?fields=name_with_location_descriptor,picture,location,talking_about_count,checkins,fan_count,overall_star_rating,about,cover,feed{name,id,created_time,shares,likes.limit(0).summary(true),comments.limit(0).summary(true),message.limit(0).summary(true),reactions.limit(0).summary(true),status_type},events.limit(10){name,description,attending_count,cover,declined_count,start_time,interested_count}&since=2017-08-06&until=2017-08-07'
             }, ]
         }, function (res1) {
-            try{
-            res0 = JSON.parse(res1[0].body);
-            global.totalPost.count = res0.feed.data.length;
-            res0.feed.totalPost = res0.feed.data.length;
-            totalEvent.count = res0.events.data.length;
-            totalPost.likes = 0;
-            totalPost.comments = 0;
-            totalPost.reactions = 0;
-            for (var i = 0; i < res0.feed.data.length; i++) {
-                res0.feed.data[i].created_time = res0.feed.data[i].created_time.substr(0, 10);
-                global.totalPost.likes += res0.feed.data[i].likes.summary.total_count;
-                global.totalPost.comments += res0.feed.data[i].comments.summary.total_count;
-                global.totalPost.reactions += res0.feed.data[i].reactions.summary.total_count;
+            try {
+                res0 = JSON.parse(res1[0].body);
+                global.totalPost.count = res0.feed.data.length;
+                res0.feed.totalPost = res0.feed.data.length;
+                totalEvent.count = res0.events.data.length;
+                totalPost.likes = 0;
+                totalPost.comments = 0;
+                totalPost.reactions = 0;
+                for (var i = 0; i < res0.feed.data.length; i++) {
+                    res0.feed.data[i].created_time = res0.feed.data[i].created_time.substr(0, 10);
+                    global.totalPost.likes += res0.feed.data[i].likes.summary.total_count;
+                    global.totalPost.comments += res0.feed.data[i].comments.summary.total_count;
+                    global.totalPost.reactions += res0.feed.data[i].reactions.summary.total_count;
 
-            }
-            res0.totalPost = totalPost;
-            totalEvent.attendingCount = 0;
-            for (var i = 0; i < res0.events.data.length; i++) {
-                res0.events.data[i].start_time = res0.events.data[i].start_time.substr(0, 10);
-                res0.events.data[i].date = res0.events.data[i].start_time.substr(8, 2);
-                res0.events.data[i].month = res0.events.data[i].start_time.substr(5, 2);
-                global.totalEvent.attendingCount += res0.events.data[i].attending_count;
-            }
-            res0.totalEvent = totalEvent;
-            restaurantObj.facebook = res0;
-            }catch(e){
+                }
+                res0.totalPost = totalPost;
+                totalEvent.attendingCount = 0;
+                for (var i = 0; i < res0.events.data.length; i++) {
+                    res0.events.data[i].start_time = res0.events.data[i].start_time.substr(0, 10);
+                    res0.events.data[i].date = res0.events.data[i].start_time.substr(8, 2);
+                    res0.events.data[i].month = res0.events.data[i].start_time.substr(5, 2);
+                    global.totalEvent.attendingCount += res0.events.data[i].attending_count;
+                }
+                res0.totalEvent = totalEvent;
+                restaurantObj.facebook = res0;
+            } catch (e) {
                 console.log('Unable to get FB data ' + e);
                 restaurantObj.facebook = {};
             }

@@ -38,42 +38,43 @@ mongo.connect(url, function (err, db) {
 global.totalEvent = {};
 global.totalPost = {};
 var restaurantObj = {};
-global.dbData;
+// global.dbData;
 app.post('/fetchData', function (req, resp) {
-    global.db.collection('restaurantData').find({}).toArray(function (err, result) {
-        global.dbData = result;
-        // resp.send(result);
-    })
+    // global.db.collection('restaurantData').find({}).toArray(function (err, result) {
+    //     global.dbData = result;
+    //     //  resp.send(result);
+    // })
     async.parallel(
         [
             zomato.bind(null, req.body.zomato), facebook.bind(null, req.body.facebook), tripAdvisor.bind(null, req.body.tripAdvisor), google.bind(null, req.body.google), instagram.bind(null, req.body.instagram)
         ],
         // optional callback
         function (err, results) {
-            global.dbData.push(restaurantObj);
-            resp.send(global.dbData);
             global.dbData = [];
             global.db.collection('restaurantData').save(restaurantObj);
+            global.db.collection('restaurantData').find({}).toArray(function (err, result) {
+                resp.send(result);
+            })
             console.log("data saved");
         });
 });
 
 app.post('/getDetails', function (req, resp) {
-global.db.collection('restaurantData').find({}).toArray(function(err,result){
-    if (err) throw err;
-    var data=[];
-    for(var i=0; i<result.length;i++){
-        data.push({
-            id:result[i]._id,
-            events:result[i].facebook.events.data 
-        })
-    }
+    global.db.collection('restaurantData').find({}).toArray(function (err, result) {
+        if (err) throw err;
+        var data = [];
+        for (var i = 0; i < result.length; i++) {
+            data.push({
+                id: result[i]._id,
+                events: result[i].facebook.events.data
+            })
+        }
 
-})
-resp.send(data);
+    })
+    resp.send(data);
 })
 
-function zomato(id, res) {
+function zomato(name, res) {
     setTimeout(function () {
         api.verify(function (isVerified) {
             console.log(isVerified);
@@ -86,30 +87,39 @@ function zomato(id, res) {
                 'user-key': key,
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            url: addUrlParam('restaurant', "res_id", id),
+            url: addUrlParam('search', "q", name),
             method: 'GET',
         }, function (err, resp) {
             if (err)
                 throw (err);
             else {
-                var x = JSON.parse(resp.body);
+                var y = JSON.parse(resp.body);
+                var x = y.restaurants[0].restaurant;
+                var resID = x.id;
                 request({
                     headers: {
                         'user-key': key,
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },
-                    url: addUrlParam('reviews', "res_id", id),
+                    url: addUrlParam('reviews', "res_id", resID),
                     method: 'GET'
                 }, function (err, resp1) {
                     if (err)
                         throw (err);
                     x.userReview = JSON.parse(resp1.body);
+                    var averageRating, likesCount = 0;
+                    for (var i = 0; i < x.userReview.user_reviews.length; i++) {
+                        averageRating = +x.userReview.user_reviews[i].review.rating;
+                        likesCount = +x.userReview.user_reviews[i].review.likes;
+                    }
+                    x.userReview.aggregate_rating = averageRating;
+                    x.userReview.average_likes = likesCount;
+                    x.userReview.rating_text = x.userReview.user_reviews[0].review.rating_text;
                     restaurantObj = {
-                        _id: x.id,
+                        _id: resID,
                         nDay: parseInt(moment().format('YYYYMMDD')),
                         fetchedAt: new Date().getTime()
                     }
-                    restaurantObj.zomato = x;
                     res(null, restaurantObj.zomato);
                 })
             }
@@ -126,6 +136,7 @@ function facebook(id, res) {
                 relative_url: id + '?fields=name_with_location_descriptor,picture,location,talking_about_count,checkins,fan_count,overall_star_rating,about,cover,feed{name,id,created_time,shares,likes.limit(0).summary(true),comments.limit(0).summary(true),message.limit(0).summary(true),reactions.limit(0).summary(true),status_type},events.limit(10){name,description,attending_count,cover,declined_count,start_time,interested_count}&since=2017-08-06&until=2017-08-07'
             }, ]
         }, function (res1) {
+            try{
             res0 = JSON.parse(res1[0].body);
             global.totalPost.count = res0.feed.data.length;
             res0.feed.totalPost = res0.feed.data.length;
@@ -150,6 +161,10 @@ function facebook(id, res) {
             }
             res0.totalEvent = totalEvent;
             restaurantObj.facebook = res0;
+            }catch(e){
+                console.log('Unable to get FB data ' + e);
+                restaurantObj.facebook = {};
+            }
             res(null, restaurantObj.facebook);
         });
     }, 5000);
@@ -181,18 +196,27 @@ function google(placeId, res) {
         placeDetailsRequest({
             placeid: placeId
         }, function (error, response) {
-            if (error) throw error;
-            googleData = response.result;
-            request(googleData.url, function (err, res1, html) {
-                if (!err && res1.statusCode == 200) {
-                    googlefilterData(html, function (r1) {
-                        googleData.userReviewCount = r1;
-                        restaurantObj.google = googleData;
-                    });
+            if (error) {
+                console.log('Unable to get Google data');
+                console.log(error);
+                restaurantObj.google = {};
+            } else {
+                if (response.result) {
+                    googleData = response.result;
+                    request(googleData.url, function (err, res1, html) {
+                        if (!err && res1.statusCode == 200) {
+                            googlefilterData(html, function (r1) {
+                                googleData.userReviewCount = r1;
+                                restaurantObj.google = googleData;
+                            });
 
+                        }
+                    })
+                } else {
+                    restaurantObj.google = {};
                 }
-            })
-            res(null, restaurantObj.google);
+                res(null, restaurantObj.google);
+            }
         });
 
     }, 5000);
@@ -201,7 +225,8 @@ function google(placeId, res) {
 }
 
 function instagram(userName, res) {
-    setTimeout(function () {
+    setTimeout(function (err) {
+        if (err) throw err;
         getAccountStats({
             username: userName
         }).then(function (account) {

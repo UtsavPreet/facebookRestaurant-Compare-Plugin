@@ -27,7 +27,7 @@
             <input type="text" name="Instagram ID" value="circus_newdelhi" class="searchField instagram">
             <input type="text" name="Google Page ID" value="ChIJu0JRfF3iDDkRSxZZ66nJCmI" class="searchField google">-->
 
-            <textarea class="searchField zomato" value="18306530" placeholder="Zomato ID"></textarea>
+            <textarea class="searchField zomato" value="18306530" placeholder="Zomato Restaurant Name"></textarea>
             <textarea class="searchField facebook" value="circusnewdelhi" placeholder="Facebook ID"></textarea>
             <textarea class="searchField tripAdvisor" value="https://www.tripadvisor.in/Restaurant_Review-g304551-d10236428-Reviews-Circus-New_Delhi_National_Capital_Territory_of_Delhi.html"
                 placeholder="TripAdvisor URL"></textarea>
@@ -111,7 +111,7 @@
                     </div>
                 </div>
             </div>
-            <div class="loader">
+            <div class="dataLoader">
             </div>
             <div class="card">
             </div>
@@ -129,9 +129,9 @@
     <div class="columnContainer">
         <div class="pageTopContainer">
             <div class="page">
-                <img src={{:facebook.picture.data.url}} class="pagePicture" alt="">
+                 {{if facebook}}<img src={{:facebook.picture.data.url}} class="pagePicture" alt="">{{else}}-{{/if}}
                 <div class="pageName">
-                    {{:facebook.name_with_location_descriptor}}
+                    {{if facebook}} {{:facebook.name_with_location_descriptor}}{{else}}-{{/if}}
                 </div>
             </div>
         </div>
@@ -144,13 +144,13 @@
             </div>
             <div class="contentRow">
                 <div class="content">
-                    {{:facebook.overall_star_rating}}
+                     {{if facebook}}{{:facebook.overall_star_rating}}{{else}}-{{/if}}
                 </div>
             </div>
 
             <div class="contentRow">
                 <div class="content">
-                    {{:facebook.fan_count}}
+                     {{if facebook}}{{:facebook.fan_count}}{{else}}-{{/if}}
                 </div>
             </div>
 
@@ -159,11 +159,11 @@
                 <div class="contentEvent ">
 
                     <div class="text ">
-                        {{:facebook.totalEvent.count}} Events
+                        {{if facebook}} {{:facebook.totalEvent.count}} Events{{else}}-{{/if}}
                     </div>
                     <div class="statsContainer ">
                         <div class="stat ">
-                            {{:facebook.totalEvent.attendingCount}} Guests
+                             {{if facebook}}{{:facebook.totalEvent.attendingCount}} Guests{{else}}-{{/if}}
                         </div>
                     </div>
 
@@ -174,31 +174,31 @@
                 <div class="contentEvent ">
 
                     <div class="text">
-                        {{:facebook.totalPost.count}} Posts
+                         {{if facebook}}{{:facebook.totalPost.count}} Posts{{else}}-{{/if}}
                     </div>
                     <div class="statsContainer" style="top:3rem;">
                         <div class="stat">
                             <div class="text">
-                                {{:facebook.totalPost.likes}}
+                                {{if facebook}} {{:facebook.totalPost.likes}}{{else}}-{{/if}}
                             </div>
                             <img src="../images/like.svg" class="statImage" alt="">
                         </div>
                         <div class="stat">
                             <div class="text">
-                                {{:facebook.totalPost.reactions}}
+                                {{if facebook}}{{:facebook.totalPost.reactions}}{{else}}-{{/if}}
                             </div>
 
                             <img src="../images/reaction.svg" class="statImage" alt="">
                         </div>
                         <div class="stat">
                             <div class="text">
-                                {{:facebook.totalPost.comments}}
+                                {{if facebook}}{{:facebook.totalPost.comments}}{{else}}-{{/if}}
                             </div>
                             <img src="../images/comment.svg" class="statImage" alt="" style="padding-top: 0.2rem;">
                         </div>
                     </div>
 
-                    <img id="post" src="../images/menu.svg " class="more post" alt=" ">
+                    <img src="../images/menu.svg " class="more post" alt=" " data-id="{{:_id}}">
 
                 </div>
             </div>
@@ -209,30 +209,30 @@
             <div class="contentRow ">
                 <div class="content ">
 
-                    {{:tripAdvisor.ranking}}<sup>th</sup>
+                   {{if tripAdvisor}} {{:tripAdvisor.ranking}}<sup>th</sup>{{else}}-{{/if}}
                 </div>
             </div>
             <div class="contentRow" style="height:13rem;">
                 <div class="contentEvent ">
 
                     <div class="text ">
-                        {{:tripAdvisor.totalReview}}
+                       {{if tripAdvisor}} {{:tripAdvisor.totalReview}}{{else}}-{{/if}}
                     </div>
                     <div class="statsContainer ">
                         <div class="stat ">
-                            {{:tripAdvisor.reviewDetail.excellent}}% excellent
+                           {{if tripAdvisor}} {{:tripAdvisor.reviewDetail.excellent}}% excellent{{else}}-{{/if}}
                         </div>
                         <div class="stat ">
-                            {{:tripAdvisor.reviewDetail.veryGood}}% veryGood
+                            {{if tripAdvisor}}{{:tripAdvisor.reviewDetail.veryGood}}% veryGood{{else}}-{{/if}}
                         </div>
                         <div class="stat ">
-                            {{:tripAdvisor.reviewDetail.average}}% average
+                           {{if tripAdvisor}} {{:tripAdvisor.reviewDetail.average}}% average{{else}}-{{/if}}
                         </div>
                         <div class="stat ">
-                            {{:tripAdvisor.reviewDetail.poor}}% poor
+                            {{if tripAdvisor}}{{:tripAdvisor.reviewDetail.poor}}% poor{{else}}-{{/if}}
                         </div>
                         <div class="stat ">
-                            {{:tripAdvisor.reviewDetail.terrible}}% terrible
+                            {{if tripAdvisor}}{{:tripAdvisor.reviewDetail.terrible}}% terrible{{else}}-{{/if}}
                         </div>
                     </div>
                 </div>
@@ -241,7 +241,7 @@
                 <div class="contentEvent ">
 
                     <div class="text ">
-                        {{:tripAdvisor.rating}}
+                       {{if tripAdvisor}}{{:tripAdvisor.rating}}{{else}}-{{/if}}
                     </div>
                 </div>
             </div>
@@ -252,18 +252,18 @@
             <div class="contentRow ">
                 <div class="content ">
 
-                    ₹ {{:zomato.average_cost_for_two}}
+                    ₹ {{if zomato}}{{:zomato.average_cost_for_two}}{{else}}-{{/if}}
                 </div>
             </div>
             <div class="contentRow ">
                 <div class="content ">
-                    {{:zomato.cuisines}}
+                    {{if zomato}}{{:zomato.cuisines}}{{else}}-{{/if}}
                 </div>
             </div>
             <div class="contentRow ">
                 <div class="contentEvent ">
                     <div class="text ">
-                        {{:zomato.userReview.reviews_count}}
+                        {{if zomato}}{{:zomato.userReview.reviews_count}}{{else}}-{{/if}}
                     </div>
                     <img id="review" src="../images/menu.svg " class="more review" alt=" ">
                 </div>
@@ -272,14 +272,14 @@
                 <div class="contentEvent ">
 
                     <div class="text ">
-                        {{:zomato.user_rating.rating_text}}
+                        {{if zomato}}{{:zomato.user_rating.rating_text}}{{else}}-{{/if}}
                     </div>
                     <div class="statsContainer ">
                         <div class="stat ">
-                            {{:zomato.user_rating.aggregate_rating}}
+                          {{if zomato}}{{:zomato.user_rating.aggregate_rating}}{{else}}-{{/if}}
                         </div>
                         <div class="stat ">
-                            {{:zomato.user_rating.votes}} Votes
+                            {{if zomato}} {{:zomato.user_rating.votes}} Votes {{else}}-{{/if}}
                         </div>
                     </div>
 
@@ -289,13 +289,13 @@
             </div>
             <div class="contentRow ">
                 <div class="content ">
-                    {{:google.rating}}
+                   {{if google}}{{:google.rating}}{{else}}-{{/if}}
                 </div>
             </div>
             <div class="contentRow">
                 <div class="contentEvent ">
                     <div class="text ">
-                        {{:google.userReviewCount}} Reviews
+                        {{if google}}{{:google.userReviewCount}} Reviews{{else}}-{{/if}}
                     </div>
                     <img id="googleReview" src="../images/menu.svg " class="more googleReview" alt=" ">
                 </div>
@@ -395,6 +395,7 @@
 
 
 <script src="../scripts/jquery.js "></script>
+<script src="../scripts/jquery.jInvertScroll.js"></script>
 <script src="../scripts/jsrender.js "></script>
 <script src="../scripts/jsview.js "></script>
 <script src="../scripts/transit.js "></script>

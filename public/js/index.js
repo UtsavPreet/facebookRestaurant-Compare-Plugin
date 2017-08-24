@@ -18,6 +18,7 @@ bind('.mainContainer .topBar .addButton', function () {
     })
     console.log(searchData);
 })
+var popupScroll = $('.mainContainer .eventPopup .eventContainer');
 
 var scrollVar = $('.mainContainer .pageContainer');
 lastY = scrollVar.scrollTop(),
@@ -32,32 +33,39 @@ scrollVar.on('scroll', function () {
         y = (currY > lastY) ? 'down' : ((currY === lastY) ? 'none' : 'up');
 
     if (x == 'right' || x == 'left') {
-        $('.mainContainer .pageContainer .card').css("overflow-x", "scroll");
-        $('.mainContainer .pageContainer .card .columnContainer .pageTopContainer').css("position","absolute");
+        $('.mainContainer .pageContainer .card').css("overflow-x",  "scroll");
+        $('.mainContainer .pageContainer .card .columnContainer .pageTopContainer').css("position", "absolute");
+    } else if (y == "top" || y == "down") {
+        $('.mainContainer .pageContainer .card').css("overflow-x", "initial");
+        $('.mainContainer .pageContainer .card .columnContainer .pageTopContainer').css("position", "fixed");
     }
-    else if(y == "top" || y == "down"){
-        $('.mainContainer .pageContainer .card').css("overflow-x","initial");
-        $('.mainContainer .pageContainer .card .columnContainer .pageTopContainer').css("position","fixed");
-    }
-
     console.log(x + ', ' + y);
-
-    // update last scroll position to current position
     lastY = currY;
     lastX = currX;
 });
 
 function screenBind() {
+    bind('.overlay', function () {
+        $('.overlay').hide();
+        $('.eventPopup').hide();
+    })
     bind('.event', function () {
-        var data;
-        data.id = $('.event').attr("data-id");
-        console.log(data);
-        // $('.overlay').show();
-        // $('.eventPopup').show();
-
-        // execute('getDetails', data, function (data) {
-        //     console.log(data);
-        //      rb('.eventPopup', 'eventPopup',data);
-        // })
+        $('.overlay').show();
+        $('.eventPopup').show();
+        $('dataLoader').show();
+        execute('getDetails', {}, function (data) {
+            var dates = [];
+            for (var i = 1; i < 32; i++) {
+                dates.push({
+                    day: i
+                })
+            }
+             var x = {
+                 days:dates,
+                 eventsData: data
+             };
+            console.log(x);
+            rb('.eventPopup', 'eventPopup', x);
+        })
     })
 }

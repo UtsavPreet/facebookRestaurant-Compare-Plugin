@@ -38,42 +38,41 @@ mongo.connect(url, function (err, db) {
 global.totalEvent = {};
 global.totalPost = {};
 var restaurantObj = {};
-// global.dbData;
+global.dbData;
 app.post('/fetchData', function (req, resp) {
-    // global.db.collection('restaurantData').find({}).toArray(function (err, result) {
-    //     global.dbData = result;
-    //     //  resp.send(result);
-    // })
-    async.parallel(
-        [
-            zomato.bind(null, req.body.zomato), facebook.bind(null, req.body.facebook), tripAdvisor.bind(null, req.body.tripAdvisor), google.bind(null, req.body.google), instagram.bind(null, req.body.instagram)
-        ],
-        // optional callback
-        function (err, results) {
-            global.dbData = [];
-            global.db.collection('restaurantData').save(restaurantObj);
-            global.db.collection('restaurantData').find({}).toArray(function (err, result) {
-                if (err) throw err;
-                resp.send(result);
-                console.log(result);
-            })
-            console.log("data saved");
-        });
+    global.db.collection('restaurantData').find({}).toArray(function (err, result) {
+        global.dbData = result;
+        resp.send(result);
+    })
+    // async.parallel(
+    //     [
+    //         zomato.bind(null, req.body.zomato), facebook.bind(null, req.body.facebook), tripAdvisor.bind(null, req.body.tripAdvisor), google.bind(null, req.body.google), instagram.bind(null, req.body.instagram)
+    //     ],
+    //     // optional callback
+    //     function (err, results) {
+    //         global.dbData = [];
+    //         global.db.collection('restaurantData').save(restaurantObj);
+    //         global.db.collection('restaurantData').find({}).toArray(function (err, result) {
+    //             if (err) throw err;
+    //             resp.send(result);
+    //             console.log(result);
+    //         })
+    //         console.log("data saved");
+    //     });
 });
 
 app.post('/getDetails', function (req, resp) {
+    var data = [];
     global.db.collection('restaurantData').find({}).toArray(function (err, result) {
         if (err) throw err;
-        var data = [];
         for (var i = 0; i < result.length; i++) {
             data.push({
-                id: result[i]._id,
-                events: result[i].facebook.events.data
+                events: result[i].facebook.events.data,
             })
         }
-
+        resp.send(data);
+        console.log(data);
     })
-    resp.send(data);
 })
 
 function zomato(name, res) {
@@ -121,7 +120,7 @@ function zomato(name, res) {
                         _id: resID,
                         nDay: parseInt(moment().format('YYYYMMDD')),
                         fetchedAt: new Date().getTime(),
-                        zomato:x
+                        zomato: x
                     }
                     res(null, restaurantObj.zomato);
                 })

@@ -116,10 +116,10 @@
             <div class="card">
             </div>
             <div class="overlay">
-                
+
             </div>
             <div class="eventPopup">
-                
+
             </div>
         </div>
     </div>
@@ -129,7 +129,7 @@
     <div class="columnContainer">
         <div class="pageTopContainer">
             <div class="page">
-                 {{if facebook}}<img src={{:facebook.picture.data.url}} class="pagePicture" alt="">{{else}}-{{/if}}
+                {{if facebook}}<img src={{:facebook.picture.data.url}} class="pagePicture" alt="">{{else}}-{{/if}}
                 <div class="pageName">
                     {{if facebook}} {{:facebook.name_with_location_descriptor}}{{else}}-{{/if}}
                 </div>
@@ -144,13 +144,13 @@
             </div>
             <div class="contentRow">
                 <div class="content">
-                     {{if facebook}}{{:facebook.overall_star_rating}}{{else}}-{{/if}}
+                    {{if facebook}}{{:facebook.overall_star_rating}}{{else}}-{{/if}}
                 </div>
             </div>
 
             <div class="contentRow">
                 <div class="content">
-                     {{if facebook}}{{:facebook.fan_count}}{{else}}-{{/if}}
+                    {{if facebook}}{{:facebook.fan_count}}{{else}}-{{/if}}
                 </div>
             </div>
 
@@ -163,7 +163,7 @@
                     </div>
                     <div class="statsContainer ">
                         <div class="stat ">
-                             {{if facebook}}{{:facebook.totalEvent.attendingCount}} Guests{{else}}-{{/if}}
+                            {{if facebook}}{{:facebook.totalEvent.attendingCount}} Guests{{else}}-{{/if}}
                         </div>
                     </div>
 
@@ -174,7 +174,7 @@
                 <div class="contentEvent ">
 
                     <div class="text">
-                         {{if facebook}}{{:facebook.totalPost.count}} Posts{{else}}-{{/if}}
+                        {{if facebook}}{{:facebook.totalPost.count}} Posts{{else}}-{{/if}}
                     </div>
                     <div class="statsContainer" style="top:3rem;">
                         <div class="stat">
@@ -209,24 +209,24 @@
             <div class="contentRow ">
                 <div class="content ">
 
-                   {{if tripAdvisor}} {{:tripAdvisor.ranking}}<sup>th</sup>{{else}}-{{/if}}
+                    {{if tripAdvisor}} {{:tripAdvisor.ranking}}<sup>th</sup>{{else}}-{{/if}}
                 </div>
             </div>
             <div class="contentRow" style="height:13rem;">
                 <div class="contentEvent ">
 
                     <div class="text ">
-                       {{if tripAdvisor}} {{:tripAdvisor.totalReview}}{{else}}-{{/if}}
+                        {{if tripAdvisor}} {{:tripAdvisor.totalReview}}{{else}}-{{/if}}
                     </div>
                     <div class="statsContainer ">
                         <div class="stat ">
-                           {{if tripAdvisor}} {{:tripAdvisor.reviewDetail.excellent}}% excellent{{else}}-{{/if}}
+                            {{if tripAdvisor}} {{:tripAdvisor.reviewDetail.excellent}}% excellent{{else}}-{{/if}}
                         </div>
                         <div class="stat ">
                             {{if tripAdvisor}}{{:tripAdvisor.reviewDetail.veryGood}}% veryGood{{else}}-{{/if}}
                         </div>
                         <div class="stat ">
-                           {{if tripAdvisor}} {{:tripAdvisor.reviewDetail.average}}% average{{else}}-{{/if}}
+                            {{if tripAdvisor}} {{:tripAdvisor.reviewDetail.average}}% average{{else}}-{{/if}}
                         </div>
                         <div class="stat ">
                             {{if tripAdvisor}}{{:tripAdvisor.reviewDetail.poor}}% poor{{else}}-{{/if}}
@@ -241,7 +241,7 @@
                 <div class="contentEvent ">
 
                     <div class="text ">
-                       {{if tripAdvisor}}{{:tripAdvisor.rating}}{{else}}-{{/if}}
+                        {{if tripAdvisor}}{{:tripAdvisor.rating}}{{else}}-{{/if}}
                     </div>
                 </div>
             </div>
@@ -276,7 +276,7 @@
                     </div>
                     <div class="statsContainer ">
                         <div class="stat ">
-                          {{if zomato}}{{:zomato.user_rating.aggregate_rating}}{{else}}-{{/if}}
+                            {{if zomato}}{{:zomato.user_rating.aggregate_rating}}{{else}}-{{/if}}
                         </div>
                         <div class="stat ">
                             {{if zomato}} {{:zomato.user_rating.votes}} Votes {{else}}-{{/if}}
@@ -289,7 +289,7 @@
             </div>
             <div class="contentRow ">
                 <div class="content ">
-                   {{if google}}{{:google.rating}}{{else}}-{{/if}}
+                    {{if google}}{{:google.rating}}{{else}}-{{/if}}
                 </div>
             </div>
             <div class="contentRow">
@@ -330,65 +330,42 @@
     </div>
 </script>
 <script id="eventPopupTemplate" type="text/x-jsrender">
-        <div class="dateContainer ">
-            <div class="date ">
-                <div class="month ">
+    <div class="eventContainer">
+        <div class="dateContainer">
+            {{for days}}
+            <div class="date">
+                <div class="month">
                     AUG
                 </div>
-                <div class="day ">
-                    19
+                <div class="day">
+                    {{:day}}
                 </div>
             </div>
-            <div class="date ">
-                <div class="month ">
-                    AUG
-                </div>
-                <div class="day ">
-                    20
-                </div>
-            </div>
+            {{/for}}
         </div>
-        <div class="contentContainer ">
-            <div class="popupColumnContainer ">
-                <div class="eventName ">
-                    This is first Event
-                </div>
-                <div class="eventDescription ">
-                    This is a demo eventDescription. @lines only
-                </div>
-                <div class="eventTime ">
-                    12:00 PM
-                </div>
-                <div class="statContainer ">
-                    <div class="eventStat ">
-                        15 People Attending
+        <div class="dataContainer">
+            {{for eventsData}}
+            <div class="dataColumn">
+                {{for events}}
+                <div class="dataRow">   
+                    <div class="name">
+                        {{:name}}
                     </div>
-                    <div class="eventStat ">
-                        40 People Interested
+                    <div class="time">
+                        {{:start_time}}
+                    </div>
+                    <div class="description">
+                        {{:description}}
+                    </div>
+                    <div class="stat">
+                        Interested {{:interested_count}}
                     </div>
                 </div>
+                {{/for}}
             </div>
-            <div class="popupColumnContainer ">
-                <div class="eventName ">
-                    This is first Event
-                </div>
-                <div class="eventDescription ">
-                    This is a demo eventDescription. @lines only
-                </div>
-                <div class="eventTime ">
-                    12:00 PM
-                </div>
-                <div class="statContainer ">
-                    <div class="eventStat ">
-                        15 People Attending
-                    </div>
-                    <div class="eventStat ">
-                        40 People Interested
-                    </div>
-                </div>
-            </div>
+            {{/for}}
         </div>
-   
+    </div>
 </script>
 <script id="postTemplate " type="text/x-jsrender ">
 </script>

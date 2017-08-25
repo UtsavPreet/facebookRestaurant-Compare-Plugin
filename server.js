@@ -62,16 +62,37 @@ app.post('/fetchData', function (req, resp) {
 });
 
 app.post('/getDetails', function (req, resp) {
-    var data = [];
+    var dates = [];
+    var x;
+    for (var i = 1; i < 32; i++) {
+        dates.push({
+            day: i
+        })
+    }
+    var data;
     global.db.collection('restaurantData').find({}).toArray(function (err, result) {
         if (err) throw err;
+        var eventsArray = [];
         for (var i = 0; i < result.length; i++) {
-            data.push({
-                events: result[i].facebook.events.data,
-            })
+            eventsArray[result[i].facebook.name_with_location_descriptor] = result[i].facebook.events.data;
         }
+
+        dates.forEach(function (element) {
+            for(var key in eventsArray){
+                eventsArray[key].forEach(function(detail){
+                    if(element.day == detail.date){
+                        x[element.day] = {
+                            key: detail};
+                    }
+                    else {
+                        x["element.day"] = {
+                            key: "Not Applicable"};
+                    };
+                });
+            };
+        });
+        console.log(x);
         resp.send(data);
-        console.log(data);
     })
 })
 

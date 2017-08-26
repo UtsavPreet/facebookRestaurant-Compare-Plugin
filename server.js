@@ -40,7 +40,7 @@ var restaurantObj = {};
 global.dbData;
 app.post('/fetchData', function (req, resp) {
 
-    if (req.body == '') {
+    if (req.body.zomato == "" || req.body.facebook == "" || req.body.google == "" || req.body.tripAdvisor == "" || req.body.instagram == "") {
         global.db.collection('restaurantData').find({}).toArray(function (err, result) {
             global.dbData = result;
             resp.send(result);
@@ -106,13 +106,6 @@ app.post('/getDetails', function (req, resp) {
                 });
             };
         };
-        for (var i = 0; i < eventData.length; i++) {
-            if (eventData[i].rts.length !== global.names.length) {
-                eventData[i].rts.push({
-                    events: []
-                })
-            }
-        }
         resp.json(eventData);
         console.log(eventData);
     })

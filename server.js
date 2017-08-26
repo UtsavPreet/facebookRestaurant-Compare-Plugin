@@ -39,10 +39,14 @@ global.totalEvent = {};
 global.totalPost = {};
 var restaurantObj = {};
 global.dbData;
+global.names=[];
 app.post('/fetchData', function (req, resp) {
     global.db.collection('restaurantData').find({}).toArray(function (err, result) {
         global.dbData = result;
         resp.send(result);
+        for (var i = 0; i < result.length; i++) {
+            global.names.push({name:result[i].facebook.name_with_location_descriptor});
+        }
     })
     // async.parallel(
     //     [
@@ -62,40 +66,58 @@ app.post('/fetchData', function (req, resp) {
 });
 
 app.post('/getDetails', function (req, resp) {
+
     var dates = [];
-    var x;
     for (var i = 1; i < 32; i++) {
         dates.push({
             day: i
         })
     }
+    // global.names.forEach(function(element){
+    //     dates.push({
+    //         name: element.name
+    //     })
+    // })
     var data;
     global.db.collection('restaurantData').find({}).toArray(function (err, result) {
         if (err) throw err;
+        var eventData = [];
         var eventsArray = [];
         for (var i = 0; i < result.length; i++) {
-            eventsArray[result[i].facebook.name_with_location_descriptor] = result[i].facebook.events.data;
+            eventsArray[result[i].facebook.name_with_location_descriptor] = {
+                allEvents: result[i].facebook.events.data
+            };
         }
 
         dates.forEach(function (element) {
-            for(var key in eventsArray){
-                eventsArray[key].forEach(function(detail){
-                    if(element.day == detail.date){
-                        x[element.day] = {
-                            key: detail};
+            eventData.push({
+                day: element.day,
+                rts: []
+            })
+        })
+        for (var i = 0; i < eventData.length; i++) {
+            for (var key in eventsArray) {
+                eventsArray[key].allEvents.forEach(function (detail) {
+                    if (eventData[i].day == detail.date && detail.month == "08") {
+                        eventData[i].rts.push({
+                            name: key,
+                            events: detail
+                        })
                     }
-                    else {
-                        x["element.day"] = {
-                            key: "Not Applicable"};
-                    };
                 });
             };
-        });
-        console.log(x);
-        resp.send(data);
+        };
+        for (var i=0; i<eventData.length;i++){
+            if(eventData[i].rts.length!== global.names.length){
+                eventData[i].rts.push({
+                    events:[]
+                })
+            }
+        }
+        resp.json(eventData);
+        console.log(eventData);
     })
 })
-
 function zomato(name, res) {
     setTimeout(function () {
         api.verify(function (isVerified) {

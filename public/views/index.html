@@ -344,26 +344,31 @@
             {{/for}}
         </div>
         <div class="dataContainer">
-            {{for eventsData}}
-            <div class="dataColumn">
-                {{for events}}
-                <div class="dataRow">   
-                    <div class="name">
-                        {{:name}}
-                    </div>
-                    <div class="time">
-                        {{:start_time}}
-                    </div>
-                    <div class="description">
-                        {{:description}}
-                    </div>
-                    <div class="stat">
-                        Interested {{:interested_count}}
+            {{for eventData}}
+            <div class="row"> 
+                {{for rts}}
+                <div class="dataColumn">
+                    <div class="dataRow">
+                        <div class="name">
+                            {{if events}} {{:events.name}} {{else}}No Event{{/if}}
+                        </div>
+                        <div class="time">
+                            {{if events}} {{:events.start_time}} {{else}} {{/if}}
+                        </div>
+                        <div class="description">
+                            {{if events}} {{:events.description}} {{else}} {{/if}}
+                        </div>
+                        <div class="stat">
+                            {{if events}} Interested {{:events.interested_count}} {{else}} {{/if}}
+                        </div>
                     </div>
                 </div>
-                {{/for}}
+               {{/for}}
+
             </div>
             {{/for}}
+
+
         </div>
     </div>
 </script>

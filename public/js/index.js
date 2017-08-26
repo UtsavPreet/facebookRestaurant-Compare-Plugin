@@ -1,5 +1,5 @@
 var searchData = {};
-var dbData = [];
+var dbData =[];
 $('document').ready(function () {
     makeTemplates();
 })
@@ -14,6 +14,10 @@ bind('.mainContainer .topBar .addButton', function () {
         console.log(data);
         rb('.mainContainer .card', 'data', data);
         $('.mainContainer .dataLoader').hide();
+        for (var i = 0; i < data.length; i++) {
+            dbData.push({name:data[i].facebook.name_with_location_descriptor});
+        }
+        console.log(dbData);
         screenBind();
     })
     console.log(searchData);
@@ -53,19 +57,23 @@ function screenBind() {
         $('.overlay').show();
         $('.eventPopup').show();
         $('dataLoader').show();
-        execute('getDetails', {}, function (data) {
-            var dates = [];
-            for (var i = 1; i < 32; i++) {
-                dates.push({
-                    day: i
+        execute('getDetails',{dbData}, function (data) {
+            console.log(data);
+            var x = {
+                eventData: data,
+                days: []
+            };
+            for (var i = 0; i < data.length; i++) {
+                x.days.push({
+                    day: data[i].day
                 })
             }
-             var x = {
-                 days:dates,
-                 eventsData: data
-             };
             console.log(x);
-            rb('.eventPopup', 'eventPopup', x);
+            rb('.eventPopup', 'eventPopup', x, dbData);
         })
+    })
+    bind('.mainContainer .overlay', function () {
+        $('.eventPopup').hide();
+        $(this).hide();
     })
 }

@@ -347,7 +347,6 @@ body {
                 text-align: center;
                 top: 0;
                 bottom: 0;
-                border-right: 0.1rem solid #D3D7DC;
                 .date {
                     position: relative;
                     float: left;
@@ -355,6 +354,7 @@ body {
                     width: 100%;
                     text-align: center;
                     padding-top: 2rem;
+                    border-right: 0.1rem solid #D3D7DC;
                     .month {
                         position: relative;
                         height: 4rem;
@@ -378,54 +378,59 @@ body {
                 top: 0;
                 bottom: 0;
                 right: 0;
-                overflow: auto;
                 white-space: nowrap;
-                .dataColumn {
+                .row {
                     position: relative;
-                    display: inline-block;
-                    height: 100%;
-                    width: 26rem;
-                    border-right: 0.1rem solid #D3D7DC;
-                    white-space: normal;
-                    .dataRow {
+                    height: 14rem;
+                    width: 100%;
+                    padding: 1rem;
+                    font-size: 1.4rem;
+                    border-bottom: 0.1rem dotted #D3D7DC;
+                    .dataColumn {
                         position: relative;
-                        height: 14rem;
-                        padding: 1rem;
-                        font-size: 1.4rem;
-                        border-bottom: 0.1rem dotted #D3D7DC;
-                        .name {
+                        display: inline-block;
+                        height: 100%;
+                        width: 26rem;
+                        border-right: 0.1rem solid #D3D7DC;
+                        white-space: normal;
+                        .dataRow {
                             position: relative;
-                            text-align: center;
-                            height: 4rem;
-                            line-height: 2rem;
-                            font-size: 1.8rem;
-                            font-weight: 400;
-                            overflow: hidden;
-                        }
-                        .time {
-                            position: relative;
-                            text-align: left;
-                            height: 3rem;
-                            line-height: 3rem;
+                            height: 14rem;
                             font-size: 1.4rem;
-                            font-weight: 400;
-                            overflow: hidden;
-                        }
-                        .description {
-                            position: relative;
-                            height: 4rem;
-                            line-height: 2rem;
-                            font-size: 1.4rem;
-                            overflow: hidden;
-                        }
-                        .stat {
-                            position: relative;
-                            float: left;
-                            height: 4rem;
-                            line-height: 2rem;
-                            font-size: 1.4rem;
-                            padding-top: 0.5rem;
-                            padding-right: 0.5rem;
+                            .name {
+                                position: relative;
+                                text-align: center;
+                                height: 4rem;
+                                line-height: 2rem;
+                                font-size: 1.8rem;
+                                font-weight: 400;
+                                overflow: hidden;
+                            }
+                            .time {
+                                position: relative;
+                                text-align: left;
+                                height: 3rem;
+                                line-height: 3rem;
+                                font-size: 1.4rem;
+                                font-weight: 400;
+                                overflow: hidden;
+                            }
+                            .description {
+                                position: relative;
+                                height: 4rem;
+                                line-height: 2rem;
+                                font-size: 1.4rem;
+                                overflow: hidden;
+                            }
+                            .stat {
+                                position: relative;
+                                float: left;
+                                height: 4rem;
+                                line-height: 2rem;
+                                font-size: 1.4rem;
+                                padding-top: 0.5rem;
+                                padding-right: 0.5rem;
+                            }
                         }
                     }
                 }

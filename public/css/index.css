@@ -365,7 +365,6 @@ body {
   text-align: center;
   top: 0;
   bottom: 0;
-  border-right: 0.1rem solid #D3D7DC;
 }
 .mainContainer .eventPopup .eventContainer .dateContainer .date {
   position: relative;
@@ -374,6 +373,7 @@ body {
   width: 100%;
   text-align: center;
   padding-top: 2rem;
+  border-right: 0.1rem solid #D3D7DC;
 }
 .mainContainer .eventPopup .eventContainer .dateContainer .date .month {
   position: relative;
@@ -396,10 +396,17 @@ body {
   top: 0;
   bottom: 0;
   right: 0;
-  overflow: auto;
   white-space: nowrap;
 }
-.mainContainer .eventPopup .eventContainer .dataContainer .dataColumn {
+.mainContainer .eventPopup .eventContainer .dataContainer .row {
+  position: relative;
+  height: 14rem;
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.4rem;
+  border-bottom: 0.1rem dotted #D3D7DC;
+}
+.mainContainer .eventPopup .eventContainer .dataContainer .row .dataColumn {
   position: relative;
   display: inline-block;
   height: 100%;
@@ -407,14 +414,12 @@ body {
   border-right: 0.1rem solid #D3D7DC;
   white-space: normal;
 }
-.mainContainer .eventPopup .eventContainer .dataContainer .dataColumn .dataRow {
+.mainContainer .eventPopup .eventContainer .dataContainer .row .dataColumn .dataRow {
   position: relative;
   height: 14rem;
-  padding: 1rem;
   font-size: 1.4rem;
-  border-bottom: 0.1rem dotted #D3D7DC;
 }
-.mainContainer .eventPopup .eventContainer .dataContainer .dataColumn .dataRow .name {
+.mainContainer .eventPopup .eventContainer .dataContainer .row .dataColumn .dataRow .name {
   position: relative;
   text-align: center;
   height: 4rem;
@@ -423,7 +428,7 @@ body {
   font-weight: 400;
   overflow: hidden;
 }
-.mainContainer .eventPopup .eventContainer .dataContainer .dataColumn .dataRow .time {
+.mainContainer .eventPopup .eventContainer .dataContainer .row .dataColumn .dataRow .time {
   position: relative;
   text-align: left;
   height: 3rem;
@@ -432,14 +437,14 @@ body {
   font-weight: 400;
   overflow: hidden;
 }
-.mainContainer .eventPopup .eventContainer .dataContainer .dataColumn .dataRow .description {
+.mainContainer .eventPopup .eventContainer .dataContainer .row .dataColumn .dataRow .description {
   position: relative;
   height: 4rem;
   line-height: 2rem;
   font-size: 1.4rem;
   overflow: hidden;
 }
-.mainContainer .eventPopup .eventContainer .dataContainer .dataColumn .dataRow .stat {
+.mainContainer .eventPopup .eventContainer .dataContainer .row .dataColumn .dataRow .stat {
   position: relative;
   float: left;
   height: 4rem;

@@ -53,12 +53,14 @@ app.post('/fetchData', function (req, resp) {
             // optional callback
             function (err, results) {
                 global.dbData = [];
-                global.db.collection('restaurantData').save(restaurantObj);
-                global.db.collection('restaurantData').find({}).toArray(function (err, result) {
-                    if (err) throw err;
-                    resp.send(result);
-                    console.log(result);
-                })
+                global.db.collection('restaurantData').save(restaurantObj,function(){
+                    global.db.collection('restaurantData').find({}).toArray(function (err, result) {
+                        if (err) throw err;
+                        resp.send(result);
+                        console.log(result);
+                    })
+                });
+               
                 console.log("data saved");
             });
     }

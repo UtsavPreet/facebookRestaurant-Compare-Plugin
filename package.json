@@ -15,6 +15,7 @@
     "node-instagram": "^3.0.0",
     "node-zomato": "^1.0.3",
     "request": "^2.81.0",
-    "request-promise": "^4.2.1"
+    "request-promise": "^4.2.1",
+    "zomato.js": "^1.0.4"
   }
 }

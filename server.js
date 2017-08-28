@@ -16,9 +16,8 @@ var moment = require('moment');
 var url = 'mongodb://localhost:27017/restaurant';
 const cheerio = require('cheerio');
 var request = require("request");
-var key = "64a15965a23b35c5f3bcd258c4b75e56";
-var Zomato = require('node-zomato');
-var api = new Zomato(key);
+var zomatoJs = require("zomato.js");
+var z = new zomatoJs('64a15965a23b35c5f3bcd258c4b75e56');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
@@ -39,30 +38,30 @@ global.totalEvent = {};
 global.totalPost = {};
 var restaurantObj = {};
 global.dbData;
-global.names=[];
 app.post('/fetchData', function (req, resp) {
-    global.db.collection('restaurantData').find({}).toArray(function (err, result) {
-        global.dbData = result;
-        resp.send(result);
-        for (var i = 0; i < result.length; i++) {
-            global.names.push({name:result[i].facebook.name_with_location_descriptor});
-        }
-    })
-    // async.parallel(
-    //     [
-    //         zomato.bind(null, req.body.zomato), facebook.bind(null, req.body.facebook), tripAdvisor.bind(null, req.body.tripAdvisor), google.bind(null, req.body.google), instagram.bind(null, req.body.instagram)
-    //     ],
-    //     // optional callback
-    //     function (err, results) {
-    //         global.dbData = [];
-    //         global.db.collection('restaurantData').save(restaurantObj);
-    //         global.db.collection('restaurantData').find({}).toArray(function (err, result) {
-    //             if (err) throw err;
-    //             resp.send(result);
-    //             console.log(result);
-    //         })
-    //         console.log("data saved");
-    //     });
+
+    if (req.body.zomato == '' || req.body.facebook == '' || req.body.tripAdvisor == '' || req.body.google == '' || req.body.instagram == '') {
+        global.db.collection('restaurantData').find({}).toArray(function (err, result) {
+            global.dbData = result;
+            resp.send(result);
+        })
+    } else {
+        async.parallel(
+            [
+                zomato.bind(null, req.body.zomato), facebook.bind(null, req.body.facebook), tripAdvisor.bind(null, req.body.tripAdvisor), google.bind(null, req.body.google), instagram.bind(null, req.body.instagram)
+            ],
+            // optional callback
+            function (err, results) {
+                global.dbData = [];
+                global.db.collection('restaurantData').save(restaurantObj);
+                global.db.collection('restaurantData').find({}).toArray(function (err, result) {
+                    if (err) throw err;
+                    resp.send(result);
+                    console.log(result);
+                })
+                console.log("data saved");
+            });
+    }
 });
 
 app.post('/getDetails', function (req, resp) {
@@ -107,10 +106,10 @@ app.post('/getDetails', function (req, resp) {
                 });
             };
         };
-        for (var i=0; i<eventData.length;i++){
-            if(eventData[i].rts.length!== global.names.length){
+        for (var i = 0; i < eventData.length; i++) {
+            if (eventData[i].rts.length !== global.names.length) {
                 eventData[i].rts.push({
-                    events:[]
+                    events: []
                 })
             }
         }
@@ -118,58 +117,38 @@ app.post('/getDetails', function (req, resp) {
         console.log(eventData);
     })
 })
+
 function zomato(name, res) {
     setTimeout(function () {
-        api.verify(function (isVerified) {
-            console.log(isVerified);
-            if (isVerified === false) {
-                process.exit();
-            }
-        });
-        request({
-            headers: {
-                'user-key': key,
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            url: addUrlParam('search', "q", name),
-            method: 'GET',
-        }, function (err, resp) {
-            if (err)
-                throw (err);
-            else {
-                var y = JSON.parse(resp.body);
-                var x = y.restaurants[0].restaurant;
-                var resID = x.id;
-                request({
-                    headers: {
-                        'user-key': key,
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    url: addUrlParam('reviews', "res_id", resID),
-                    method: 'GET'
-                }, function (err, resp1) {
-                    if (err)
-                        throw (err);
-                    x.userReview = JSON.parse(resp1.body);
-                    var averageRating, likesCount = 0;
-                    for (var i = 0; i < x.userReview.user_reviews.length; i++) {
-                        averageRating = +x.userReview.user_reviews[i].review.rating;
-                        likesCount = +x.userReview.user_reviews[i].review.likes;
-                    }
-                    x.userReview.aggregate_rating = averageRating;
-                    x.userReview.average_likes = likesCount;
-                    x.userReview.rating_text = x.userReview.user_reviews[0].review.rating_text;
-                    restaurantObj = {
-                        _id: resID,
-                        nDay: parseInt(moment().format('YYYYMMDD')),
-                        fetchedAt: new Date().getTime(),
-                        zomato: x
-                    }
-                    res(null, restaurantObj.zomato);
-                })
-            }
-        })
-
+        var resID;
+        var x;
+        z
+            .search({
+                entity_id: 1,
+                entity_type: 'city',
+                q: name,
+                count: 1
+            })
+            .then(function (data) {
+                console.log(data);
+                x = data[0];
+                resID = data[0].R.res_id
+                z
+                    .reviews({
+                        res_id: resID
+                    })
+                    .then(function (data) {
+                        x.userReview = data;
+                        console.log(data);
+                        restaurantObj = {
+                            _id: resID,
+                            nDay: parseInt(moment().format('YYYYMMDD')),
+                            fetchedAt: new Date().getTime(),
+                            zomato: x
+                        }
+                        res(null, restaurantObj.zomato);
+                    })
+            })
     }, 5000);
 }
 
@@ -339,20 +318,6 @@ function filterData(selector, cb) {
     })
     tripAdvisorData = restaurant;
     cb(restaurant);
-}
-
-function addUrlParam(search, key, value) {
-    var url = 'https://developers.zomato.com/api/v2.1/' + search;
-    var newParam = key + "=" + value;
-    var result = url.replace(new RegExp("(&|\\?)" + key + "=[^\&|#]*"), '$1' + newParam);
-    if (result === url) {
-        result = (url.indexOf("?") != -1 ? url.split("?")[0] + "?" + newParam + "&" + url.split("?")[1] :
-            (url.indexOf("#") != -1 ? url.split("#")[0] + "?" + newParam + "#" + url.split("#")[1] :
-                url + '?' + newParam));
-    }
-    if (result == ("https://developers.zomato.com/api/v2.1/search?q=" + value))
-        result = result + '&count=1&entity_id=1';
-    return result;
 }
 app.listen(port);
 console.log('Server started! At http://localhost:' + port);

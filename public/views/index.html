@@ -212,6 +212,14 @@
                     {{if tripAdvisor}} {{:tripAdvisor.ranking}}<sup>th</sup>{{else}}-{{/if}}
                 </div>
             </div>
+            <div class="contentRow">
+                <div class="contentEvent ">
+
+                    <div class="text ">
+                        {{if tripAdvisor}}{{:tripAdvisor.rating}}{{else}}-{{/if}}
+                    </div>
+                </div>
+            </div>
             <div class="contentRow" style="height:13rem;">
                 <div class="contentEvent ">
 
@@ -234,14 +242,6 @@
                         <div class="stat ">
                             {{if tripAdvisor}}{{:tripAdvisor.reviewDetail.terrible}}% terrible{{else}}-{{/if}}
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="contentRow">
-                <div class="contentEvent ">
-
-                    <div class="text ">
-                        {{if tripAdvisor}}{{:tripAdvisor.rating}}{{else}}-{{/if}}
                     </div>
                 </div>
             </div>

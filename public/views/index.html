@@ -16,6 +16,8 @@
 
 <body>
     <div class="mainContainer">
+        <div id="map" style="height:0;">
+        </div>
         <div class="topBar">
             <img src="../images/logo-black.png" class="logo" alt="Logo">
             <div class="searchContainer">
@@ -32,10 +34,28 @@
             <textarea class="searchField tripAdvisor" value="https://www.tripadvisor.in/Restaurant_Review-g304551-d10236428-Reviews-Circus-New_Delhi_National_Capital_Territory_of_Delhi.html"
                 placeholder="TripAdvisor URL"></textarea>
             <textarea class="searchField instagram" value="circus_newdelhi" placeholder="Instagram ID"></textarea>
-            <textarea class="searchField google" value="ChIJu0JRfF3iDDkRSxZZ66nJCmI" placeholder="Google Place ID"></textarea>
-            <div class="addButton">
-                Add Restaurant
+            <textarea id="google" class="searchField google" value="ChIJu0JRfF3iDDkRSxZZ66nJCmI" placeholder="Google Place ID"></textarea>
+            <div class="optionsContainer">
+                <div class="add">
+                    <div class="text">
+                        Add
+                    </div>
+                    <img src="../images/add.svg" class="addRestaurant" alt="">
+                </div>
+                <div class="refreshData">
+                    <div class="text">
+                        Refresh
+                    </div>
+                    <img src="../images/refresh.svg" class="refreshRestaurant" alt="">
+                </div>
+                <div class="compare">
+                    <div class="text">
+                        Compare
+                    </div>
+                    <img src="../images/compare.svg" class="compareRestaurant" alt="">
+                </div>
             </div>
+
         </div>
         <div class="pageContainer">
             <div class="menuTopContainer">
@@ -67,28 +87,26 @@
                     <div class="option">
                         Rank
                     </div>
-                    <div class="option" style="height: 13rem;">
-                        Review
-                    </div>
                     <div class="option">
                         Rating
                     </div>
+                    <div class="option" style="height: 13rem;">
+                        Review
+                    </div>
+
                 </div>
                 <div class="menuItem">
                     <div class="heading">
                         <img src="../images/zomato-logo.svg" class="socialMediaIcon" alt=""> Zomato
                     </div>
                     <div class="option">
-                        Average Cost
-                    </div>
-                    <div class="option">
-                        cuisines
-                    </div>
-                    <div class="option">
                         Reviews
                     </div>
-                    <div class="option" style="height: 7rem;">
+                    <div class="option">
                         User Rating
+                    </div>
+                    <div class="option">
+                        User Votes
                     </div>
                 </div>
                 <div class="menuItem">
@@ -106,8 +124,14 @@
                     <div class="heading">
                         <img src="../images/instagram-logo.png" class="socialMediaIcon" alt=""> Instagram
                     </div>
-                    <div class="option" style="height: 9rem;">
-                        Stats
+                    <div class="option">
+                        Followers
+                    </div>
+                    <div class="option">
+                        Following
+                    </div>
+                    <div class="option">
+                        Posts
                     </div>
                 </div>
             </div>
@@ -249,40 +273,27 @@
                 <div class="content ">
                 </div>
             </div>
-            <div class="contentRow ">
-                <div class="content ">
 
-                    ₹ {{if zomato}}{{:zomato.average_cost_for_two}}{{else}}-{{/if}}
-                </div>
-            </div>
-            <div class="contentRow ">
-                <div class="content ">
-                    {{if zomato}}{{:zomato.cuisines}}{{else}}-{{/if}}
-                </div>
-            </div>
             <div class="contentRow ">
                 <div class="contentEvent ">
                     <div class="text ">
-                        {{if zomato}}{{:zomato.all_reviews_count}}{{else}}-{{/if}}
+                        {{if zomato}}{{:zomato.userReview.reviews_count}}{{else}}-{{/if}}
                     </div>
                     <img id="review" src="../images/menu.svg " class="more review" alt=" ">
                 </div>
             </div>
-            <div class="contentRow" style="height: 7rem;">
+            <div class="contentRow">
                 <div class="contentEvent ">
-
                     <div class="text ">
-                        {{if zomato}}{{:zomato.user_rating.rating_text}}{{else}}-{{/if}}
+                        {{if zomato}}<strong>{{:zomato.user_rating.aggregate_rating}}</strong> {{:zomato.user_rating.rating_text}}{{else}}-{{/if}}
                     </div>
-                    <div class="statsContainer ">
-                        <div class="stat ">
-                            {{if zomato}}{{:zomato.user_rating.aggregate_rating}}{{else}}-{{/if}}
-                        </div>
-                        <div class="stat ">
-                            {{if zomato}} {{:zomato.user_rating.votes}} Votes {{else}}-{{/if}}
-                        </div>
+                </div>
+            </div>
+            <div class="contentRow">
+                <div class="contentEvent">
+                    <div class="text">
+                        {{if zomato}} {{:zomato.user_rating.votes}} Votes {{else}}-{{/if}}
                     </div>
-
                 </div>
             </div>
             <div class="contentRow blank ">
@@ -305,26 +316,26 @@
 
                 </div>
             </div>
-            <div class="contentRow" style="height: 9rem;">
-                <div class="contentEvent ">
-
-                    <div class="text ">
-                        Stats
+            <div class="contentRow">
+                <div class="contentEvent">
+                    <div class="text">
+                        {{:instagram.followers}}
                     </div>
-                    <div class="statsContainer ">
-                        <div class="stat ">
-                            {{:instagram.followers}} Followers
-                        </div>
-                        <div class="stat ">
-                            {{:instagram.following}} Following
-                        </div>
-                        <div class="stat ">
-                            {{:instagram.posts}} Posts
-                        </div>
-                    </div>
-
                 </div>
-
+            </div>
+            <div class="contentRow">
+                <div class="contentEvent">
+                    <div class="text">
+                        {{:instagram.following}}
+                    </div>
+                </div>
+            </div>
+            <div class="contentRow">
+                <div class="contentEvent">
+                    <div class="text">
+                        {{:instagram.posts}}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -345,7 +356,7 @@
         </div>
         <div class="dataContainer">
             {{for eventData}}
-            <div class="row"> 
+            <div class="row">
                 {{for rts}}
                 <div class="dataColumn">
                     <div class="dataRow">
@@ -363,7 +374,7 @@
                         </div>
                     </div>
                 </div>
-               {{/for}}
+                {{/for}}
 
             </div>
             {{/for}}
@@ -384,5 +395,6 @@
 <script src="../js/base.js "></script>
 <script src="../js/data.js "></script>
 <script src="../js/index.js "></script>
-
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhl8KUtuDKLrZFQDKf-9eRKOh1V0MLqCE&libraries=places"
+        async defer></script>
 </html>

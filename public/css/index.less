@@ -22,6 +22,20 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
+    .mapPopup{
+        position: absolute;
+        height: 50rem;
+        top: 50%;
+        left: 50%;
+        width: 50rem;
+        transform: translate(-50%,-50%);
+        display: none;
+        .map{
+            position: absolute;
+            height: 100%;
+            width: 100%;
+        }
+    }
     .contentOverlay {
         position: absolute;
         height: 100%;
@@ -105,332 +119,402 @@ body {
             resize: none;
             outline: none;
         }
-        .addButton {
+        .optionsContainer {
             position: relative;
-            float: right;
-            margin: 1rem;
-            margin-right: 2rem;
-            background-color: black;
-            height: 3rem;
-            line-height: 3rem;
-            color: white;
-            padding-left: 2rem;
-            padding-right: 2rem;
-            font-size: 1.2rem;
-            border-radius: 0.2rem;
-        }
-        .legend {
-            .addButton();
-            float: right;
-            margin-left: 0;
-            margin-right: 2rem;
-            background-color: transparent;
-            .color {
+            float: left;
+            height: 100%;
+            width: 15rem;
+            .add {
                 position: relative;
+                height: 100%;
+                width: 5rem;
                 float: left;
-                height: 2rem;
-                padding-right: 0.2rem;
-                background-color: pink;
-                width: 2rem;
-                margin-right: 0.5rem;
+                .text {
+                    position: absolute;
+                    height: 3rem;
+                    line-height: 3.5rem;
+                    bottom: 0;
+                    text-align: center;
+                    width: 100%;
+                }
+                .addRestaurant {
+                    position: absolute;
+                    top: 0.5rem;
+                    height: 4rem;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
             }
-            .text {
+            .refreshData {
                 position: relative;
-                float: right;
-                color: black;
-                margin-right: 0rem;
+                height: 100%;
+                width: 5rem;
+                float: left;
+                .text {
+                    position: absolute;
+                    height: 3rem;
+                    line-height: 3.5rem;
+                    bottom: 0;
+                    text-align: center;
+                    width: 100%;
+                }
+                .refreshRestaurant {
+                    position: absolute;
+                    top: 0.5rem;
+                    height: 4rem;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+            }
+            .compare {
+                position: relative;
+                height: 100%;
+                width: 5rem;
+                float: left;
+                .text {
+                    position: absolute;
+                    height: 3rem;
+                    line-height: 3.5rem;
+                    bottom: 0;
+                    text-align: center;
+                    width: 100%;
+                }
+                .compareRestaurant {
+                    position: absolute;
+                    top: 1rem;
+                    height: 2.5rem;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
             }
         }
     }
-    .pageContainer {
-        position: absolute;
-        top: 6rem;
-        bottom: 0;
-        width: 100%;
-        overflow-y: scroll;
-        .menuTopContainer {
-            position: fixed;
-            left: 2rem;
-            height: 4rem;
-            line-height: 4rem;
-            right: 2rem;
-            border-bottom: 0.1rem solid #D3D7DC;
-            z-index: 3;
-            background-color: white;
+    .addButton {
+        position: relative;
+        float: left;
+        margin: 1rem;
+        margin-right: 2rem;
+        background-color: black;
+        height: 3rem;
+        line-height: 3rem;
+        color: white;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        font-size: 1.2rem;
+        border-radius: 0.2rem;
+    }
+    .legend {
+        .addButton();
+        float: right;
+        margin-left: 0;
+        margin-right: 2rem;
+        background-color: transparent;
+        .color {
+            position: relative;
+            float: left;
+            height: 2rem;
+            padding-right: 0.2rem;
+            background-color: pink;
+            width: 2rem;
+            margin-right: 0.5rem;
         }
-        .menuContainer {
-            position: absolute;
-            width: 16rem;
-            background-color: #E9EBEE;
-            top: 3rem;
-            bottom: 0;
-            left: 2rem;
-            padding: 1rem;
-            .menuItem {
+        .text {
+            position: relative;
+            float: right;
+            color: black;
+            margin-right: 0rem;
+        }
+    }
+}
+
+.pageContainer {
+    position: absolute;
+    top: 7rem;
+    bottom: 0;
+    width: 100%;
+    overflow-y: scroll;
+    .menuTopContainer {
+        position: fixed;
+        left: 2rem;
+        height: 4rem;
+        line-height: 4rem;
+        right: 2rem;
+        z-index: 3;
+        background-color: #E9EBEE;
+    }
+    .menuContainer {
+        position: absolute;
+        width: 16rem;
+        background-color: #E9EBEE;
+        top: 3rem;
+        bottom: 0;
+        left: 2rem;
+        padding: 1rem;
+        .menuItem {
+            position: relative;
+            text-transform: capitalize;
+            height: auto;
+            padding-bottom: 0.4rem;
+            .heading {
                 position: relative;
-                text-transform: capitalize;
-                height: auto;
-                padding-bottom: 0.4rem;
-                .heading {
+                height: 4rem;
+                line-height: 4rem;
+                padding-left: 1rem;
+                font-size: 1.6rem;
+                font-weight: 400;
+                border-bottom: 0.1rem solid;
+                .socialMediaIcon {
                     position: relative;
-                    height: 4rem;
-                    line-height: 4rem;
-                    padding-left: 1rem;
-                    font-size: 1.6rem;
-                    font-weight: 400;
-                    border-bottom: 0.1rem solid;
-                    .socialMediaIcon {
-                        position: relative;
-                        float: left;
-                        height: 2rem;
-                        padding-top: 1rem;
-                        padding-right: 0.3rem;
-                    }
-                }
-                .option {
-                    position: relative;
-                    height: 3rem;
-                    line-height: 3rem;
-                    padding-left: 1rem;
-                    font-size: 1.4rem;
-                    font-weight: 300;
+                    float: left;
+                    height: 2rem;
+                    padding-top: 1rem;
+                    padding-right: 0.3rem;
                 }
             }
-        }
-        .card {
-            position: absolute;
-            height: 100%;
-            left: 20rem;
-            right: 2rem;
-            overflow-x: hidden;
-            white-space: nowrap;
-            .columnContainer {
+            .option {
                 position: relative;
-                display: inline-block;
-                height: 100%;
-                width: 26rem;
-                border-right: 0.1rem solid #D3D7DC;
-                .pageTopContainer {
-                    position: absolute;
-                    height: 4rem;
-                    line-height: 4rem;
-                    width: inherit;
-                    border-bottom: 0.1rem solid #D3D7DC;
-                    z-index: 3;
-                    background-color: white;
-                    .page {
+                height: 3rem;
+                line-height: 3rem;
+                padding-left: 1rem;
+                font-size: 1.4rem;
+                font-weight: 300;
+            }
+        }
+    }
+    .card {
+        position: absolute;
+        height: 100%;
+        left: 20rem;
+        right: 2rem;
+        overflow-x: hidden;
+        white-space: nowrap;
+        .columnContainer {
+            position: relative;
+            display: inline-block;
+            height: 100%;
+            width: 26rem;
+            border-right: 0.1rem solid #D3D7DC;
+            .pageTopContainer {
+                position: absolute;
+                height: 4rem;
+                line-height: 4rem;
+                width: inherit;
+                border-bottom: 0.1rem solid #D3D7DC;
+                z-index: 3;
+                background-color: #E9EBEE;
+                .page {
+                    position: relative;
+                    float: left;
+                    padding-left: 1rem;
+                    .pagePicture {
+                        position: relative;
+                        padding-top: 0.5rem;
+                        height: 3rem;
+                        float: left;
+                    }
+                    .pageName {
                         position: relative;
                         float: left;
+                        font-size: 1.4rem;
                         padding-left: 1rem;
-                        .pagePicture {
-                            position: relative;
-                            padding-top: 0.5rem;
-                            height: 3rem;
-                            float: left;
-                        }
-                        .pageName {
-                            position: relative;
-                            float: left;
-                            font-size: 1.4rem;
-                            padding-left: 1rem;
-                            padding-right: 1rem;
-                            font-weight: 400;
-                        }
+                        padding-right: 1rem;
+                        font-weight: 400;
                     }
                 }
-                .contentContainer {
-                    position: absolute;
-                    top: 4rem;
-                    bottom: 0;
-                    width: inherit;
-                    .contentRow {
+            }
+            .contentContainer {
+                position: absolute;
+                top: 4rem;
+                bottom: 0;
+                width: inherit;
+                .contentRow {
+                    position: relative;
+                    float: left;
+                    height: 3rem;
+                    line-height: 3rem;
+                    width: 100%;
+                    border-bottom: 0.1rem solid #D3D7DC;
+                    background-color: white;
+                    .content {
                         position: relative;
-                        float: left;
-                        height: 3rem;
-                        line-height: 3rem;
-                        width: 100%;
-                        border-bottom: 0.1rem solid #D3D7DC;
-                        background-color: white;
-                        .content {
+                        font-size: 1.4rem;
+                        padding-left: 1rem;
+                        text-align: left;
+                        .more {
                             position: relative;
-                            font-size: 1.4rem;
+                            float: right;
                             padding-left: 1rem;
-                            text-align: left;
-                            .more {
-                                position: relative;
-                                float: right;
-                                padding-left: 1rem;
-                                height: 4rem;
-                                padding-top: 0.5rem;
-                            }
+                            height: 4rem;
+                            padding-top: 0.5rem;
                         }
-                        .contentEvent {
-                            .content();
-                            .option {
+                    }
+                    .contentEvent {
+                        .content();
+                        .option {
+                            position: relative;
+                            float: left;
+                        }
+                        .text {
+                            position: relative;
+                            float: left;
+                            font-size: 1.4rem;
+                            font-weight: 400;
+                        }
+                        .statsContainer {
+                            position: absolute;
+                            top: 2rem;
+                            height: 7rem;
+                            .stat {
                                 position: relative;
-                                float: left;
-                            }
-                            .text {
-                                position: relative;
-                                float: left;
-                                font-size: 1.4rem;
-                                font-weight: 400;
-                            }
-                            .statsContainer {
-                                position: absolute;
-                                top: 2rem;
-                                height: 7rem;
-                                .stat {
+                                padding-left: 0.2rem;
+                                font-size: 1.2rem;
+                                font-weight: 300;
+                                padding-left: 1rem;
+                                height: 2rem;
+                                .text {
                                     position: relative;
-                                    padding-left: 0.2rem;
                                     font-size: 1.2rem;
                                     font-weight: 300;
                                     padding-left: 1rem;
                                     height: 2rem;
-                                    .text {
-                                        position: relative;
-                                        font-size: 1.2rem;
-                                        font-weight: 300;
-                                        padding-left: 1rem;
-                                        height: 2rem;
-                                        line-height: 2rem;
-                                        float: left;
-                                    }
-                                    .statImage {
-                                        position: relative;
-                                        height: 2rem;
-                                        float: left;
-                                        padding-left: 0.5rem;
-                                    }
+                                    line-height: 2rem;
+                                    float: left;
+                                }
+                                .statImage {
+                                    position: relative;
+                                    height: 2rem;
+                                    float: left;
+                                    padding-left: 0.5rem;
                                 }
                             }
-                            .more {
-                                position: relative;
-                                float: right;
-                                padding-left: 1rem;
-                                height: 3rem;
-                                padding-top: 0.5rem;
-                            }
+                        }
+                        .more {
+                            position: relative;
+                            float: right;
+                            padding-left: 1rem;
+                            height: 3rem;
+                            padding-top: 0.5rem;
                         }
                     }
-                    .blank {
-                        height: 4rem;
-                    }
                 }
-                .fixed {
-                    position: fixed;
-                    z-index: 3;
-                    background-color: white;
-                    width: inherit;
-                    height: inherit;
+                .blank {
+                    height: 4rem;
                 }
+            }
+            .fixed {
+                position: fixed;
+                z-index: 3;
+                background-color: white;
+                width: inherit;
+                height: inherit;
             }
         }
     }
-    .eventPopup {
+}
+
+.eventPopup {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: none;
+    .eventContainer {
         position: absolute;
-        height: 100%;
-        width: 100%;
-        display: none;
-        .eventContainer {
+        height: 32rem;
+        background-color: #fff;
+        left: 15rem;
+        right: 2rem;
+        top: 50%;
+        transform: translateY(-50%);
+        overflow-y: scroll;
+        .dateContainer {
             position: absolute;
-            height: 32rem;
-            background-color: #fff;
-            left: 15rem;
-            right: 2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            overflow-y: scroll;
-            .dateContainer {
-                position: absolute;
-                width: 5rem;
+            width: 5rem;
+            text-align: center;
+            top: 0;
+            bottom: 0;
+            .date {
+                position: relative;
+                float: left;
+                height: 14rem;
+                width: 100%;
                 text-align: center;
-                top: 0;
-                bottom: 0;
-                .date {
+                padding-top: 2rem;
+                border-right: 0.1rem solid #D3D7DC;
+                .month {
                     position: relative;
-                    float: left;
-                    height: 14rem;
-                    width: 100%;
-                    text-align: center;
-                    padding-top: 2rem;
-                    border-right: 0.1rem solid #D3D7DC;
-                    .month {
-                        position: relative;
-                        height: 4rem;
-                        line-height: 4rem;
-                        font-size: 1.4rem;
-                        color: #fa3e3e;
-                    }
-                    .day {
-                        position: relative;
-                        height: 2rem;
-                        line-height: 2rem;
-                        font-size: 2.4rem;
-                        color: black;
-                        font-weight: 300;
-                    }
+                    height: 4rem;
+                    line-height: 4rem;
+                    font-size: 1.4rem;
+                    color: #fa3e3e;
+                }
+                .day {
+                    position: relative;
+                    height: 2rem;
+                    line-height: 2rem;
+                    font-size: 2.4rem;
+                    color: black;
+                    font-weight: 300;
                 }
             }
-            .dataContainer {
-                position: absolute;
-                left: 5rem;
-                top: 0;
-                bottom: 0;
-                right: 0;
-                white-space: nowrap;
-                .row {
+        }
+        .dataContainer {
+            position: absolute;
+            left: 5rem;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            white-space: nowrap;
+            .row {
+                position: relative;
+                height: 14rem;
+                width: 100%;
+                padding: 1rem;
+                font-size: 1.4rem;
+                border-bottom: 0.1rem dotted #D3D7DC;
+                .dataColumn {
                     position: relative;
-                    height: 14rem;
-                    width: 100%;
-                    padding: 1rem;
-                    font-size: 1.4rem;
-                    border-bottom: 0.1rem dotted #D3D7DC;
-                    .dataColumn {
+                    display: inline-block;
+                    height: 100%;
+                    width: 26rem;
+                    border-right: 0.1rem solid #D3D7DC;
+                    white-space: normal;
+                    .dataRow {
                         position: relative;
-                        display: inline-block;
-                        height: 100%;
-                        width: 26rem;
-                        border-right: 0.1rem solid #D3D7DC;
-                        white-space: normal;
-                        .dataRow {
+                        height: 14rem;
+                        font-size: 1.4rem;
+                        .name {
                             position: relative;
-                            height: 14rem;
+                            text-align: center;
+                            height: 4rem;
+                            line-height: 2rem;
+                            font-size: 1.8rem;
+                            font-weight: 400;
+                            overflow: hidden;
+                        }
+                        .time {
+                            position: relative;
+                            text-align: left;
+                            height: 3rem;
+                            line-height: 3rem;
                             font-size: 1.4rem;
-                            .name {
-                                position: relative;
-                                text-align: center;
-                                height: 4rem;
-                                line-height: 2rem;
-                                font-size: 1.8rem;
-                                font-weight: 400;
-                                overflow: hidden;
-                            }
-                            .time {
-                                position: relative;
-                                text-align: left;
-                                height: 3rem;
-                                line-height: 3rem;
-                                font-size: 1.4rem;
-                                font-weight: 400;
-                                overflow: hidden;
-                            }
-                            .description {
-                                position: relative;
-                                height: 4rem;
-                                line-height: 2rem;
-                                font-size: 1.4rem;
-                                overflow: hidden;
-                            }
-                            .stat {
-                                position: relative;
-                                float: left;
-                                height: 4rem;
-                                line-height: 2rem;
-                                font-size: 1.4rem;
-                                padding-top: 0.5rem;
-                                padding-right: 0.5rem;
-                            }
+                            font-weight: 400;
+                            overflow: hidden;
+                        }
+                        .description {
+                            position: relative;
+                            height: 4rem;
+                            line-height: 2rem;
+                            font-size: 1.4rem;
+                            overflow: hidden;
+                        }
+                        .stat {
+                            position: relative;
+                            float: left;
+                            height: 4rem;
+                            line-height: 2rem;
+                            font-size: 1.4rem;
+                            padding-top: 0.5rem;
+                            padding-right: 0.5rem;
                         }
                     }
                 }

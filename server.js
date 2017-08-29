@@ -275,9 +275,9 @@ function dineout(url, res) {
                 console.log("dine out data inserted");
                 $ = cheerio.load(html);
                 dineoutData($,url);
-                res(null, restaurantObj.dineout);
             }
         })
+        res(null, restaurantObj.dineout);
     }, 5000)
 };
 

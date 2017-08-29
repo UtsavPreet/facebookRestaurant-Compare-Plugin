@@ -121,7 +121,7 @@ function initMap() {
 }
 
 function getKeys() {
-    execute('existingKey', searchData, function (keys) {
+    execute('existingKey',{}, function (keys) {
 
         for (var i = 0; i < keys.length; i++) {
             keyArr[keys[i]._id] = keys[i].data;

@@ -39,21 +39,10 @@ global.totalPost = {};
 var restaurantObj = {};
 global.dbData;
 app.post('/existingKey', function (req, res) {
-    if (req.body.zomato == "" || req.body.facebook == "" || req.body.google == "" || req.body.tripAdvisor == "" || req.body.instagram == "") {
-        global.db.collection('restaurantKeys').find({}).toArray(function (err, result) {
-            if (err) throw err;
-            res.send(result);
-        })
-    } else {
-        global.db.collection('restaurantKeys').save({
-            _id: req.body.zomato,
-            data: req.body
-        })
-        global.db.collection('restaurantKeys').find({}).toArray(function (err, result) {
-            if (err) throw err;
-            res.send(result);
-        })
-    }
+    global.db.collection('restaurantKeys').find({}).toArray(function (err, result) {
+        if (err) throw err;
+        res.send(result);
+    })
 
 })
 app.post('/fetchData', function (req, resp) {
@@ -63,6 +52,10 @@ app.post('/fetchData', function (req, resp) {
             resp.send(result);
         })
     } else {
+        global.db.collection('restaurantKeys').save({
+            _id: req.body.zomato,
+            data: req.body
+        })
         async.parallel(
             [
                 zomato.bind(null, req.body.zomato), facebook.bind(null, req.body.facebook), tripAdvisor.bind(null, req.body.tripAdvisor), google.bind(null, req.body.google), instagram.bind(null, req.body.instagram), dineout.bind(null, req.body.dineout)
@@ -319,8 +312,8 @@ function dineoutData($, url) {
         var feature = {};
         feature.name = $(this).find('.label-txt').text();
         feature.value = $(this).find('.rightDiv').text();
-        if(feature.name && feature.value)
-        restaurant.featuresArray.push(feature);
+        if (feature.name && feature.value)
+            restaurant.featuresArray.push(feature);
     })
 
 

@@ -274,7 +274,7 @@ function dineout(url, res) {
             if (!err && res.statusCode == 200) {
                 console.log("dine out data inserted");
                 $ = cheerio.load(html);
-                dineoutData($, req.body.dineout);
+                dineoutData($,url);
                 res(null, restaurantObj.dineout);
             }
         })

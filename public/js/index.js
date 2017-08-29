@@ -12,6 +12,8 @@ bind('.mainContainer .topBar .optionsContainer .add .addRestaurant', function ()
     searchData.facebook = $('.facebook').val().trim();
     searchData.tripAdvisor = $('.tripadvisor').val().trim();
     searchData.instagram = $('.instagram').val().trim();
+    searchData.google = $('.google').val().trim();
+    searchData.dineout = $('.dineout').val().trim();
     $('.mainContainer .dataLoader').show();
     getKeys();
     execute('fetchData', searchData, function (data) {
@@ -121,7 +123,7 @@ function initMap() {
 }
 
 function getKeys() {
-    execute('existingKey',{}, function (keys) {
+    execute('existingKey', {}, function (keys) {
 
         for (var i = 0; i < keys.length; i++) {
             keyArr[keys[i]._id] = keys[i].data;
@@ -154,25 +156,26 @@ function setValues() {
                     found = true;
                 }
             }
-            if(!found){
+            if (!found) {
                 generatePopup();
                 $('.zomato').val('');
-                    $('.facebook').val('');
-                    $('.tripadvisor').val('');
-                    $('.google').val('');
-                    $('.instagram').val('');
-                    $('.dineout').val('');
-                    $('.mainContainer .searchLoader').hide();
+                $('.facebook').val('');
+                $('.tripadvisor').val('');
+                $('.google').val('');
+                $('.instagram').val('');
+                $('.dineout').val('');
+                $('.mainContainer .searchLoader').hide();
             }
             return false;
         }
     });
 }
-function generatePopup(){
+
+function generatePopup() {
     $('.mainContainer .searchLoader').hide();
     var popup = $('.mainContainer .topBar .detailsPopup');
     popup.show();
-    setTimeout(function(){
+    setTimeout(function () {
         popup.hide();
-    },1000)
+    }, 1000)
 }

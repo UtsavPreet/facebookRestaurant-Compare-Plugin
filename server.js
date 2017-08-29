@@ -38,8 +38,25 @@ global.totalEvent = {};
 global.totalPost = {};
 var restaurantObj = {};
 global.dbData;
-app.post('/fetchData', function (req, resp) {
+app.post('/existingKey', function (req, res) {
+    if (req.body.zomato == "" || req.body.facebook == "" || req.body.google == "" || req.body.tripAdvisor == "" || req.body.instagram == "") {
+        global.db.collection('restaurantKeys').find({}).toArray(function (err, result) {
+            if (err) throw err;
+            res.send(result);
+        })
+    } else {
+        global.db.collection('restaurantKeys').save({
+            _id: req.body.zomato,
+            data: req.body
+        })
+        global.db.collection('restaurantKeys').find({}).toArray(function (err, result) {
+            if (err) throw err;
+            res.send(result);
+        })
+    }
 
+})
+app.post('/fetchData', function (req, resp) {
     if (req.body.zomato == "" || req.body.facebook == "" || req.body.google == "" || req.body.tripAdvisor == "" || req.body.instagram == "") {
         global.db.collection('restaurantData').find({}).toArray(function (err, result) {
             global.dbData = result;
@@ -48,19 +65,19 @@ app.post('/fetchData', function (req, resp) {
     } else {
         async.parallel(
             [
-                zomato.bind(null, req.body.zomato), facebook.bind(null, req.body.facebook), tripAdvisor.bind(null, req.body.tripAdvisor), google.bind(null, req.body.google), instagram.bind(null, req.body.instagram)
+                zomato.bind(null, req.body.zomato), facebook.bind(null, req.body.facebook), tripAdvisor.bind(null, req.body.tripAdvisor), google.bind(null, req.body.google), instagram.bind(null, req.body.instagram), dineout.bind(null, req.body.dineout)
             ],
             // optional callback
             function (err, results) {
                 global.dbData = [];
-                global.db.collection('restaurantData').save(restaurantObj,function(){
+                global.db.collection('restaurantData').save(restaurantObj, function () {
                     global.db.collection('restaurantData').find({}).toArray(function (err, result) {
                         if (err) throw err;
                         resp.send(result);
                         console.log(result);
                     })
                 });
-               
+
                 console.log("data saved");
             });
     }
@@ -74,11 +91,6 @@ app.post('/getDetails', function (req, resp) {
             day: i
         })
     }
-    // global.names.forEach(function(element){
-    //     dates.push({
-    //         name: element.name
-    //     })
-    // })
     var data;
     global.db.collection('restaurantData').find({}).toArray(function (err, result) {
         if (err) throw err;
@@ -246,15 +258,107 @@ function google(placeId, res) {
 function instagram(userName, res) {
     setTimeout(function (err) {
         if (err) throw err;
-        getAccountStats({
-            username: userName
-        }).then(function (account) {
-            restaurantObj.instagram = account;
+        if (userName == "NA") {
+            restaurantObj.instagram = '';
             res(null, restaurantObj.instagram);
-        });
+        } else {
+            getAccountStats({
+                username: userName
+            }).then(function (account) {
+                restaurantObj.instagram = account;
+                res(null, restaurantObj.instagram);
+            });
+
+        }
 
     }, 5000);
 };
+
+function dineout(url, res) {
+    setTimeout(function (err) {
+        if (err) throw err;
+        request(url, function (err, res, html) {
+            if (!err && res.statusCode == 200) {
+                console.log("dine out data inserted");
+                $ = cheerio.load(html);
+                dineoutData($, req.body.dineout);
+                res(null, restaurantObj.dineout);
+            }
+        })
+    }, 5000)
+};
+
+function dineoutData($, url) {
+    var restaurant = {};
+    restaurant.url = url;
+    restaurant.featuresArray = [];
+    restaurant.offerArray = [];
+    restaurant.similarRestaurant = [];
+    restaurant.name = $('.restnt-infoBox .restnt-name').text();
+    restaurant.rating = $('.restnt-infoBox .restnt-rating .rating').text();
+    restaurant.totalVotes = $('.restnt-infoBox .restnt-rating .total-reviews').text();
+    restaurant.bookingNumber = $('.sidebar-right').find('.text-center')[0].children[1].data;
+
+    $('.offers-available').each(function (index, element) {
+        var offer = {};
+        offer.name = $(this).first('.clearfix').find('h4').text();
+        offer.date = $(this).find('.day').text();
+        offer.time = $(this).find('.time').text();
+        restaurant.offerArray.push(offer)
+    })
+
+    $('.col-sm-6').each(function (index, element) {
+        var otherRestaurant;
+        otherRestaurant = $(this).find('.listing-card-wrap .titleDiv h4 a').text();
+        if (otherRestaurant)
+            restaurant.similarRestaurant.push(otherRestaurant);
+
+    })
+
+    $('.info-wrapper .other-features').find('.row').each(function (index, element) {
+        var feature = {};
+        feature.name = $(this).find('.label-txt').text();
+        feature.value = $(this).find('.rightDiv').text();
+        if(feature.name && feature.value)
+        restaurant.featuresArray.push(feature);
+    })
+
+
+    review(url + '/review?revpage=1000', restaurant, function (data) {
+        restaurantObj.dineout = data;
+        // var option = db.getQueryObj({ collection: "data", q: data });
+        // db.saveData(option, function(r) {
+        //     console.log(r);
+        // })
+
+    })
+
+
+}
+
+function review(url, restaurant, cb) {
+    restaurant.reviews = [];
+    request({
+        url: url,
+        method: 'POST'
+    }, function (err, resp, html) {
+
+
+        $ = cheerio.load(html)
+        $('.review-wrap').each(function (index, element) {
+            var review = {};
+            review.userName = $(this).find('h5').text();
+            review.reviewDate = $(this).find('.date').text();
+            review.reviewText = $(this).find('.more').text();
+            review.imageSrc = $(this).find('img').attr('src');
+            review.userRating = $(this).find('.review-rating').text();
+
+            restaurant.reviews.push(review);
+
+        })
+        cb(restaurant)
+    })
+}
 
 function googlefilterData(html, cb) {
     var reviewCount;

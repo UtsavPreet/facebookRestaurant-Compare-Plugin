@@ -179,3 +179,9 @@ function generatePopup() {
         popup.hide();
     }, 1000)
 }
+
+function refreshData() {
+    keyArr.forEach(function(element){
+        
+    })
+}

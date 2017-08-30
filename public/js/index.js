@@ -2,6 +2,7 @@ var searchData = {};
 var dbData = [];
 var keyArr = [];
 var existingKeys;
+var currentKeys=[];
 $('document').ready(function () {
     makeTemplates();
     getKeys();
@@ -14,6 +15,7 @@ bind('.mainContainer .topBar .optionsContainer .add .addRestaurant', function ()
     searchData.instagram = $('.instagram').val().trim();
     searchData.google = $('.google').val().trim();
     searchData.dineout = $('.dineout').val().trim();
+    currentKeys[searchData.zomato] = searchData;
     $('.mainContainer .dataLoader').show();
     getKeys();
     execute('fetchData', searchData, function (data) {
@@ -45,7 +47,6 @@ scrollVar.on('scroll', function () {
         $('.mainContainer .pageContainer .card').css("overflow-x", "initial");
         $('.mainContainer .pageContainer .card .columnContainer .pageTopContainer').css("position", "fixed");
     }
-    console.log(x + ', ' + y);
     lastY = currY;
     lastX = currX;
 });
@@ -58,14 +59,7 @@ bind('.google', function () {
 
 function screenBind() {
     bind('.mainContainer .topBar .optionsContainer .refreshData .refreshRestaurant', function () {
-        $('.mainContainer .dataLoader').show();
-        execute('fetchData', searchData, function (data) {
-            console.log(data);
-            rb('.mainContainer .card', 'data', data);
-            $('.mainContainer .dataLoader').hide();
-            screenBind();
-        })
-        console.log(searchData);
+        refreshData();
     })
     bind('.overlay', function () {
         $('.overlay').hide();
@@ -124,14 +118,9 @@ function initMap() {
 
 function getKeys() {
     execute('existingKey', {}, function (keys) {
-
         for (var i = 0; i < keys.length; i++) {
             keyArr[keys[i]._id] = keys[i].data;
         }
-        for (var key in keyArr) {
-            console.log(key);
-        }
-        console.log(keyArr);
     })
 }
 
@@ -181,7 +170,14 @@ function generatePopup() {
 }
 
 function refreshData() {
-    keyArr.forEach(function(element){
-        
-    })
+    $('.mainContainer .dataLoader').show();
+    for (var key in keyArr) {
+        console.log(keyArr[key]);
+        execute('fetchData', keyArr[key], function (data) {
+            console.log(data);
+            rb('.mainContainer .card', 'data', data);
+            $('.mainContainer .dataLoader').hide();
+            screenBind();
+        })
+    }
 }

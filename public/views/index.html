@@ -103,13 +103,13 @@
                         <img src="../images/zomato-logo.svg" class="socialMediaIcon" alt=""> Zomato
                     </div>
                     <div class="option">
-                        Reviews
-                    </div>
-                    <div class="option">
                         User Rating
                     </div>
                     <div class="option">
                         User Votes
+                    </div>
+                     <div class="option">
+                        Reviews
                     </div>
                 </div>
                 <div class="menuItem">
@@ -150,7 +150,7 @@
                     <div class="option">
                         Booking Stat
                     </div>
-                    <div class="option" style="height: 7rem;">
+                    <div class="option">
                         Offers
                     </div>
                     <div class="option">
@@ -296,15 +296,6 @@
                 <div class="content ">
                 </div>
             </div>
-
-            <div class="contentRow ">
-                <div class="contentEvent ">
-                    <div class="text ">
-                        {{if zomato}}{{:zomato.all_reviews_count}}{{else}}-{{/if}}
-                    </div>
-                    <img id="review" src="../images/menu.svg " class="more review" alt=" ">
-                </div>
-            </div>
             <div class="contentRow">
                 <div class="contentEvent ">
                     <div class="text ">
@@ -317,6 +308,14 @@
                     <div class="text">
                         {{if zomato}} {{:zomato.user_rating.votes}} Votes {{else}}-{{/if}}
                     </div>
+                </div>
+            </div>
+            <div class="contentRow ">
+                <div class="contentEvent ">
+                    <div class="text ">
+                        {{if zomato}}{{:zomato.all_reviews_count}}{{else}}-{{/if}}
+                    </div>
+                    <img id="review" src="../images/menu.svg " class="more review" alt=" ">
                 </div>
             </div>
             <div class="contentRow blank ">
@@ -385,18 +384,18 @@
 
                 </div>
             </div>
-            <div class="contentRow" style="height:height: 7rem;">
+            <div class="contentRow">
                 <div class="contentEvent ">
                     <div class="text ">
-                        {{if dineout}} {{:dineout.offerArray[0].name}} {{else}} - {{/if}}
+                        {{if dineout}} {{:dineout.totalOffer}} {{else}} - {{/if}}
                     </div>
-                    <div class="statsContainer ">
-                        <div class="stat ">
-                            {{if dineout}}Date{{:dineout.offerArray[0].date}}{{else}}-{{/if}}
-                        </div>
-                        <div class="stat ">
-                            {{if dineout}}Time {{:dineout.offerArray[0].time}} {{else}}-{{/if}}
-                        </div>
+                    <img src="../images/menu.svg " class="more" alt=" ">
+                </div>
+            </div>
+            <div class="contentRow">
+                <div class="contentEvent ">
+                    <div class="text ">
+                        {{if dineout}} {{:dineout.totalReview}} {{else}} - {{/if}}
                     </div>
                     <img src="../images/menu.svg " class="more" alt=" ">
                 </div>

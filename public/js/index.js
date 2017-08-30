@@ -61,6 +61,11 @@ function screenBind() {
     bind('.mainContainer .topBar .optionsContainer .refreshData .refreshRestaurant', function () {
         refreshData();
     })
+    bind('#review',function(){
+        execute('getZomatoReviews',{},function(reviews){
+            console.log(reviews);
+        })
+    })
     bind('.overlay', function () {
         $('.overlay').hide();
         $('.eventPopup').hide();
@@ -91,6 +96,7 @@ function screenBind() {
         $(this).hide();
     })
 }
+
 
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {

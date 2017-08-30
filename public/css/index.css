@@ -218,6 +218,7 @@ body {
   height: 5rem;
   width: 5rem;
   float: left;
+  display: none;
 }
 .mainContainer .topBar .optionsContainer .compare .text {
   position: absolute;
@@ -576,6 +577,77 @@ body {
   overflow: hidden;
 }
 .eventPopup .eventContainer .dataContainer .row .dataColumn .dataRow .stat {
+  position: relative;
+  float: left;
+  height: 4rem;
+  line-height: 2rem;
+  font-size: 1.4rem;
+  padding-top: 0.5rem;
+  padding-right: 0.5rem;
+}
+.reviewPopup {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+.reviewPopup .reviewContainer {
+  position: absolute;
+  height: 32rem;
+  background-color: #fff;
+  left: 15rem;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  overflow-y: scroll;
+}
+.reviewPopup .reviewContainer .row {
+  position: relative;
+  height: 14rem;
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.4rem;
+  border-bottom: 0.1rem dotted #D3D7DC;
+}
+.reviewPopup .reviewContainer .row .dataColumn {
+  position: relative;
+  display: inline-block;
+  height: 100%;
+  width: 26rem;
+  border-right: 0.1rem solid #D3D7DC;
+  white-space: normal;
+}
+.reviewPopup .reviewContainer .row .dataColumn .dataRow {
+  position: relative;
+  height: 14rem;
+  font-size: 1.4rem;
+}
+.reviewPopup .reviewContainer .row .dataColumn .dataRow .name {
+  position: relative;
+  text-align: center;
+  height: 4rem;
+  line-height: 2rem;
+  font-size: 1.8rem;
+  font-weight: 400;
+  overflow: hidden;
+}
+.reviewPopup .reviewContainer .row .dataColumn .dataRow .time {
+  position: relative;
+  text-align: left;
+  height: 3rem;
+  line-height: 3rem;
+  font-size: 1.4rem;
+  font-weight: 400;
+  overflow: hidden;
+}
+.reviewPopup .reviewContainer .row .dataColumn .dataRow .description {
+  position: relative;
+  height: 4rem;
+  line-height: 2rem;
+  font-size: 1.4rem;
+  overflow: hidden;
+}
+.reviewPopup .reviewContainer .row .dataColumn .dataRow .stat {
   position: relative;
   float: left;
   height: 4rem;

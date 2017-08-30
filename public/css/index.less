@@ -219,6 +219,7 @@ body {
                 height: 5rem;
                 width: 5rem;
                 float: left;
+                display: none;
                 .text {
                     position: absolute;
                     height: 3rem;
@@ -570,3 +571,137 @@ body {
         }
     }
 }
+.reviewPopup{
+   position: absolute;
+    height: 100%;
+    width: 100%;
+    display: block;
+    .reviewContainer {
+        position: absolute;
+        height: 32rem;
+        background-color: #fff;
+        left: 15rem;
+        right: 2rem;
+        top: 50%;
+        transform: translateY(-50%);
+        overflow-y: scroll;
+    
+            .row {
+                position: relative;
+                height: 14rem;
+                width: 100%;
+                padding: 1rem;
+                font-size: 1.4rem;
+                border-bottom: 0.1rem dotted #D3D7DC;
+                .dataColumn {
+                    position: relative;
+                    display: inline-block;
+                    height: 100%;
+                    width: 26rem;
+                    border-right: 0.1rem solid #D3D7DC;
+                    white-space: normal;
+                    .dataRow {
+                        position: relative;
+                        height: 14rem;
+                        font-size: 1.4rem;
+                        .name {
+                            position: relative;
+                            text-align: center;
+                            height: 4rem;
+                            line-height: 2rem;
+                            font-size: 1.8rem;
+                            font-weight: 400;
+                            overflow: hidden;
+                        }
+                        .time {
+                            position: relative;
+                            text-align: left;
+                            height: 3rem;
+                            line-height: 3rem;
+                            font-size: 1.4rem;
+                            font-weight: 400;
+                            overflow: hidden;
+                        }
+                        .description {
+                            position: relative;
+                            height: 4rem;
+                            line-height: 2rem;
+                            font-size: 1.4rem;
+                            overflow: hidden;
+                        }
+                        .stat {
+                            position: relative;
+                            float: left;
+                            height: 4rem;
+                            line-height: 2rem;
+                            font-size: 1.4rem;
+                            padding-top: 0.5rem;
+                            padding-right: 0.5rem;
+                        }
+                    }
+                }
+            }
+    }
+}
+// .reviewPopup{
+//     position: absolute;
+
+//     .reviewContainer {
+//             position: fixed;
+//             width: 64rem;
+//             height: 48rem;
+//             overflow-y: auto;
+//             top: 50%;
+//             left: 50%;
+//             transform: translate(-50%, -50%);
+//             border: 1px solid;
+//             .customerReview {
+//                 position: relative;
+//                 width: 100%;
+//                 height: 16rem;
+//                 clear: both;
+//                 border-bottom: 1px solid lightgray;
+//                 box-sizing: border-box;
+//                 background: white;
+//                 .customerName {
+//                     position: relative;
+//                     height: 3.5rem;
+//                     line-height: 3.5rem;
+//                     padding-left: 3rem;
+//                     font-size: 1.5rem;
+//                     font-weight: 700;
+//                     text-decoration: underline;
+//                 }
+//                 .customerImage {
+//                     position: absolute;
+//                     height: 7rem;
+//                     width: 7rem;
+//                     top: 50%;
+//                     left: 3rem;
+//                     border-radius: 50%;
+//                     box-sizing: border-box;
+//                     transform: translateY(-50%);
+//                 }
+//                 .rating {
+//                     position: absolute;
+//                     left: 12rem;
+//                     top: 4rem;
+//                     font-size: 1.5rem;
+//                     font-weight: 600;
+//                 }
+//                 .reviewText {
+//                     position: absolute;
+//                     height: auto;
+//                     font-size: 1.5rem;
+//                     letter-spacing: 1px;
+//                     top: 7rem;
+//                     float: left;
+//                     box-sizing: border-box;
+//                     line-height: 2.1rem;
+//                     left: 12rem;
+//                     right: 1rem;
+//                     text-align: justify;
+//                 }
+//             }
+//         }
+// }

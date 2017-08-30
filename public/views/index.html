@@ -8,7 +8,7 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="cache-control" content="no-cache" />
 
-    <title>dataFetcher</title>
+    <title>Restaurant Analyser</title>
     <link href="../css/index.css" rel="stylesheet" type="text/css">
     <link href="../css/fonts.css" rel="stylesheet" type="text/css">
     <link href="../css/screen.css" rel="stylesheet" type="text/css">
@@ -24,13 +24,6 @@
             <div class="detailsPopup">
                 New Restaurant, please enter all details
             </div>
-            <!--<input type="text" name="Zomato ID" value="18306530" class="searchField zomato">
-            <input type="text" name="Facebook ID" value="circusnewdelhi" class="searchField facebook">
-            <input type="text" name="TripAdvisor URL" value="https://www.tripadvisor.in/Restaurant_Review-g304551-d10236428-Reviews-Circus-New_Delhi_National_Capital_Territory_of_Delhi.html"
-                class="searchField tripAdvisor">
-            <input type="text" name="Instagram ID" value="circus_newdelhi" class="searchField instagram">
-            <input type="text" name="Google Page ID" value="ChIJu0JRfF3iDDkRSxZZ66nJCmI" class="searchField google">-->
-
             <textarea class="searchField zomato" placeholder="Zomato Restaurant Name"></textarea>
             <textarea class="searchField facebook" placeholder="Facebook ID"></textarea>
             <textarea class="searchField tripAdvisor" placeholder="TripAdvisor URL"></textarea>
@@ -108,7 +101,7 @@
                     <div class="option">
                         User Votes
                     </div>
-                     <div class="option">
+                    <div class="option">
                         Reviews
                     </div>
                 </div>
@@ -163,10 +156,10 @@
             <div class="card">
             </div>
             <div class="overlay">
-
             </div>
             <div class="eventPopup">
-
+            </div>
+            <div class="review">               
             </div>
         </div>
     </div>
@@ -446,7 +439,19 @@
         </div>
     </div>
 </script>
-<script id="postTemplate " type="text/x-jsrender ">
+<script id="reviewTemplate " type="text/x-jsrender ">
+    <div class="reviewContainer">
+        {^{for user_reviews}}
+        <div class="customerReview">
+            <div class="customerName"> {{:review.user.name}}</div>
+
+            <div class="customerImage" style="background-image:url({{:review.user.profile_image}})"></div>
+            <div class="rating">Rated: {{:review.rating}}</div>
+            <div class="reviewText">
+                {{:review.review_text}}</div>
+        </div>
+        {{/for}}
+    </div>
 </script>
 
 

@@ -1,73 +1,48 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Place ID Finder</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-    <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 0;
-      }
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      /*.controls {
-        background-color: #fff;
-        border-radius: 2px;
-        border: 1px solid transparent;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-        box-sizing: border-box;
-        font-family: Roboto;
-        font-size: 15px;
-        font-weight: 300;
-        height: 29px;
-        margin-left: 17px;
-        margin-top: 10px;
-        outline: none;
-        padding: 0 11px 0 13px;
-        text-overflow: ellipsis;
-        width: 400px;
-      }*/
 
-      .controls:focus {
-        border-color: #4d90fe;
-      }
-    </style>
-  </head>
-  <body>
-    <input id="pac-input" class="controls" type="text"
-        placeholder="Enter a location">
-    <div id="map"></div>
-    <script>
-      function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat:28.6139, lng: 77.2090},
-          zoom: 13
-        });
+<head>
+  <title>Place ID Finder</title>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  <meta charset="utf-8">
+  <link href="../css/index.css" rel="stylesheet" type="text/css">
+  <link href="../css/fonts.css" rel="stylesheet" type="text/css">
+  <link href="../css/screen.css" rel="stylesheet" type="text/css">
 
-        var input = document.getElementById('pac-input');
+  <div class="mainContainer">
+<div class="reviewPopup">
+   <div class="reviewContainer">
 
-        var autocomplete = new google.maps.places.Autocomplete(input);
-        autocomplete.bindTo('bounds', map);
 
-        
-       
+      <div class="row">
 
-        autocomplete.addListener('place_changed', function() {
-          
-          var place = autocomplete.getPlace();
-          if (!place.geometry) {
-            return;
-          }
-          console.log(place.place_id);
-        });
-      }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhl8KUtuDKLrZFQDKf-9eRKOh1V0MLqCE&libraries=places&callback=initMap"
-        async defer></script>
+        <div class="dataColumn">
+          <div class="dataRow">
+            <div class="name">
+              Event Name
+            </div>
+            <div class="time">
+              Time
+            </div>
+            <div class="description">
+              description
+            </div>
+            <div class="stat">
+              dsd
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+
+
+
+    </div>
+</div>
+   
+  </div>
   </body>
+
 </html>

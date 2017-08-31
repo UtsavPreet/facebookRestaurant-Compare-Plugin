@@ -306,7 +306,7 @@
             <div class="contentRow ">
                 <div class="contentEvent ">
                     <div class="text ">
-                        {{if zomato}}{{:zomato.all_reviews_count}}{{else}}-{{/if}}
+                        {{if zomato.all_reviews_count}}{{:zomato.all_reviews_count}}{{else}}View All Reviews{{/if}}
                     </div>
                     <img id="review" src="../images/menu.svg " class="more review" alt=" ">
                 </div>
@@ -373,14 +373,14 @@
             <div class="contentRow">
                 <div class="content">
 
-                    {{if dineout}} {{:dineout.bookingNumber}} {{else}} - {{/if}}
+                    {{if dineout.bookingNumber}} {{:dineout.bookingNumber}} {{else}} NA {{/if}}
 
                 </div>
             </div>
             <div class="contentRow">
                 <div class="contentEvent ">
                     <div class="text ">
-                        {{if dineout}} {{:dineout.totalOffer}} {{else}} - {{/if}}
+                        {{if dineout.totalOffer}} {{:dineout.totalOffer}} {{else}} No Offers {{/if}}
                     </div>
                     <img src="../images/menu.svg " class="more" alt=" ">
                 </div>

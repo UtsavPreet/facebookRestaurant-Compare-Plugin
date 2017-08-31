@@ -70,16 +70,16 @@ app.post('/fetchData', function (req, resp) {
                     fetchedAt: new Date().getTime(),
                     _id: results[0].R.res_id
                 };
-                for (var key in results){
+                for (var key in results) {
                     restaurantObj[results[key].src] = results[key];
                 }
-                    global.db.collection('restaurantData').save(restaurantObj, function () {
-                        global.db.collection('restaurantData').find({}).toArray(function (err, result) {
-                            if (err) throw err;
-                            resp.send(result);
-                            console.log(result);
-                        })
-                    });
+                global.db.collection('restaurantData').save(restaurantObj, function () {
+                    global.db.collection('restaurantData').find({}).toArray(function (err, result) {
+                        if (err) throw err;
+                        resp.send(result);
+                        console.log(result);
+                    })
+                });
             });
     }
 });
@@ -127,164 +127,153 @@ app.post('/getDetails', function (req, resp) {
 })
 
 function zomato(name, res) {
-    setTimeout(function () {
-        z
-            .search({
-                entity_id: 1,
-                entity_type: 'city',
-                q: name,
-                count: 1
-            })
-            .then(function (data) {
-                console.log(data);
-                var x = data[0];
-                var resID = data[0].R.res_id;
-                z.reviews({
-                        res_id: resID
-                    })
-                    .then(function (data) {
-                        x.userReview = data;
-                        console.log(data);
-                        x.src = 'zomato';
-                        res(null, x);
-                    })
-            })
-    }, 5000);
+
+    z
+        .search({
+            entity_id: 1,
+            entity_type: 'city',
+            q: name,
+            count: 1
+        })
+        .then(function (data) {
+            console.log(data);
+            var x = data[0];
+            var resID = data[0].R.res_id;
+            z.reviews({
+                    res_id: resID
+                })
+                .then(function (data) {
+                    x.userReview = data;
+                    console.log(data);
+                    x.src = 'zomato';
+                    res(null, x);
+                })
+        })
 }
 
 function facebook(id, res) {
-    setTimeout(function () {
-        fb.api('', 'post', {
-            batch: [{
-                method: 'get',
-                relative_url: id + '?fields=name_with_location_descriptor,picture,location,talking_about_count,checkins,fan_count,overall_star_rating,about,cover,feed{name,id,created_time,shares,likes.limit(0).summary(true),comments.limit(0).summary(true),message.limit(0).summary(true),reactions.limit(0).summary(true),status_type},events.limit(10){name,description,attending_count,cover,declined_count,start_time,interested_count}&since=2017-08-06&until=2017-08-07'
-            }, ]
-        }, function (res1) {
-            try {
-                res0 = JSON.parse(res1[0].body);
-                global.totalPost.count = res0.feed.data.length;
-                res0.feed.totalPost = res0.feed.data.length;
-                totalEvent.count = res0.events.data.length;
-                totalPost.likes = 0;
-                totalPost.comments = 0;
-                totalPost.reactions = 0;
-                for (var i = 0; i < res0.feed.data.length; i++) {
-                    res0.feed.data[i].created_time = res0.feed.data[i].created_time.substr(0, 10);
-                    global.totalPost.likes += res0.feed.data[i].likes.summary.total_count;
-                    global.totalPost.comments += res0.feed.data[i].comments.summary.total_count;
-                    global.totalPost.reactions += res0.feed.data[i].reactions.summary.total_count;
-
-                }
-                res0.totalPost = totalPost;
-                totalEvent.attendingCount = 0;
-                for (var i = 0; i < res0.events.data.length; i++) {
-                    res0.events.data[i].start_time = res0.events.data[i].start_time.substr(0, 10);
-                    res0.events.data[i].date = res0.events.data[i].start_time.substr(8, 2);
-                    res0.events.data[i].month = res0.events.data[i].start_time.substr(5, 2);
-                    global.totalEvent.attendingCount += res0.events.data[i].attending_count;
-                }
-                res0.totalEvent = totalEvent;
-                res0.src = 'facebook';
-                restaurantObj.facebook = res0;
-            } catch (e) {
-                console.log('Unable to get FB data ' + e);
-                restaurantObj.facebook = {src: 'facebook'};
+    fb.api('', 'post', {
+        batch: [{
+            method: 'get',
+            relative_url: id + '?fields=name_with_location_descriptor,picture,location,talking_about_count,checkins,fan_count,overall_star_rating,about,cover,feed{name,id,created_time,shares,likes.limit(0).summary(true),comments.limit(0).summary(true),message.limit(0).summary(true),reactions.limit(0).summary(true),status_type},events.limit(10){name,description,attending_count,cover,declined_count,start_time,interested_count}&since=2017-08-06&until=2017-09-01'
+        }, ]
+    }, function (res1) {
+        try {
+            var totalPost = {};
+            var totalEvent = {};
+            res0 = JSON.parse(res1[0].body);
+            totalPost.count = res0.feed.data.length;
+            res0.feed.totalPost = res0.feed.data.length;
+            totalEvent.count = res0.events.data.length;
+            totalPost.likes = 0;
+            totalPost.comments = 0;
+            totalPost.reactions = 0;
+            for (var i = 0; i < res0.feed.data.length; i++) {
+                res0.feed.data[i].created_time = res0.feed.data[i].created_time.substr(0, 10);
+                totalPost.likes += res0.feed.data[i].likes.summary.total_count;
+                totalPost.comments += res0.feed.data[i].comments.summary.total_count;
+                totalPost.reactions += res0.feed.data[i].reactions.summary.total_count;
             }
-            res(null, restaurantObj.facebook);
-        });
-    }, 5000);
-
-
+            res0.totalPost = totalPost;
+            totalEvent.attendingCount = 0;
+            for (var i = 0; i < res0.events.data.length; i++) {
+                res0.events.data[i].start_time = res0.events.data[i].start_time.substr(0, 10);
+                res0.events.data[i].date = res0.events.data[i].start_time.substr(8, 2);
+                res0.events.data[i].month = res0.events.data[i].start_time.substr(5, 2);
+                totalEvent.attendingCount += res0.events.data[i].attending_count;
+            }
+            res0.totalEvent = totalEvent;
+            res0.src = 'facebook';
+            restaurantObj.facebook = res0;
+        } catch (e) {
+            console.log('Unable to get FB data ' + e);
+            restaurantObj.facebook = {
+                src: 'facebook'
+            };
+        }
+        res(null, restaurantObj.facebook);
+    });
 }
 
 function tripAdvisor(url, res) {
-    setTimeout(function () {
-        var selector;
-        request(url, function (err, res1, html) { //url 
-            if (!err && res1.statusCode == 200) {
-                selector = cheerio.load(html);
-                filterData(selector, function (r1) {
-                    r1.src = 'tripAdvisor';
-                    restaurantObj.tripAdvisor = r1;
-                    res(null, restaurantObj.tripAdvisor);
-                });
+    var selector;
+    request(url, function (err, res1, html) { //url 
+        if (!err && res1.statusCode == 200) {
+            selector = cheerio.load(html);
+            filterData(selector, function (r1) {
+                r1.src = 'tripAdvisor';
+                restaurantObj.tripAdvisor = r1;
+                res(null, restaurantObj.tripAdvisor);
+            });
 
-            }
-        })
-    }, 5000);
+        }
+    })
+
 
 }
 
 function google(placeId, res) {
     var googleData;
-    setTimeout(function () {
-        var $;
-        placeDetailsRequest({
-            placeid: placeId
-        }, function (error, response) {
-            if (error) {
-                console.log('Unable to get Google data');
-                console.log(error);
-                restaurantObj.google = {};
+    var $;
+    placeDetailsRequest({
+        placeid: placeId
+    }, function (error, response) {
+        if (error) {
+            console.log('Unable to get Google data');
+            console.log(error);
+            restaurantObj.google = {};
+        } else {
+            if (response.result) {
+                googleData = response.result;
+                request(googleData.url, function (err, res1, html) {
+                    if (!err && res1.statusCode == 200) {
+                        googlefilterData(html, function (r1) {
+                            googleData.userReviewCount = r1;
+                            googleData.src = 'google';
+                            //restaurantObj.google = googleData;
+                            res(null, googleData);
+                        });
+
+                    }
+                })
             } else {
-                if (response.result) {
-                    googleData = response.result;
-                    request(googleData.url, function (err, res1, html) {
-                        if (!err && res1.statusCode == 200) {
-                            googlefilterData(html, function (r1) {
-                                googleData.userReviewCount = r1;
-                                googleData.src = 'google';
-                                //restaurantObj.google = googleData;
-                                res(null, googleData);
-                            });
-
-                        }
-                    })
-                } else {
-                    res(null, {src: 'google'});
-                }
+                res(null, {
+                    src: 'google'
+                });
             }
-        });
-
-    }, 5000);
+        }
+    });
 
 
 }
 
 function instagram(userName, res) {
-    setTimeout(function (err) {
-        if (err) throw err;
-        if (userName == "NA") {
-            restaurantObj.instagram = '';
+    if (userName == "NA") {
+        restaurantObj.instagram = '';
+        res(null, restaurantObj.instagram);
+    } else {
+        getAccountStats({
+            username: userName
+        }).then(function (account) {
+            account.src = 'instagram';
+            restaurantObj.instagram = account;
             res(null, restaurantObj.instagram);
-        } else {
-            getAccountStats({
-                username: userName
-            }).then(function (account) {
-                account.src = 'instagram';
-                restaurantObj.instagram = account;
-                res(null, restaurantObj.instagram);
-            });
+        });
 
-        }
-
-    }, 5000);
+    }
 };
 
 function dineout(url, resp) {
-    setTimeout(function (err) {
-        if (err) throw err;
-        request(url, function (err, res, html) {
-            if (!err && res.statusCode == 200) {
-                console.log("dine out data inserted");
-                $ = cheerio.load(html);
-                dineoutData($, url, function (data) {
-                    resp(null, data);
-                });
-            }
+    request(url, function (err, res, html) {
+        if (!err && res.statusCode == 200) {
+            console.log("dine out data inserted");
+            $ = cheerio.load(html);
+            dineoutData($, url, function (data) {
+                resp(null, data);
+            });
+        }
 
-        })
-    }, 5000)
+    })
 };
 
 function dineoutData($, url, cb) {
@@ -296,14 +285,18 @@ function dineoutData($, url, cb) {
     restaurant.name = $('.restnt-infoBox .restnt-name').text();
     restaurant.rating = $('.restnt-infoBox .restnt-rating .rating').text();
     restaurant.totalVotes = $('.restnt-infoBox .restnt-rating .total-reviews').text();
-    restaurant.bookingNumber = $('.sidebar-right').find('.text-center')[0].children[1].data;
+    restaurant.totalVotes = restaurant.totalVotes.replace('(', '').replace(')', '');
+    // reviewCount.replace('(','').replace(')','')
+    if ($('.sidebar-right').find('.text-center')[0] !== undefined) 
+        restaurant.bookingNumber = $('.sidebar-right').find('.text-center')[0].children[1].data;
+        // restaurant.bookingNumber = restaurant.bookingNumber.replace('Booked', '').trim();
+    
     var offers = $('#offers').find('h3 span').text();
     restaurant.totalOffer = offers.slice(1, 2);
-
     var events = $('#events').find('h3 span').text();
     restaurant.totalEvent = events.slice(1, 2);
-
     restaurant.totalReview = $('.pull-left .total-reviews').last().text();
+    restaurant.totalReview = restaurant.totalReview.replace('(', '').replace(')', '');
     $('.offers-available').each(function (index, element) {
         var offer = {};
         offer.name = $(this).first('.clearfix').find('h4').text();
@@ -352,9 +345,7 @@ function review(url, restaurant, cb) {
             review.reviewText = $(this).find('.more').text();
             review.imageSrc = $(this).find('img').attr('src');
             review.userRating = $(this).find('.review-rating').text();
-
             restaurant.reviews.push(review);
-
         })
         cb(restaurant)
     })

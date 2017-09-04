@@ -137,7 +137,7 @@ function zomato(name, res) {
         })
         .then(function (data) {
             console.log(data);
-            var x = data[0];
+            var x = data.restaurants[0];
             var resID = data.restaurants[0].R.res_id;
             z.reviews({
                     res_id: resID
